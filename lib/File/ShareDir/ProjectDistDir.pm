@@ -26,67 +26,79 @@ Project layout requirements:
 use Path::Class::File;
 use Sub::Exporter qw(build_exporter);
 
-use File::ShareDir qw( dist_dir dist_file );
+use File::ShareDir qw();
 
 my ($exporter) = build_exporter(
   {
-    exports    => [ dist_dir => \&build_dist_dir, dist_file => \&build_dist_file ],
-    groups     => { all      => [qw( dist_dir dist_file )] },
-    collectors => ['filename'],
+    exports => [ dist_dir => \&build_dist_dir, dist_file => \&build_dist_file ],
+    groups  => {
+      all       => [qw( dist_dir dist_file )],
+      'default' => [qw( dist_dir dist_file )]
+    },
+    collectors => ['defaults'],
   }
 );
 
 sub import {
   my ( $class, @args ) = @_;
-  my $has_filename = undef;
+  my $has_defaults = undef;
 
   my ( $xclass, $xfilename, $xline ) = caller();
 
+  if( not @args ){
+    @_ = ( $class, ':all' , defaults => { filename => $xfilename } );
+    goto $exporter;
+  }
+
   for ( 0 .. $#args - 1 ) {
-    if ( $args[$_] and $args[ $_ + 1 ] and $args[$_] eq 'filename' and not ref $args[ $_ + 1 ] ) {
-      $has_filename = 1;
+    if ( $args[$_] and $args[ $_ + 1 ] and $args[$_] eq 'defaults' and ref $args[ $_ + 1 ] ) {
+      if ( not exists $args[ $_ + 1 ]->{filename} ) {
+        $args[ $_ + 1 ]->{filename} = $xfilename;
+      }
+      $has_defaults = 1;
       last;
     }
   }
-  if ( not $has_filename ) {
-    push @_, 'filename' => $xfilename;
+  if ( not $has_defaults ) {
+    push @_, 'defaults' => { filename => $xfilename };
   }
   goto $exporter;
 }
 
-sub _devel_root {
+sub _devel_sharedir {
   my ($filename) = @_;
   my $file       = Path::Class::File->new($filename);
   my $dir        = $file->dir->absolute;
   while ( $dir->dir_list() and $dir->dir_list(-1) ne 'lib' ) {
     $dir = $dir->parent;
   }
-  if ( -d $dir->subdir('share') ) {
-    return $dir;
+  if ( -d $dir->parent()->subdir('share') ) {
+    return $dir->parent()->subdir('share');
   }
+  warn "Not a devel $dir";
   return;
 }
 
 sub build_dist_dir {
   my ( $class, $name, $arg, $col ) = @_;
-  my $root = _devel_root( $col->{filename} );
+  my $root = _devel_sharedir( $col->{defaults}->{filename} );
   if ( not $root ) {
-    return \&dist_dir;
+    return \&File::ShareDir::dist_dir;
   }
   return sub {
 
     # if the caller is devel, then we return the project root,
     # regardless of what package you asked for.
     # Might be bad, but we haven't imagined the scenario where yet.
-    return $root->stringify;
+    return $root->absolute->stringify;
   };
 }
 
 sub build_dist_file {
   my ( $class, $name, $arg, $col ) = @_;
-  my $root = _devel_root( $col->{filename} );
+  my $root = _devel_sharedir( $col->{defaults}->{filename} );
   if ( not $root ) {
-    return \&dist_file;
+    return \&File::ShareDir::dist_file;
   }
   return sub {
 
