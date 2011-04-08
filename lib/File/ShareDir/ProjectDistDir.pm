@@ -46,8 +46,8 @@ sub import {
 
   my ( $xclass, $xfilename, $xline ) = caller;
 
-  if( not @args ){
-    @_ = ( $class, ':all' , defaults => { filename => $xfilename } );
+  if ( not @args ) {
+    @_ = ( $class, ':all', defaults => { filename => $xfilename } );
     goto $exporter;
   }
 
@@ -77,6 +77,7 @@ sub _devel_sharedir {
   if ( -d $dir->parent()->subdir('share') ) {
     return $dir->parent()->subdir('share');
   }
+
   #warn "Not a devel $dir";
   return;
 }
