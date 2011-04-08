@@ -75,7 +75,7 @@ sub _devel_sharedir {
   if ( -d $dir->parent()->subdir('share') ) {
     return $dir->parent()->subdir('share');
   }
-  warn "Not a devel $dir";
+  #warn "Not a devel $dir";
   return;
 }
 
