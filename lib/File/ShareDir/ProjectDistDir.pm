@@ -3,7 +3,7 @@ use warnings;
 
 package File::ShareDir::ProjectDistDir;
 BEGIN {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.1.0'; # TRIAL
+  $File::ShareDir::ProjectDistDir::VERSION = '0.1.1';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -122,7 +122,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.1.0
+version 0.1.1
 
 =head1 SYNOPSIS
 

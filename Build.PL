@@ -22,7 +22,7 @@ my %module_build_args = (
     'Kent Fredric <kentnl@cpan.org>'
   ],
   'dist_name' => 'File-ShareDir-ProjectDistDir',
-  'dist_version' => '0.1.0',
+  'dist_version' => '0.1.1',
   'license' => 'perl',
   'module_name' => 'File::ShareDir::ProjectDistDir',
   'recommends' => {},

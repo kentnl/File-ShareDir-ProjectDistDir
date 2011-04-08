@@ -21,7 +21,7 @@ name: File-ShareDir-ProjectDistDir
 provides:
   File::ShareDir::ProjectDistDir:
     file: lib/File/ShareDir/ProjectDistDir.pm
-    version: v0.1.0
+    version: v0.1.1
 requires:
   Carp: 0
   File::ShareDir: 0
@@ -30,7 +30,7 @@ requires:
 resources:
   homepage: http://github.com/kentfredric/File-ShareDir-ProjectDistDir/tree
   repository: git://github.com/kentfredric/File-ShareDir-ProjectDistDir.git
-version: 0.1.0
+version: 0.1.1
 x_BuiltWith:
   modules:
     Carp: 1.17
@@ -265,5 +265,5 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 1
+      is_trial: 0
     version: 4.200004

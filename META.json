@@ -56,10 +56,10 @@
    "provides" : {
       "File::ShareDir::ProjectDistDir" : {
          "file" : "lib/File/ShareDir/ProjectDistDir.pm",
-         "version" : "v0.1.0"
+         "version" : "v0.1.1"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "homepage" : "http://github.com/kentfredric/File-ShareDir-ProjectDistDir/tree",
       "repository" : {
@@ -68,7 +68,7 @@
          "web" : "http://github.com/kentfredric/File-ShareDir-ProjectDistDir/tree"
       }
    },
-   "version" : "0.1.0",
+   "version" : "0.1.1",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.17",
@@ -365,7 +365,7 @@
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : 1
+            "is_trial" : 0
          },
          "version" : "4.200004"
       }
