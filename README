@@ -1,0 +1,53 @@
+NAME
+    File::ShareDir::ProjectDistDir - Simple set-and-forget using of a
+    '/share' directory in your projects root
+
+VERSION
+    version 0.1.0
+
+SYNOPSIS
+      package An::Example::Package;
+
+      use File::ShareDir::ProjectDistDir;
+
+      # during development, $dir will be $projectroot/share
+      # but once installed, it will be wherever File::Sharedir thinks it is.
+      my $dir = dist_dir('An-Example')
+
+    Project layout requirements:
+
+      $project/
+      $project/lib/An/Example/Package.pm
+      $project/share/   # files for package 'An-Example' go here.
+
+METHODS
+  build_dist_dir
+    Generates the exported 'dist_dir' method. In development environments,
+    the generated method will return a path to the development directories
+    'share' directory. In non-development environments, this simply returns
+    "File::ShareDir::dist_dir".
+
+    As a result of this, specifying the Distribution name is not required
+    during development, however, it will start to matter once it is
+    installed. This is a potential avenues for bugs if you happen to name it
+    wrong.
+
+  build_dist_file
+    Generates the 'dist_file' method.
+
+    In development environments, the generated method will return a path to
+    the development directories 'share' directory. In non-development
+    environments, this simply returns "File::ShareDir::dist_file".
+
+    Caveats as a result of package-name as stated in "build_dist_dir" also
+    apply to this method.
+
+AUTHOR
+    Kent Fredric <kentnl@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2011 by Kent Fredric <kentnl@cpan.org>.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
