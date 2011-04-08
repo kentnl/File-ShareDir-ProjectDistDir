@@ -39,11 +39,12 @@ my ($exporter) = build_exporter(
   }
 );
 
+## no critic (RequireArgUnpacking)
 sub import {
   my ( $class, @args ) = @_;
   my $has_defaults = undef;
 
-  my ( $xclass, $xfilename, $xline ) = caller();
+  my ( $xclass, $xfilename, $xline ) = caller;
 
   if( not @args ){
     @_ = ( $class, ':all' , defaults => { filename => $xfilename } );
@@ -69,6 +70,7 @@ sub _devel_sharedir {
   my ($filename) = @_;
   my $file       = Path::Class::File->new($filename);
   my $dir        = $file->dir->absolute;
+  ## no critic ( ProhibitMagicNumbers )
   while ( $dir->dir_list() and $dir->dir_list(-1) ne 'lib' ) {
     $dir = $dir->parent;
   }
@@ -106,6 +108,7 @@ sub build_dist_file {
     # regardless of what package you asked for.
     # Might be bad, but we haven't imagined the scenario where yet.
     my $path = $root->file( $_[1] )->absolute->stringify;
+    ## no critic ( ProhibitExplicitReturnUndef )
     return undef unless -e $path;
     if ( not -f $path ) {
       require Carp;
