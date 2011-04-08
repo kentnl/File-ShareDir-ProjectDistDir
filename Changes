@@ -1,6 +1,8 @@
 Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ - No major changes, this is just a non-trial release,	as at least one
+   other person has now tested it and said it works.
 
 0.1.0 2011-04-08T00:51:39Z
  - First version.
