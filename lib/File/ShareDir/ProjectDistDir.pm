@@ -89,7 +89,7 @@ sub import {
   $defaults->{filename}   = $xfilename if not defined $defaults->{filename};
   $defaults->{projectdir} = 'share'    if not defined $defaults->{projectdir};
 
-  @_ = ( $class, ( grep defined, @args ), 'defaults' => $defaults );
+  @_ = ( $class, ( grep { defined } @args ), 'defaults' => $defaults );
 
   goto $exporter;
 }
