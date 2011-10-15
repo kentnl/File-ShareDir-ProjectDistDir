@@ -1,12 +1,20 @@
 Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [Features]
+ - Custom Project Dir:
+ - Can now support passing a directory other than 'share' to use in your
+   project.
+ - eg: use File::ShareDir::ProjectDistDir qw( :all ), projectdir =>
+   'templates';
+ - Thank Getty/Torsten Raudssus for requesting this feature.
 
 0.1.1 2011-04-08T01:29:46Z
- - No major changes, this is just a non-trial release,	as at least one
+ - No major changes, this is just a non-trial release, as at least one
    other person has now tested it and said it works.
 
 0.1.0 2011-04-08T00:51:39Z
  - First version.
  - Early development release.
+ - Thank Getty/Torsen Raudssus for requesting this modules development.
 
