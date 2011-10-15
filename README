@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 0.1.1
+    version 0.2.0
 
 SYNOPSIS
       package An::Example::Package;
@@ -19,6 +19,14 @@ SYNOPSIS
       $project/
       $project/lib/An/Example/Package.pm
       $project/share/   # files for package 'An-Example' go here.
+
+    You can use a directory name other than 'share' ( Assuming you make sure
+    when you install that, you specify the different directory there also )
+    as follows:
+
+      use File::ShareDir::ProjectDistDir ':all', defaults => {
+        projectdir => 'templates',
+      };
 
 METHODS
   build_dist_dir
