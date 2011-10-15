@@ -54,46 +54,50 @@ sub import {
   my ( $xclass, $xfilename, $xline ) = caller;
 
   my $defaults = {
-    filename => $xfilename , projectdir => 'share',
+    filename   => $xfilename,
+    projectdir => 'share',
   };
 
   if ( not @args ) {
     @_ = ( $class, ':all', defaults => $defaults );
+
     goto $exporter;
   }
 
   for ( 0 .. $#args - 1 ) {
-    my ( $key , $value );
+    my ( $key, $value );
     next unless $key = $args[$_] and $value = $args[ $_ + 1 ];
+
     if ( $key eq 'defaults' ) {
       $defaults = $value;
       undef $args[$_];
-      undef $args[$_+1];
+      undef $args[ $_ + 1 ];
       next;
     }
-    if ( $key eq 'projectdir' ){
+    if ( $key eq 'projectdir' ) {
       $defaults->{projectdir} = $value;
       undef $args[$_];
-      undef $args[$_+1];
+      undef $args[ $_ + 1 ];
     }
-    if ( $key eq 'filename' and not ref $value ){
+    if ( $key eq 'filename' and not ref $value ) {
       $defaults->{filename} = $value;
       undef $args[$_];
-      undef $args[$_+1];
+      undef $args[ $_ + 1 ];
     }
   }
-  $defaults->{filename} = $xfilename if not defined $defaults->{filename};
-  $defaults->{projectdir} = 'share' if not defined $defaults->{projectdir};
 
-  @_ = ( $class, @args , 'defaults' => { filename => $xfilename , projectdir => 'share' } );
+  $defaults->{filename}   = $xfilename if not defined $defaults->{filename};
+  $defaults->{projectdir} = 'share'    if not defined $defaults->{projectdir};
+
+  @_ = ( $class, ( grep defined, @args ), 'defaults' => $defaults );
 
   goto $exporter;
 }
 
 sub _devel_sharedir {
-  my ($filename,$subdir) = @_;
-  my $file       = Path::Class::File->new($filename);
-  my $dir        = $file->dir->absolute;
+  my ( $filename, $subdir ) = @_;
+  my $file = Path::Class::File->new($filename);
+  my $dir  = $file->dir->absolute;
   ## no critic ( ProhibitMagicNumbers )
   while ( $dir->dir_list() and $dir->dir_list(-1) ne 'lib' ) {
     $dir = $dir->parent;
@@ -119,6 +123,7 @@ start to matter once it is installed. This is a potential avenues for bugs if yo
 
 sub build_dist_dir {
   my ( $class, $name, $arg, $col ) = @_;
+
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $col->{defaults}->{projectdir} );
   if ( not $root ) {
     return \&File::ShareDir::dist_dir;
