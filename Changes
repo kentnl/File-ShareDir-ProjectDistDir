@@ -1,6 +1,8 @@
 Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+0.2.0 2011-10-15T02:08:29Z
  [Dependencies::New]
  - Now declares a dependency on strict/warnings, but you probably didn't
    care. Its all DZils' fault.
