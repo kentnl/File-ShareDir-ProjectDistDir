@@ -1,6 +1,14 @@
 Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [Dependencies::New]
+ - Now declares a dependency on strict/warnings, but you probably didn't
+   care. Its all DZils' fault.
+
+ [Dependencies::Removed]
+ - The useless dependency on `English` is gone from test-deps, as that test
+   is no longer run for endusers.
+
  [Features]
  - Custom Project Dir:
  - Can now support passing a directory other than 'share' to use in your
@@ -8,6 +16,23 @@ Release history for File-ShareDir-ProjectDistDir
  - eg: use File::ShareDir::ProjectDistDir qw( :all ), projectdir =>
    'templates';
  - Thank Getty/Torsten Raudssus for requesting this feature.
+
+ [Internals]
+ - $VERSION is no longer set during BEGIN ( Dist::Zilla )
+
+ [Packaging]
+ - Re-generated License from more recent template ( minor indentation
+   changes, change of address )
+ - AuthorTests/ReleaseTests no longer stored in t/, no longer do ENV{}
+   based mangling, no longer spams you during install, and are now only
+   even notable during `dzil release` and `dzil xtest`. ( See
+   Dist::Zilla::Plugin::CheckExtraTests> for details.
+ - All github URL's now point to https:// paths.
+ - Now uses Authority plugin to create $AUTHORITY headings and x_authority
+   = cpan:KENTNL
+
+ [Tests]
+ - New test that tests new syntax for using a custom sharedir name.
 
 0.1.1 2011-04-08T01:29:46Z
  - No major changes, this is just a non-trial release, as at least one
