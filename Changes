@@ -14,15 +14,16 @@
  - runtime requires : perl 5.10.1
 
  [Documentation]
- - verbosely detailed the workings of the import method and its helper methods.
+ - verbosely detailed the workings of the import method and its helper
+   methods.
 
  [Features]
  - new experimental support for a 'distname' parameter.
- - per export support for 'projectdir' allowing >1 dist_dir method to be exported.
+ - per export support for 'projectdir' allowing >1 dist_dir method to be
+   exported.
 
  [Packaging]
  - Update LICENSE ( Year, Indentation )
-
 
  [Tests::New]
  - release/minimum-version.t
