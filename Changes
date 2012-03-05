@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+0.3.0 2012-03-05T05:27:43Z
  [00 Noteworthy Changes]
  - New 'distname' parameter
  - greatly enhanced documentation
