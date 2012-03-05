@@ -52,7 +52,7 @@ my ($exporter) = build_exporter(
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses L<Sub::Exporter> to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
+This uses L< C<Sub::Exporter>|Sub::Exporter > to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
 
 =over 4
 
@@ -365,7 +365,7 @@ sub build_dist_file {
     return sub ($) {
       if ( @_ != 1 or not defined $_[0] ) {
         require Carp;
-        Carp::croak("dist_file takes only one argument,a filename, due to distname being specified during import");
+        Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
       }
       unshift @_, $distname;
       goto &File::ShareDir::dist_file;
