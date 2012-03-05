@@ -42,7 +42,7 @@ my ($exporter) = build_exporter(
       all       => [qw( dist_dir dist_file )],
       'default' => [qw( dist_dir dist_file )]
     },
-    collectors => [ 'defaults', 'distname' ],
+    collectors => [ 'defaults', ],
   }
 );
 
