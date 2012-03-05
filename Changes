@@ -1,6 +1,18 @@
-Release history for File-ShareDir-ProjectDistDir
+﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [Dependencies::Changed]
+ - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
+   v1.0.0 -> v1.2.0
+
+ [Dependencies::New]
+ - runtime requires : perl 5.10.1
+
+ [Packaging]
+ - Update LICENSE ( Year, Indentation )
+
+ [Tests::New]
+ - release/minimum-version.t
 
 0.2.0 2011-10-15T02:08:29Z
  [Dependencies::New]
