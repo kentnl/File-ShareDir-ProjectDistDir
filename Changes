@@ -1,4 +1,33 @@
-Release history for File-ShareDir-ProjectDistDir
+﻿Release history for File-ShareDir-ProjectDistDir
+
+0.3.0 2012-03-05T05:27:43Z
+ [00 Noteworthy Changes]
+ - New 'distname' parameter
+ - greatly enhanced documentation
+ - supports 'projectdir' on a per-export level.
+
+ [Dependencies::Changed]
+ - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
+   v1.0.0 -> v1.2.0
+
+ [Dependencies::New]
+ - runtime requires : perl 5.10.1
+
+ [Documentation]
+ - verbosely detailed the workings of the import method and its helper
+   methods.
+
+ [Features]
+ - new experimental support for a 'distname' parameter.
+ - per export support for 'projectdir' allowing >1 dist_dir method to be
+   exported.
+
+ [Packaging]
+ - Update LICENSE ( Year, Indentation )
+
+ [Tests::New]
+ - release/minimum-version.t
+ - t/06_distname.t
 
 0.2.0 2011-10-15T02:08:29Z
  [Dependencies::New]

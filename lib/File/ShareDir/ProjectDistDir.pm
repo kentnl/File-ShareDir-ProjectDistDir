@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.2.0';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.3.0';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -24,11 +24,13 @@ my ($exporter) = build_exporter(
       all       => [qw( dist_dir dist_file )],
       'default' => [qw( dist_dir dist_file )]
     },
-    collectors => ['defaults'],
+    collectors => [ 'defaults', ],
   }
 );
 
 ## no critic (RequireArgUnpacking)
+
+
 sub import {
   my ( $class, @args ) = @_;
   my $has_defaults = undef;
@@ -42,7 +44,6 @@ sub import {
 
   if ( not @args ) {
     @_ = ( $class, ':all', defaults => $defaults );
-
     goto $exporter;
   }
 
@@ -56,15 +57,23 @@ sub import {
       undef $args[ $_ + 1 ];
       next;
     }
-    if ( $key eq 'projectdir' ) {
+    if ( $key eq 'projectdir' and not ref $value ) {
       $defaults->{projectdir} = $value;
       undef $args[$_];
       undef $args[ $_ + 1 ];
+      next;
     }
     if ( $key eq 'filename' and not ref $value ) {
       $defaults->{filename} = $value;
       undef $args[$_];
       undef $args[ $_ + 1 ];
+      next;
+    }
+    if ( $key eq 'distname' and not ref $value ) {
+      $defaults->{distname} = $value;
+      undef $args[$_];
+      undef $args[ $_ + 1 ];
+      next;
     }
   }
 
@@ -96,9 +105,22 @@ sub _devel_sharedir {
 sub build_dist_dir {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $root = _devel_sharedir( $col->{defaults}->{filename}, $col->{defaults}->{projectdir} );
+  my $projectdir;
+  $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
+  $projectdir = $arg->{projectdir}             if $arg->{projectdir};
+
+  my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
   if ( not $root ) {
-    return \&File::ShareDir::dist_dir;
+    my $distname;
+    $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
+    $distname = $arg->{distname}             if $arg->{distname};
+    if ( not $distname ) {
+      return \&File::ShareDir::dist_dir;
+    }
+    return sub () {
+      @_ = ($distname);
+      goto &File::ShareDir::dist_dir;
+    };
   }
   return sub {
 
@@ -112,16 +134,36 @@ sub build_dist_dir {
 
 sub build_dist_file {
   my ( $class, $name, $arg, $col ) = @_;
-  my $root = _devel_sharedir( $col->{defaults}->{filename}, $col->{defaults}->{projectdir} );
+
+  my $projectdir;
+  $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
+  $projectdir = $arg->{projectdir}             if $arg->{projectdir};
+
+  my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
+  my $distname;
+  $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
+  $distname = $arg->{distname}             if $arg->{distname};
+
   if ( not $root ) {
-    return \&File::ShareDir::dist_file;
+    if ( not $distname ) {
+      return \&File::ShareDir::dist_file;
+    }
+    return sub ($) {
+      if ( @_ != 1 or not defined $_[0] ) {
+        require Carp;
+        Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
+      }
+      unshift @_, $distname;
+      goto &File::ShareDir::dist_file;
+    };
   }
   return sub {
+    my $file = ( $distname ? $_[0] : $_[1] );
 
     # if the caller is devel, then we return the project root,
     # regardless of what package you asked for.
     # Might be bad, but we haven't imagined the scenario where yet.
-    my $path = $root->file( $_[1] )->absolute->stringify;
+    my $path = $root->file($file)->absolute->stringify;
     ## no critic ( ProhibitExplicitReturnUndef )
     return undef unless -e $path;
     if ( not -f $path ) {
@@ -147,7 +189,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.2.0
+version 0.3.0
 
 =head1 SYNOPSIS
 
@@ -174,7 +216,144 @@ you install that, you specify the different directory there also ) as follows:
 
 =head1 METHODS
 
+=head2 import
+
+    use File::ShareDir::ProjectDistDir (@args);
+
+This uses L< C<Sub::Exporter>|Sub::Exporter > to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
+
+=over 4
+
+=item * B<C<:all>>
+
+    ->import( ':all' , .... )
+
+Import both C<dist_dir> and C<dist_file>
+
+=item * B<C<dist_dir>>
+
+    ->import('dist_dir' , .... )
+
+Import the dist_dir method
+
+=item * B<C<dist_dir>>
+
+    ->import('dist_file' , .... )
+
+Import the dist_file method
+
+=item * B<C<projectdir>>
+
+    ->import( .... , projectdir => 'share' )
+
+Specify what the "project dir" is as a path relative to the base of your distributions source, 
+and this directory will be used as a ShareDir simulation path for the exported methods I<During development>.
+
+If not specified, the default value 'share' is used.
+
+=item * B<C<filename>>
+
+    ->import( .... , filename => 'some/path/to/foo.pm' );
+
+Generally you don't want to set this, as its worked out by caller() to work out the name of 
+the file its being called from. This file's path is walked up to find the 'lib' element with a sibling
+of the name of your 'projectdir'.
+
+=item * B<C<distname>>
+
+    ->import( .... , distname => 'somedistname' );
+
+Specifying this argument changes the way the functions are emitted at I<installed runtime>, so that instead of
+taking the standard arguments File::ShareDir does, the specification of the distname in those functions is eliminated. 
+
+ie:
+
+    # without this flag
+    use File::ShareDir::ProjectDistDir qw( :all );
+
+    my $dir = dist_dir('example');
+    my $file = dist_file('example', 'path/to/file.pm' );
+
+    # with this flag
+    use File::ShareDir::ProjectDistDir ( qw( :all ), distname => 'example' );
+
+    my $dir = dist_dir();
+    my $file = dist_file('path/to/file.pm' );
+
+=item * B<C<defaults>>
+
+    ->import( ... , defaults => {
+        filename => ....,
+        projectdir => ....,
+    });
+
+This is mostly an alternative syntax for specifying C<filename> and C<projectdir>, 
+which is mostly used internally, and their corresponding other values are packed into this one.
+
+=back
+
+=head3 Sub::Exporter tricks of note.
+
+=head4 Make your own sharedir util
+
+    package Foo::Util;
+
+    sub import {
+        my ($caller_class, $caller_file, $caller_line )  = caller();
+        if ( grep { /share/ } @_ ) { 
+            require File::ShareDir::ProjectDistDir;
+            File::ShareDir::ProjectDistDir->import(
+                filename => $caller_file,
+                dist_dir => { distname => 'myproject' , -as => 'share' },
+                dist_dir => { distname => 'otherproject' , -as => 'other_share' , projectdir => 'share2' },
+                -into => $caller_class,
+            );
+        }
+    }
+
+    ....
+
+    package Foo;
+    use Foo::Util qw( share );
+
+    my $dir = share();
+    my $other_dir => other_share();
+
 =head2 build_dist_dir
+
+    use File::ShareDir::ProjectDirDir ( : all );
+
+    #  this calls
+    my $coderef = File::ShareDir::ProjectDistDir->build_dist_dir(
+      'dist_dir' => {},
+      { defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } }
+    );
+
+    use File::ShareDir::ProjectDirDir ( qw( :all ), distname => 'example-dist' );
+
+    #  this calls
+    my $coderef = File::ShareDir::ProjectDistDir->build_dist_dir(
+      'dist_dir' => {},
+      { distname => 'example-dist', defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } }
+    );
+
+    use File::ShareDir::ProjectDirDir
+      dist_dir => { distname => 'example-dist', -as => 'mydistdir' },
+      dist_dir => { distname => 'other-dist',   -as => 'otherdistdir' };
+
+    # This calls
+    my $coderef = File::ShareDir::ProjectDistDir->build_dist_dir(
+      'dist_dir',
+      { distname => 'example-dist' },
+      { defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } },
+    );
+    my $othercoderef = File::ShareDir::ProjectDistDir->build_dist_dir(
+      'dist_dir',
+      { distname => 'other-dist' },
+      { defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } },
+    );
+
+    # And leverages Sub::Exporter to create 2 subs in your package.
 
 Generates the exported 'dist_dir' method. In development environments, the generated method will return
 a path to the development directories 'share' directory. In non-development environments, this simply returns
@@ -184,6 +363,40 @@ As a result of this, specifying the Distribution name is not required during dev
 start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
 
 =head2 build_dist_file
+
+    use File::ShareDir::ProjectDirDir ( : all );
+
+    #  this calls
+    my $coderef = File::ShareDir::ProjectDistDir->build_dist_file(
+      'dist_file' => {},
+      { defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } }
+    );
+
+    use File::ShareDir::ProjectDirDir ( qw( :all ), distname => 'example-dist' );
+
+    #  this calls
+    my $coderef = File::ShareDir::ProjectDistDir->build_dist_file(
+      'dist_file' => {},
+      { distname => 'example-dist', defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } }
+    );
+
+    use File::ShareDir::ProjectDirDir
+      dist_file => { distname => 'example-dist', -as => 'mydistfile' },
+      dist_file => { distname => 'other-dist',   -as => 'otherdistfile' };
+
+    # This calls
+    my $coderef = File::ShareDir::ProjectDistDir->build_dist_file(
+      'dist_file',
+      { distname => 'example-dist' },
+      { defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } },
+    );
+    my $othercoderef = File::ShareDir::ProjectDistDir->build_dist_file(
+      'dist_file',
+      { distname => 'other-dist' },
+      { defaults => { filename => 'path/to/yourcallingfile.pm', projectdir => 'share' } },
+    );
+
+    # And leverages Sub::Exporter to create 2 subs in your package.
 
 Generates the 'dist_file' method.
 
@@ -199,7 +412,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

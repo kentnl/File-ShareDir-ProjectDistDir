@@ -32,11 +32,17 @@ t/04_files/installdir/lib/auto/share/dist/Example_06/file
 t/05_devel_spec.t
 t/05_files/lib/Example_05.pm
 t/05_files/templates/file
+t/06_distname.t
+t/06_files/develdir/lib/Example_05.pm
+t/06_files/develdir/share/file
+t/06_files/installdir/lib/Example_04.pm
+t/06_files/installdir/lib/auto/share/dist/Example_04/file
 weaver.ini
 xt/author/critic.t
 xt/release/cpan-changes.t
 xt/release/distmeta.t
 xt/release/eol.t
 xt/release/kwalitee.t
+xt/release/minimum-version.t
 xt/release/pod-coverage.t
 xt/release/pod-syntax.t
