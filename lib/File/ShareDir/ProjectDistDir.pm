@@ -42,7 +42,7 @@ my ($exporter) = build_exporter(
       all       => [qw( dist_dir dist_file )],
       'default' => [qw( dist_dir dist_file )]
     },
-    collectors => ['defaults','dist_name'],
+    collectors => [ 'defaults', 'distname' ],
   }
 );
 
@@ -154,7 +154,6 @@ which is mostly used internally, and their corresponding other values are packed
 
 =cut
 
-
 sub import {
   my ( $class, @args ) = @_;
   my $has_defaults = undef;
@@ -181,15 +180,23 @@ sub import {
       undef $args[ $_ + 1 ];
       next;
     }
-    if ( $key eq 'projectdir' ) {
+    if ( $key eq 'projectdir' and not ref $value ) {
       $defaults->{projectdir} = $value;
       undef $args[$_];
       undef $args[ $_ + 1 ];
+      next;
     }
     if ( $key eq 'filename' and not ref $value ) {
       $defaults->{filename} = $value;
       undef $args[$_];
       undef $args[ $_ + 1 ];
+      next;
+    }
+    if ( $key eq 'distname' and not ref $value ) {
+      $defaults->{distname} = $value;
+      undef $args[$_];
+      undef $args[ $_ + 1 ];
+      next;
     }
   }
 
@@ -236,8 +243,8 @@ sub _devel_sharedir {
     );
 
     use File::ShareDir::ProjectDirDir
-      dist_dir => { dist_name => 'example-dist', -as => 'mydistdir' },
-      dist_dir => { dist_name => 'other-dist',   -as => 'otherdistdir' };
+      dist_dir => { distname => 'example-dist', -as => 'mydistdir' },
+      dist_dir => { distname => 'other-dist',   -as => 'otherdistdir' };
 
     # This calls
     my $coderef = File::ShareDir::ProjectDistDir->build_dist_dir(
@@ -268,20 +275,20 @@ sub build_dist_dir {
 
   my $projectdir;
   $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
-  $projectdir = $arg->{projectdir} if $arg->{projectdir};
+  $projectdir = $arg->{projectdir}             if $arg->{projectdir};
 
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
   if ( not $root ) {
-      my $distname;
-      $distname = $col->{distname} if $col->{distname};
-      $distname = $arg->{distname} if $arg->{distname};
-      if ( not $distname ){
-        return \&File::ShareDir::dist_dir;
-      }
-      return sub (){
-          @_ = ( $distname );
-          goto \&File::ShareDir::dist_dir;
-      };
+    my $distname;
+    $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
+    $distname = $arg->{distname}             if $arg->{distname};
+    if ( not $distname ) {
+      return \&File::ShareDir::dist_dir;
+    }
+    return sub () {
+      @_ = ($distname);
+      goto &File::ShareDir::dist_dir;
+    };
   }
   return sub {
 
@@ -311,8 +318,8 @@ sub build_dist_dir {
     );
 
     use File::ShareDir::ProjectDirDir
-      dist_file => { dist_name => 'example-dist', -as => 'mydistfile' },
-      dist_file => { dist_name => 'other-dist',   -as => 'otherdistfile' };
+      dist_file => { distname => 'example-dist', -as => 'mydistfile' },
+      dist_file => { distname => 'other-dist',   -as => 'otherdistfile' };
 
     # This calls
     my $coderef = File::ShareDir::ProjectDistDir->build_dist_file(
@@ -344,28 +351,33 @@ sub build_dist_file {
 
   my $projectdir;
   $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
-  $projectdir = $arg->{projectdir} if $arg->{projectdir};
+  $projectdir = $arg->{projectdir}             if $arg->{projectdir};
 
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
+  my $distname;
+  $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
+  $distname = $arg->{distname}             if $arg->{distname};
 
   if ( not $root ) {
-      my $distname;
-      $distname = $col->{distname} if $col->{distname};
-      $distname = $arg->{distname} if $arg->{distname};
-      if ( not $distname ){
-        return \&File::ShareDir::dist_file;
+    if ( not $distname ) {
+      return \&File::ShareDir::dist_file;
+    }
+    return sub ($) {
+      if ( @_ != 1 or not defined $_[0] ) {
+        require Carp;
+        Carp::croak("dist_file takes only one argument,a filename, due to distname being specified during import");
       }
-      return sub ($){
-          unshift @_, $distname;
-          goto \%File::ShareDir::dist_file;
-      };
+      unshift @_, $distname;
+      goto &File::ShareDir::dist_file;
+    };
   }
   return sub {
+    my $file = ( $distname ? $_[0] : $_[1] );
 
     # if the caller is devel, then we return the project root,
     # regardless of what package you asked for.
     # Might be bad, but we haven't imagined the scenario where yet.
-    my $path = $root->file( $_[1] )->absolute->stringify;
+    my $path = $root->file($file)->absolute->stringify;
     ## no critic ( ProhibitExplicitReturnUndef )
     return undef unless -e $path;
     if ( not -f $path ) {
