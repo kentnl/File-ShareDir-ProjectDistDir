@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+0.3.1 2012-03-07T03:57:06Z
  [00 Summary]
  - Dropping 5.10.0 dependency back to 5.006 due to github#1. Apparently
    there is a sustainable way to use decimal versions in <=5.10.0 reliably
