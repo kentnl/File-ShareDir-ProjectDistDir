@@ -21,7 +21,7 @@ my %module_build_args = (
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "File-ShareDir-ProjectDistDir",
-  "dist_version" => "0.3.0",
+  "dist_version" => "0.3.1",
   "license" => "perl",
   "module_name" => "File::ShareDir::ProjectDistDir",
   "recommends" => {},
@@ -31,7 +31,7 @@ my %module_build_args = (
     "File::ShareDir" => 0,
     "Path::Class::File" => 0,
     "Sub::Exporter" => 0,
-    "perl" => "v5.10.0",
+    "perl" => "5.006",
     "strict" => 0,
     "warnings" => 0
   },
