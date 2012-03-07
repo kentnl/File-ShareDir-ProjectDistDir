@@ -1,6 +1,14 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [00 Summary]
+ - Dropping 5.10.0 dependency back to 5.006 due to github#1. Apparently
+   there is a sustainable way to use decimal versions in <=5.10.0 reliably
+   via 'use version', so this is somewhat experimental consideration of
+   that fact.
+
+ [Dependencies::Changed]
+ - runtime requires: perl 5.10 -> perl 5.006
 
 0.3.0 2012-03-05T05:27:43Z
  [00 Noteworthy Changes]
