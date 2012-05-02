@@ -213,7 +213,7 @@ sub _devel_sharedir {
   my $file = Path::Class::File->new($filename);
   my $dir  = $file->dir->absolute;
   ## no critic ( ProhibitMagicNumbers )
-  while ( $dir->dir_list() and $dir->dir_list(-1) ne 'lib' ) {
+  while ( $dir ne '/' && $dir->dir_list() && $dir->dir_list(-1) ne 'lib' ) {
     $dir = $dir->parent;
   }
   if ( -d $dir->parent()->subdir($subdir) ) {
