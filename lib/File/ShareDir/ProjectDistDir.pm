@@ -216,16 +216,17 @@ sub _devel_sharedir {
 
   ## no critic ( ProhibitMagicNumbers )
   while (1) {
-  	if( $dir->dir_list(-1) eq 'lib' ) {
-		last;
-	}
-	if( File::Spec->catdir($dir->absolute->dir_list) eq $root ) {
-		#warn "Not a devel $dir, / hit";
-		return;
-	}
-	if( $dir->dir_list(-1) ne 'lib' ) {
-	    $dir = $dir->parent;
-	}
+    if ( $dir->dir_list(-1) eq 'lib' ) {
+      last;
+    }
+    if ( File::Spec->catdir( $dir->absolute->dir_list ) eq $root ) {
+
+      #warn "Not a devel $dir, / hit";
+      return;
+    }
+    if ( $dir->dir_list(-1) ne 'lib' ) {
+      $dir = $dir->parent;
+    }
   }
   if ( -d $dir->parent()->subdir($subdir) ) {
     return $dir->parent()->subdir($subdir);

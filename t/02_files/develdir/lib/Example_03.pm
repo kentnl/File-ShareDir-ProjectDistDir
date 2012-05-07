@@ -11,5 +11,4 @@ package Example_03;
 #  return scalar Path::Class::File->new( dist_file('Example_01', 'file') )->slurp();
 #}
 
-
 1;
