@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+0.3.2 2012-05-07T17:07:54Z
  [Bugs]
  - github#2 There was a bug on some platforms where
    Path::Class::Dir->new('/')->parent->dir_list() returned a 2-item list
