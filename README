@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 0.3.1
+    version 0.3.2
 
 SYNOPSIS
       package An::Example::Package;
@@ -113,7 +113,7 @@ METHODS
 
         sub import {
             my ($caller_class, $caller_file, $caller_line )  = caller();
-            if ( grep { /share/ } @_ ) { 
+            if ( grep { /share/ } @_ ) {
                 require File::ShareDir::ProjectDistDir;
                 File::ShareDir::ProjectDistDir->import(
                     filename => $caller_file,

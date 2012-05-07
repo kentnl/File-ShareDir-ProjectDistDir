@@ -1,5 +1,23 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+0.3.2 2012-05-07T17:07:54Z
+ [Bugs]
+ - github#2 There was a bug on some platforms where
+   Path::Class::Dir->new('/')->parent->dir_list() returned a 2-item list
+   instead of a one-item list which was our loop termination criteria. This
+   became an infinite death loop on all platforms that have a "volume" (
+   mac, win ). Has been resolved by performing a check to see if the path
+   is the OS Specific path that represents a "root" from
+   File::Spec->rootdir. Feedback on if this works or not requested, and if
+   this still is a problem, I'll use $dir->parent eq $dir being the loop
+   terminator.
+
+ [Dependencies::Changed]
+ - develop recommends : Dist::Zilla::PluginBundle::Author::KENTNL::Lite
+   0.01009803 -> v1.3.0
+ - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
+   v1.2.0 -> v1.3.0
+
 0.3.1 2012-03-07T03:57:06Z
  [00 Summary]
  - Dropping 5.10.0 dependency back to 5.006 due to github#1. Apparently

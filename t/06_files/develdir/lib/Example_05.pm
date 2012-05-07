@@ -8,7 +8,7 @@ use File::ShareDir::ProjectDistDir qw( :all ), distname => 'Example_05';
 use Path::Class::File;
 
 sub test {
-    return scalar Path::Class::File->new( dist_file('file') )->slurp();
+  return scalar Path::Class::File->new( dist_file('file') )->slurp();
 }
 
 1;

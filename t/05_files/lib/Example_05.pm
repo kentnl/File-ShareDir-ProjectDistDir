@@ -8,8 +8,7 @@ use File::ShareDir::ProjectDistDir ':all', projectdir => 'templates';
 use Path::Class::File;
 
 sub test {
-  return scalar Path::Class::File->new( dist_file('Example_05', 'file') )->slurp();
+  return scalar Path::Class::File->new( dist_file( 'Example_05', 'file' ) )->slurp();
 }
-
 
 1;

@@ -49,8 +49,8 @@ sub pmver {
 }
 
 eval { $v .= pmver('Carp','any version') };
-eval { $v .= pmver('Dist::Zilla::PluginBundle::Author::KENTNL','v1.2.0') };
-eval { $v .= pmver('Dist::Zilla::PluginBundle::Author::KENTNL::Lite','0.01009803') };
+eval { $v .= pmver('Dist::Zilla::PluginBundle::Author::KENTNL','v1.3.0') };
+eval { $v .= pmver('Dist::Zilla::PluginBundle::Author::KENTNL::Lite','v1.3.0') };
 eval { $v .= pmver('File::Find','any version') };
 eval { $v .= pmver('File::ShareDir','any version') };
 eval { $v .= pmver('File::Temp','any version') };
