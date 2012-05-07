@@ -78,7 +78,7 @@ Import the dist_file method
 
     ->import( .... , projectdir => 'share' )
 
-Specify what the "project dir" is as a path relative to the base of your distributions source, 
+Specify what the "project dir" is as a path relative to the base of your distributions source,
 and this directory will be used as a ShareDir simulation path for the exported methods I<During development>.
 
 If not specified, the default value 'share' is used.
@@ -87,7 +87,7 @@ If not specified, the default value 'share' is used.
 
     ->import( .... , filename => 'some/path/to/foo.pm' );
 
-Generally you don't want to set this, as its worked out by caller() to work out the name of 
+Generally you don't want to set this, as its worked out by caller() to work out the name of
 the file its being called from. This file's path is walked up to find the 'lib' element with a sibling
 of the name of your 'projectdir'.
 
@@ -96,7 +96,7 @@ of the name of your 'projectdir'.
     ->import( .... , distname => 'somedistname' );
 
 Specifying this argument changes the way the functions are emitted at I<installed runtime>, so that instead of
-taking the standard arguments File::ShareDir does, the specification of the distname in those functions is eliminated. 
+taking the standard arguments File::ShareDir does, the specification of the distname in those functions is eliminated.
 
 ie:
 
@@ -119,7 +119,7 @@ ie:
         projectdir => ....,
     });
 
-This is mostly an alternative syntax for specifying C<filename> and C<projectdir>, 
+This is mostly an alternative syntax for specifying C<filename> and C<projectdir>,
 which is mostly used internally, and their corresponding other values are packed into this one.
 
 =back
@@ -132,7 +132,7 @@ which is mostly used internally, and their corresponding other values are packed
 
     sub import {
         my ($caller_class, $caller_file, $caller_line )  = caller();
-        if ( grep { /share/ } @_ ) { 
+        if ( grep { /share/ } @_ ) {
             require File::ShareDir::ProjectDistDir;
             File::ShareDir::ProjectDistDir->import(
                 filename => $caller_file,
@@ -212,9 +212,20 @@ sub _devel_sharedir {
   my ( $filename, $subdir ) = @_;
   my $file = Path::Class::File->new($filename);
   my $dir  = $file->dir->absolute;
+  my $root = File::Spec->rootdir();
+
   ## no critic ( ProhibitMagicNumbers )
-  while ( $dir->dir_list() and $dir->dir_list(-1) ne 'lib' ) {
-    $dir = $dir->parent;
+  while (1) {
+  	if( $dir->dir_list(-1) eq 'lib' ) {
+		last;
+	}
+	if( File::Spec->catdir($dir->absolute->dir_list) eq $root ) {
+		#warn "Not a devel $dir, / hit";
+		return;
+	}
+	if( $dir->dir_list(-1) ne 'lib' ) {
+	    $dir = $dir->parent;
+	}
   }
   if ( -d $dir->parent()->subdir($subdir) ) {
     return $dir->parent()->subdir($subdir);
