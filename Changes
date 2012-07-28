@@ -1,6 +1,6 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-0.4.0 2012-07-28T21:53:31Z
+0.4.0 2012-07-28T21:54:15Z
  [Dependencies::Changed]
  - build requires : Module::Build 0.3601 -> 0.4002
  - configure requires : Module::Build 0.3601 -> 0.4002
