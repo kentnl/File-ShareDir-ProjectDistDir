@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.4.0'; # TRIAL
+  $File::ShareDir::ProjectDistDir::VERSION = '0.4.1'; # TRIAL
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -215,7 +215,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.4.0
+version 0.4.1
 
 =head1 SYNOPSIS
 
