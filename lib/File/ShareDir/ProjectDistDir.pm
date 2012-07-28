@@ -163,6 +163,7 @@ sub import {
   my $defaults = {
     filename   => $xfilename,
     projectdir => 'share',
+    pathclass  => undef,
   };
 
   if ( not @args ) {
@@ -180,23 +181,13 @@ sub import {
       undef $args[ $_ + 1 ];
       next;
     }
-    if ( $key eq 'projectdir' and not ref $value ) {
-      $defaults->{projectdir} = $value;
-      undef $args[$_];
-      undef $args[ $_ + 1 ];
-      next;
-    }
-    if ( $key eq 'filename' and not ref $value ) {
-      $defaults->{filename} = $value;
-      undef $args[$_];
-      undef $args[ $_ + 1 ];
-      next;
-    }
-    if ( $key eq 'distname' and not ref $value ) {
-      $defaults->{distname} = $value;
-      undef $args[$_];
-      undef $args[ $_ + 1 ];
-      next;
+    for my $setting (qw( projectdir filename distname pathclass )) {
+      if ( $key eq $setting and not ref $value ) {
+        $defaults->{$setting} = $value;
+        undef $args[$_];
+        undef $args[ $_ + 1 ];
+        last;
+      }
     }
   }
 
@@ -289,26 +280,38 @@ sub build_dist_dir {
   $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
   $projectdir = $arg->{projectdir}             if $arg->{projectdir};
 
-  my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
-  if ( not $root ) {
-    my $distname;
-    $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
-    $distname = $arg->{distname}             if $arg->{distname};
-    if ( not $distname ) {
-      return \&File::ShareDir::dist_dir;
-    }
-    return sub () {
-      @_ = ($distname);
-      goto &File::ShareDir::dist_dir;
-    };
-  }
-  return sub {
+  my $pathclass;
+  $pathclass = $col->{defaults}->{pathclass} if exists $col->{defaults}->{pathclass};
+  $pathclass = $arg->{pathclass}             if exists $arg->{pathclass};
 
-    # if the caller is devel, then we return the project root,
-    # regardless of what package you asked for.
-    # Might be bad, but we haven't imagined the scenario where yet.
-    return $root->absolute->stringify;
+  my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
+
+  my $distname;
+  $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
+  $distname = $arg->{distname}             if $arg->{distname};
+
+  # In dev
+  if ($root) {
+    my $pathclass_method = sub { return $root->absolute };
+    return $pathclass_method if $pathclass;
+    return sub { return $pathclass_method->(@_)->stringify };
+  }
+
+  # Non-Dev, no hardcoded distname
+  if ( not $distname ) {
+    my $string_method = \&File::ShareDir::dist_dir;
+    return $string_method if not $pathclass;
+    return sub { return Path::Class::Dir->new( $string_method->(@_) ); }
+  }
+
+  # Non-Dev, hardcoded distname
+  my $string_method = sub() {
+    @_ = ($distname);
+    goto &File::ShareDir::dist_dir;
   };
+  return $string_method if not $pathclass;
+  return sub { return { Path::Class::Dir->new($string_method) } }
+
 }
 
 =method build_dist_file
@@ -370,38 +373,49 @@ sub build_dist_file {
   $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
   $distname = $arg->{distname}             if $arg->{distname};
 
-  if ( not $root ) {
-    if ( not $distname ) {
-      return \&File::ShareDir::dist_file;
-    }
-    return sub ($) {
-      if ( @_ != 1 or not defined $_[0] ) {
-        require Carp;
-        Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
-      }
-      unshift @_, $distname;
-      goto &File::ShareDir::dist_file;
-    };
-  }
-  return sub {
-    my $file = ( $distname ? $_[0] : $_[1] );
+  my $pathclass;
+  $pathclass = $col->{defaults}->{pathclass} if exists $col->{defaults}->{pathclass};
+  $pathclass = $arg->{pathclass}             if exists $arg->{pathclass};
 
-    # if the caller is devel, then we return the project root,
-    # regardless of what package you asked for.
-    # Might be bad, but we haven't imagined the scenario where yet.
-    my $path = $root->file($file)->absolute->stringify;
-    ## no critic ( ProhibitExplicitReturnUndef )
-    return undef unless -e $path;
-    if ( not -f $path ) {
+  if ($root) {
+    my $pathclass_method = sub {
+      my $file = ( $distname ? $_[0] : $_[1] );
+
+      # if the caller is devel, then we return the project root,
+      # regardless of what package you asked for.
+      # Might be bad, but we haven't imagined the scenario where yet.
+      my $path_o = $root->file($file)->absolute;
+      my $path_s = $path_o->stringify;
+      ## no critic ( ProhibitExplicitReturnUndef )
+      return undef unless -e $path_s;
+      if ( not -f $path_s ) {
+        require Carp;
+        Carp::croak("Found dist_file '$path_s', but not a file");
+      }
+      if ( not -r $path_s ) {
+        require Carp;
+        Carp::croak("File '$path_s', no read permissions");
+      }
+      return $path_o;
+    };
+    return $pathclass_method if $pathclass;
+    return sub { return $pathclass_method->(@_)->stringify };
+  }
+  if ( not $distname ) {
+    my $string_method = \&File::ShareDir::dist_file;
+    return $string_method if not $pathclass;
+    return sub { Path::Class::File->new( $string_method->(@_) ) };
+  }
+  my $string_method = sub($) {
+    if ( @_ != 1 or not defined $_[0] ) {
       require Carp;
-      Carp::croak("Found dist_file '$path', but not a file");
+      Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
     }
-    if ( not -r $path ) {
-      require Carp;
-      Carp::croak("File '$path', no read permissions");
-    }
-    return $path;
+    unshift @_, $distname;
+    goto &File::ShareDir::dist_file;
   };
+  return $string_method if not $pathclass;
+  return sub { Path::Class::File->new( $string_method->(@_) ) }
 }
 
 1;
