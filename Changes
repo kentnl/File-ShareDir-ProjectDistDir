@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [Features]
+ - now can specify 'pathclass => 1' in various places and get Path::Class objects.
 
 0.3.2 2012-05-07T17:07:54Z
  [Bugs]
