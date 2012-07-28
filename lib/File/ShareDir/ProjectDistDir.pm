@@ -123,11 +123,6 @@ sub build_dist_dir {
   $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
   $distname = $arg->{distname}             if $arg->{distname};
 
-  my $signature = sprintf "%s-%s-%s",
-  	($root ? 'root' : 'nonroot'),
-	($distname ? 'dist' : 'nondist' ),
-	($pathclass ? 'pathclass' : 'nonpathclass' )
-
 
   # In dev
   if ( $root ) {
