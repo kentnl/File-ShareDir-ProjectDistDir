@@ -4,7 +4,7 @@
       "Kent Fredric <kentnl@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300020, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Module::Build version 0.4002, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -16,23 +16,16 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Module::Build" : "0.4002"
+            "File::Find" : "0",
+            "File::Temp" : "0",
+            "FindBin" : "0",
+            "Module::Build" : "0.4002",
+            "Test::More" : "0.98"
          }
       },
       "configure" : {
          "requires" : {
             "Module::Build" : "0.4002"
-         }
-      },
-      "develop" : {
-         "recommends" : {
-            "Dist::Zilla::PluginBundle::Author::KENTNL::Lite" : "v1.3.0"
-         },
-         "requires" : {
-            "Dist::Zilla::PluginBundle::Author::KENTNL::Lite" : "0"
-         },
-         "suggests" : {
-            "Dist::Zilla::PluginBundle::Author::KENTNL" : "v1.4.2"
          }
       },
       "runtime" : {
@@ -45,14 +38,6 @@
             "strict" : "0",
             "warnings" : "0"
          }
-      },
-      "test" : {
-         "requires" : {
-            "File::Find" : "0",
-            "File::Temp" : "0",
-            "FindBin" : "0",
-            "Test::More" : "0.98"
-         }
       }
    },
    "provides" : {
@@ -61,13 +46,11 @@
          "version" : "v0.4.0"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "homepage" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir",
       "repository" : {
-         "type" : "git",
-         "url" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir.git",
-         "web" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir"
+         "url" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir.git"
       }
    },
    "version" : "0.4.0",
@@ -90,11 +73,11 @@
       },
       "perl" : {
          "original" : "v5.16.0",
-         "qv" : 1,
+         "qv" : "1",
          "version" : [
-            5,
-            16,
-            0
+            "5",
+            "16",
+            "0"
          ]
       },
       "perl-config" : {
@@ -414,4 +397,3 @@
    },
    "x_authority" : "cpan:KENTNL"
 }
-

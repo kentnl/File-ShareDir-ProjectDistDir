@@ -1,5 +1,17 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+0.4.0 2012-07-28T21:54:15Z
+ [Dependencies::Changed]
+ - build requires : Module::Build 0.3601 -> 0.4002
+ - configure requires : Module::Build 0.3601 -> 0.4002
+ - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
+   v1.3.0 -> v1.4.2
+ - test requires : Test::More 0.96 -> 0.98
+
+ [Features]
+ - now can specify 'pathclass => 1' in various places and get Path::Class
+   objects.
+
 0.3.2 2012-05-07T17:07:54Z
  [Bugs]
  - github#2 There was a bug on some platforms where

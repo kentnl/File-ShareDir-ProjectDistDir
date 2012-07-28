@@ -1,0 +1,132 @@
+do{ my $x = [
+       {
+         'ARGV' => []
+       },
+       {},
+       {
+         'verbose' => undef,
+         'dist_suffix' => undef,
+         'PL_files' => undef,
+         'pollute' => undef,
+         'metafile2' => 'META.json',
+         'bindoc_dirs' => [
+                            'blib/script'
+                          ],
+         'conflicts' => {},
+         'scripts' => undef,
+         'recommends' => {},
+         'pod_files' => undef,
+         'config_dir' => '_build',
+         'dist_version' => '0.4.0',
+         'sign' => undef,
+         'recurse_into' => [],
+         'build_bat' => 0,
+         'extra_linker_flags' => [],
+         'build_class' => 'Module::Build',
+         'prereq_action_types' => [
+                                    'requires',
+                                    'build_requires',
+                                    'conflicts',
+                                    'recommends'
+                                  ],
+         'base_dir' => '/home/kent/perl/File-ShareDir-ProjectDistDir/File-ShareDir-ProjectDistDir-0.4.0',
+         'allow_mb_mismatch' => 0,
+         'xs_files' => undef,
+         'destdir' => undef,
+         'metafile' => 'META.yml',
+         'mb_version' => '0.4002',
+         'use_tap_harness' => 0,
+         'test_file_exts' => [
+                               '.t'
+                             ],
+         'has_config_data' => undef,
+         'dist_name' => 'File-ShareDir-ProjectDistDir',
+         'install_base' => undef,
+         'module_name' => 'File::ShareDir::ProjectDistDir',
+         'recursive_test_files' => 1,
+         'libdoc_dirs' => [
+                            'blib/lib',
+                            'blib/arch'
+                          ],
+         'perl' => '/home/kent/perl5/perlbrew/perls/perl-5.16.0/bin/perl',
+         'dist_author' => [
+                            'Kent Fredric <kentnl@cpan.org>'
+                          ],
+         'bundle_inc' => [],
+         'use_rcfile' => 1,
+         'configure_requires' => {
+                                   'Module::Build' => '0.4002'
+                                 },
+         'test_files' => undef,
+         'dist_abstract' => 'Simple set-and-forget using of a \'/share\' directory in your projects root',
+         'create_readme' => undef,
+         'prefix_relpaths' => {},
+         'share_dir' => undef,
+         'debug' => undef,
+         'meta_merge' => {},
+         'get_options' => {},
+         'dist_version_from' => undef,
+         '_added_to_INC' => [],
+         'auto_configure_requires' => 1,
+         'create_license' => undef,
+         'debugger' => undef,
+         'html_css' => '',
+         'cpan_client' => 'cpan',
+         'mymetafile2' => 'MYMETA.json',
+         'bundle_inc_preload' => [],
+         'build_elements' => [
+                               'PL',
+                               'support',
+                               'pm',
+                               'xs',
+                               'share_dir',
+                               'pod',
+                               'script'
+                             ],
+         'release_status' => 'stable',
+         'needs_compiler' => '',
+         'orig_dir' => '/home/kent/perl/File-ShareDir-ProjectDistDir/File-ShareDir-ProjectDistDir-0.4.0',
+         'include_dirs' => [],
+         'installdirs' => 'site',
+         'mymetafile' => 'MYMETA.yml',
+         'create_makefile_pl' => undef,
+         'magic_number' => undef,
+         'dynamic_config' => 1,
+         'install_sets' => {},
+         'tap_harness_args' => {},
+         'install_base_relpaths' => {},
+         'create_packlist' => 1,
+         'meta_add' => {},
+         'requires' => {
+                         'warnings' => 0,
+                         'strict' => 0,
+                         'perl' => '5.006',
+                         'File::ShareDir' => 0,
+                         'Sub::Exporter' => 0,
+                         'Path::Class::File' => 0,
+                         'Carp' => 0
+                       },
+         'install_path' => {},
+         'pm_files' => undef,
+         'quiet' => undef,
+         'extra_compiler_flags' => [],
+         'script_files' => [],
+         'build_script' => 'Build',
+         'original_prefix' => {},
+         'c_source' => undef,
+         'program_name' => undef,
+         'autosplit' => undef,
+         'license' => 'perl',
+         'build_requires' => {
+                               'Test::More' => '0.98',
+                               'FindBin' => 0,
+                               'File::Find' => 0,
+                               'File::Temp' => 0,
+                               'Module::Build' => '0.4002'
+                             },
+         'config' => undef,
+         'blib' => 'blib',
+         'prefix' => undef
+       }
+     ];
+$x; }
