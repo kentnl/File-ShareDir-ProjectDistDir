@@ -179,7 +179,7 @@ sub build_dist_file {
 	      require Carp;
 	      Carp::croak("Found dist_file '$path_s', but not a file");
 	    }
-	    if ( not -r $path ) {
+	    if ( not -r $path_s ) {
 	      require Carp;
 	      Carp::croak("File '$path_s', no read permissions");
 	    }
