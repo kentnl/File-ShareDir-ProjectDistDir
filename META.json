@@ -61,7 +61,7 @@
          "version" : "v0.3.3"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "homepage" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir",
       "repository" : {
@@ -407,7 +407,7 @@
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : "0"
+            "is_trial" : "1"
          },
          "version" : "4.300020"
       }

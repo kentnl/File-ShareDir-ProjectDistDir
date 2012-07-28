@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.3.3';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.3.3'; # TRIAL
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -58,13 +58,13 @@ sub import {
       undef $args[ $_ + 1 ];
       next;
     }
-    for my $setting (qw( projectdir filename distname pathclass )){
-	    if ( $key eq $setting and not ref $value ) {
-	      $defaults->{$setting} = $value;
-	      undef $args[$_];
-	      undef $args[ $_ + 1 ];
-	      last;
-	    }
+    for my $setting (qw( projectdir filename distname pathclass )) {
+      if ( $key eq $setting and not ref $value ) {
+        $defaults->{$setting} = $value;
+        undef $args[$_];
+        undef $args[ $_ + 1 ];
+        last;
+      }
     }
   }
 
@@ -114,8 +114,7 @@ sub build_dist_dir {
 
   my $pathclass;
   $pathclass = $col->{defaults}->{pathclass} if exists $col->{defaults}->{pathclass};
-  $pathclass = $arg->{pathclass} if exists $arg->{pathclass};
-
+  $pathclass = $arg->{pathclass}             if exists $arg->{pathclass};
 
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
 
@@ -123,26 +122,27 @@ sub build_dist_dir {
   $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
   $distname = $arg->{distname}             if $arg->{distname};
 
-
   # In dev
-  if ( $root ) {
-  	my $pathclass_method = sub { return $root->absolute };
-	return $pathclass_method if $pathclass;
-	return sub { return $pathclass_method->(@_)->stringify };
+  if ($root) {
+    my $pathclass_method = sub { return $root->absolute };
+    return $pathclass_method if $pathclass;
+    return sub { return $pathclass_method->(@_)->stringify };
   }
+
   # Non-Dev, no hardcoded distname
-  if( not $distname ){
-  	my $string_method = \&File::ShareDir::dist_dir;
-	return $string_method if not $pathclass;
-	return sub { return Path::Class::Dir->new( $string_method->(@_)); }
+  if ( not $distname ) {
+    my $string_method = \&File::ShareDir::dist_dir;
+    return $string_method if not $pathclass;
+    return sub { return Path::Class::Dir->new( $string_method->(@_) ); }
   }
+
   # Non-Dev, hardcoded distname
-  my $string_method  = sub() {
-		@_ = ($distname);
-		goto &File::ShareDir::dist_dir;
+  my $string_method = sub() {
+    @_ = ($distname);
+    goto &File::ShareDir::dist_dir;
   };
   return $string_method if not $pathclass;
-  return sub { return { Path::Class::Dir->new( $string_method ) } }
+  return sub { return { Path::Class::Dir->new($string_method) } }
 
 }
 
@@ -161,50 +161,48 @@ sub build_dist_file {
 
   my $pathclass;
   $pathclass = $col->{defaults}->{pathclass} if exists $col->{defaults}->{pathclass};
-  $pathclass = $arg->{pathclass} if exists $arg->{pathclass};
+  $pathclass = $arg->{pathclass}             if exists $arg->{pathclass};
 
-
-  if ( $root ){
+  if ($root) {
     my $pathclass_method = sub {
-	    my $file = ( $distname ? $_[0] : $_[1] );
+      my $file = ( $distname ? $_[0] : $_[1] );
 
-	    # if the caller is devel, then we return the project root,
-	    # regardless of what package you asked for.
-	    # Might be bad, but we haven't imagined the scenario where yet.
-	    my $path_o = $root->file($file)->absolute;
-	    my $path_s = $path_o->stringify;
-	    ## no critic ( ProhibitExplicitReturnUndef )
-	    return undef unless -e $path_s;
-	    if ( not -f $path_s ) {
-	      require Carp;
-	      Carp::croak("Found dist_file '$path_s', but not a file");
-	    }
-	    if ( not -r $path_s ) {
-	      require Carp;
-	      Carp::croak("File '$path_s', no read permissions");
-	    }
-	    return $path_o;
+      # if the caller is devel, then we return the project root,
+      # regardless of what package you asked for.
+      # Might be bad, but we haven't imagined the scenario where yet.
+      my $path_o = $root->file($file)->absolute;
+      my $path_s = $path_o->stringify;
+      ## no critic ( ProhibitExplicitReturnUndef )
+      return undef unless -e $path_s;
+      if ( not -f $path_s ) {
+        require Carp;
+        Carp::croak("Found dist_file '$path_s', but not a file");
+      }
+      if ( not -r $path_s ) {
+        require Carp;
+        Carp::croak("File '$path_s', no read permissions");
+      }
+      return $path_o;
     };
     return $pathclass_method if $pathclass;
     return sub { return $pathclass_method->(@_)->stringify };
   }
   if ( not $distname ) {
-     my $string_method = \&File::ShareDir::dist_file;
-     return $string_method if not $pathclass;
-     return sub { Path::Class::File->new( $string_method->(@_) ) };
+    my $string_method = \&File::ShareDir::dist_file;
+    return $string_method if not $pathclass;
+    return sub { Path::Class::File->new( $string_method->(@_) ) };
   }
-  my $string_method = sub($){
-      if ( @_ != 1 or not defined $_[0] ) {
-        require Carp;
-        Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
-      }
-      unshift @_, $distname;
-      goto &File::ShareDir::dist_file;
+  my $string_method = sub($) {
+    if ( @_ != 1 or not defined $_[0] ) {
+      require Carp;
+      Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
+    }
+    unshift @_, $distname;
+    goto &File::ShareDir::dist_file;
   };
   return $string_method if not $pathclass;
   return sub { Path::Class::File->new( $string_method->(@_) ) }
 }
-
 
 1;
 
