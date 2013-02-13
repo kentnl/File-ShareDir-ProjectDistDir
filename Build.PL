@@ -10,18 +10,18 @@ my %module_build_args = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "FindBin" => 0,
-    "Module::Build" => "0.4002",
+    "Module::Build" => "0.4003",
     "Test::More" => "0.98"
   },
   "configure_requires" => {
-    "Module::Build" => "0.4002"
+    "Module::Build" => "0.4003"
   },
   "dist_abstract" => "Simple set-and-forget using of a '/share' directory in your projects root",
   "dist_author" => [
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "File-ShareDir-ProjectDistDir",
-  "dist_version" => "0.4.0",
+  "dist_version" => "0.4.1",
   "license" => "perl",
   "module_name" => "File::ShareDir::ProjectDistDir",
   "recommends" => {},

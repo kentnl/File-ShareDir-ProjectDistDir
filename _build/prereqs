@@ -1,21 +1,21 @@
 do{ my $x = {
-       'build_requires' => {
-                             'Test::More' => '0.98',
-                             'FindBin' => 0,
-                             'File::Find' => 0,
-                             'File::Temp' => 0,
-                             'Module::Build' => '0.4002'
-                           },
        'conflicts' => {},
+       'recommends' => {},
+       'build_requires' => {
+                             'Module::Build' => '0.4003',
+                             'FindBin' => 0,
+                             'File::Temp' => 0,
+                             'File::Find' => 0,
+                             'Test::More' => '0.98'
+                           },
        'requires' => {
-                       'warnings' => 0,
                        'strict' => 0,
-                       'perl' => '5.006',
-                       'File::ShareDir' => 0,
                        'Sub::Exporter' => 0,
+                       'File::ShareDir' => 0,
+                       'warnings' => 0,
                        'Path::Class::File' => 0,
+                       'perl' => '5.006',
                        'Carp' => 0
-                     },
-       'recommends' => {}
+                     }
      };
 $x; }
