@@ -283,7 +283,7 @@ Import the dist_file method
 
     ->import( .... , projectdir => 'share' )
 
-Specify what the "project dir" is as a path relative to the base of your distributions source,
+Specify what the project directory is as a path relative to the base of your distributions source,
 and this directory will be used as a C<ShareDir> simulation path for the exported methods I<During development>.
 
 If not specified, the default value 'share' is used.
