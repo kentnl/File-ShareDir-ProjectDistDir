@@ -47,11 +47,13 @@ my ($exporter) = build_exporter(
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 if ( $ENV{$env_key} ) {
+  ## no critic (ProtectPrivateVars)
   *File::ShareDir::ProjectDistDir::_debug = sub ($) {
     *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
   };
 }
 else {
+  ## no critic (ProtectPrivateVars)
   *File::ShareDir::ProjectDistDir::_debug = sub ($) { }
 }
 

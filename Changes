@@ -1,6 +1,11 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [00 Noteable Changes]
+ - added basic debugging of the dev/prod determination logic, controlled by FILE_SHAREDIR_PROJECTDISTDIR_DEBUG=1
+
+ [Tests]
+ - added test case for Imagemagick
 
 0.4.2 2013-05-23T17:11:31Z
  [Bug Fixes]
