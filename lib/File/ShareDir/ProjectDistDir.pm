@@ -284,7 +284,7 @@ Import the dist_file method
     ->import( .... , projectdir => 'share' )
 
 Specify what the "project dir" is as a path relative to the base of your distributions source,
-and this directory will be used as a ShareDir simulation path for the exported methods I<During development>.
+and this directory will be used as a C<ShareDir> simulation path for the exported methods I<During development>.
 
 If not specified, the default value 'share' is used.
 
@@ -294,14 +294,14 @@ If not specified, the default value 'share' is used.
 
 Generally you don't want to set this, as its worked out by caller() to work out the name of
 the file its being called from. This file's path is walked up to find the 'lib' element with a sibling
-of the name of your 'projectdir'.
+of the name of your C<projectdir>.
 
 =item * B<C<distname>>
 
     ->import( .... , distname => 'somedistname' );
 
-Specifying this argument changes the way the functions are emitted at I<installed runtime>, so that instead of
-taking the standard arguments File::ShareDir does, the specification of the distname in those functions is eliminated.
+Specifying this argument changes the way the functions are emitted at I<installed C<runtime>>, so that instead of
+taking the standard arguments File::ShareDir does, the specification of the C<distname> in those functions is eliminated.
 
 ie:
 
