@@ -257,7 +257,7 @@ you install that, you specify the different directory there also ) as follows:
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses L< C<Sub::Exporter>|Sub::Exporter > to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
+This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
 
 =over 4
 
