@@ -303,7 +303,7 @@ of the name of your C<projectdir>.
 Specifying this argument changes the way the functions are emitted at I<installed C<runtime>>, so that instead of
 taking the standard arguments File::ShareDir does, the specification of the C<distname> in those functions is eliminated.
 
-ie:
+i.e:
 
     # without this flag
     use File::ShareDir::ProjectDistDir qw( :all );

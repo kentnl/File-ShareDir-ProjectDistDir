@@ -82,7 +82,7 @@ METHODS
         arguments File::ShareDir does, the specification of the "distname"
         in those functions is eliminated.
 
-        ie:
+        i.e:
 
             # without this flag
             use File::ShareDir::ProjectDistDir qw( :all );
