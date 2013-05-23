@@ -20,7 +20,7 @@ name: File-ShareDir-ProjectDistDir
 provides:
   File::ShareDir::ProjectDistDir:
     file: lib/File/ShareDir/ProjectDistDir.pm
-    version: v0.4.2
+    version: v0.4.3
 requires:
   Carp: 0
   File::ShareDir: 0
@@ -33,7 +33,7 @@ resources:
   bugtracker: https://github.com/kentfredric/File-ShareDir-ProjectDistDir/issues
   homepage: https://github.com/kentfredric/File-ShareDir-ProjectDistDir
   repository: https://github.com/kentfredric/File-ShareDir-ProjectDistDir.git
-version: 0.4.2
+version: 0.4.3
 x_BuiltWith:
   modules:
     Carp: 1.29
