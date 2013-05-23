@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.4.2';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.4.3';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -27,6 +27,17 @@ my ($exporter) = build_exporter(
     collectors => [ 'defaults', ],
   }
 );
+my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
+if ( $ENV{$env_key} ) {
+  ## no critic (ProtectPrivateVars)
+  *File::ShareDir::ProjectDistDir::_debug = sub ($) {
+    *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
+  };
+}
+else {
+  ## no critic (ProtectPrivateVars)
+  *File::ShareDir::ProjectDistDir::_debug = sub ($) { }
+}
 
 ## no critic (RequireArgUnpacking)
 
@@ -82,14 +93,18 @@ sub _devel_sharedir {
   my $dir  = $file->dir->absolute;
   my $root = File::Spec->rootdir();
 
+  _debug( 'Working on: ' . $filename );
+  _debug('Trying to find parent \'lib\'');
   ## no critic ( ProhibitMagicNumbers )
   while (1) {
     if ( $dir->dir_list(-1) eq 'lib' ) {
+      _debug( 'Found lib : ' . $dir );
       last;
     }
     if ( File::Spec->catdir( $dir->absolute->dir_list ) eq $root ) {
 
       #warn "Not a devel $dir, / hit";
+      _debug('ISPROD: Hit OS Root');
       return;
     }
     if ( $dir->dir_list(-1) ne 'lib' ) {
@@ -99,16 +114,20 @@ sub _devel_sharedir {
   my $devel_share_dir = $dir->parent()->subdir($subdir);
   if ( -d $devel_share_dir ) {
     if ( -d $devel_share_dir->subdir('ImageMagic-6') ) {
+
       # There's a quirk where a DuckDuckGo installed
       # ImageMagic in such a way that it created the
       # lib/../share
       # structure that we use as a marker of a "devel" dir,
       # which results in File::ShareDir::ProjectDistDir
       # completely failing for *all* modules installed in the lib/ path.
+      _debug( 'ISPROD: exists : lib/../' . $subdir . '/ImageMagic-6' );
       return;
     }
+    _debug( 'ISDEV : exists : lib/../' . $subdir . ' > ' . $devel_share_dir );
     return $dir->parent()->subdir($subdir);
   }
+  _debug( 'ISPROD: does not exist : lib/../' . $subdir . ' > ' . $devel_share_dir );
 
   #warn "Not a devel $dir";
   return;
@@ -226,7 +245,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.4.2
+version 0.4.3
 
 =head1 SYNOPSIS
 

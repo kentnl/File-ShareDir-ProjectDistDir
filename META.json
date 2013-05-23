@@ -64,7 +64,7 @@
    "provides" : {
       "File::ShareDir::ProjectDistDir" : {
          "file" : "lib/File/ShareDir/ProjectDistDir.pm",
-         "version" : "v0.4.2"
+         "version" : "v0.4.3"
       }
    },
    "release_status" : "stable",
@@ -79,7 +79,7 @@
          "web" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir"
       }
    },
-   "version" : "0.4.2",
+   "version" : "0.4.3",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.29",
