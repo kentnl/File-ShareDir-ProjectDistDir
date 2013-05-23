@@ -1,7 +1,38 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+0.4.2 2013-05-23T17:11:31Z
+ [Bug Fixes]
+ - workaround for a user-installation that created a 'share' dir as a
+   sibling of a 'lib' dir, which falsely lead us to believe the 'lib' dir
+   was a "development lib dir", caused by a user installing ImageMagic
+   wrongly.
+ - This is only really a temporary solution, in lieu of better debugging
+   diagnostics.
+
+ [Dependencies::Added / develop requires]
+ - Test::CPAN::Changes 0.19
+
+ [Dependencies::Changed / build requires]
+ - Module::Build 0.4003 → 0.4005
+
+ [Dependencies::Changed / configure requires]
+ - Module::Build 0.4003 → 0.4005
+
+ [Dependencies::Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.7.0 → v1.7.3
+
+ [Packaging]
+ - use MB 0.4004 test_requires
+
 0.4.1 2013-02-13T23:17:46Z
  - No significant changes from 0.4.0, but non-trial
+
+ [Dependencies::Added / develop requires]
+ - Pod::Coverage::TrustPod
+ - Test::CPAN::Meta
+ - Test::Pod 1.41
+ - Test::Pod::Coverage 1.08
+ - version 0.9901
 
  [Dependencies::Changed / build requires]
  - Module::Build 0.4002 → 0.4003
@@ -10,14 +41,7 @@
  - Module::Build 0.4002 → 0.4003
 
  [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.4.2 → v.1.7.0
-
- [Dependencies::New / develop requires]
- - Pod::Coverage::TrustPod
- - Test::CPAN::Meta
- - Test::Pod 1.41
- - Test::Pod::Coverage 1.08
- - version 0.9901
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.4.2 → v1.7.0
 
  [Documentation]
  - update copyright year
@@ -26,12 +50,17 @@
  - bugtracker moved to github issues
 
 0.4.0 2012-07-28T21:54:15Z
- [Dependencies::Changed]
- - build requires : Module::Build 0.3601 -> 0.4002
- - configure requires : Module::Build 0.3601 -> 0.4002
- - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
-   v1.3.0 -> v1.4.2
- - test requires : Test::More 0.96 -> 0.98
+ [Dependencies::Changed / build requires]
+ - Module::Build 0.3601 → 0.4002
+
+ [Dependencies::Changed / configure requires]
+ - Module::Build 0.3601 → 0.4002
+
+ [Dependencies::Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.3.0 → v1.4.2
+
+ [Dependencies::Changed / test requires]
+ - Test::More 0.96 → 0.98
 
  [Features]
  - now can specify 'pathclass => 1' in various places and get Path::Class
@@ -49,11 +78,11 @@
    this still is a problem, I'll use $dir->parent eq $dir being the loop
    terminator.
 
- [Dependencies::Changed]
- - develop recommends : Dist::Zilla::PluginBundle::Author::KENTNL::Lite
-   0.01009803 -> v1.3.0
- - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
-   v1.2.0 -> v1.3.0
+ [Dependencies::Changed / develop recommends]
+ - Dist::Zilla::PluginBundle::Author::KENTNL::Lite 0.01009803 → v1.3.0
+
+ [Dependencies::Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.2.0 → v1.3.0
 
 0.3.1 2012-03-07T03:57:06Z
  [00 Summary]
@@ -62,8 +91,8 @@
    via 'use version', so this is somewhat experimental consideration of
    that fact.
 
- [Dependencies::Changed]
- - runtime requires: perl 5.10 -> perl 5.006
+ [Dependencies::Changed / runtime requires]
+ - perl v5.10.0 → 5.006
 
 0.3.0 2012-03-05T05:27:43Z
  [00 Noteworthy Changes]
@@ -71,12 +100,11 @@
  - greatly enhanced documentation
  - supports 'projectdir' on a per-export level.
 
- [Dependencies::Changed]
- - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
-   v1.0.0 -> v1.2.0
+ [Dependencies::Added / runtime requires]
+ - perl v5.10.0
 
- [Dependencies::New]
- - runtime requires : perl 5.10.1
+ [Dependencies::Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.0.0 → v1.2.0
 
  [Documentation]
  - verbosely detailed the workings of the import method and its helper
@@ -95,13 +123,12 @@
  - t/06_distname.t
 
 0.2.0 2011-10-15T02:08:29Z
- [Dependencies::New]
- - Now declares a dependency on strict/warnings, but you probably didn't
-   care. Its all DZils' fault.
+ [Dependencies::Added / runtime requires]
+ - strict
+ - warnings
 
- [Dependencies::Removed]
- - The useless dependency on `English` is gone from test-deps, as that test
-   is no longer run for endusers.
+ [Dependencies::Removed / test requires]
+ - English
 
  [Features]
  - Custom Project Dir:

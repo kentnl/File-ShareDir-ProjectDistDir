@@ -10,7 +10,7 @@ allow_includes = 1
 [CodeLayout::ProhibitTrailingWhitespace]
 
 [Documentation::PodSpelling]
-stop_words =
+stop_words = maximised
 
 [Subroutines::ProhibitUnusedPrivateSubroutines]
 private_name_regex = _(?!build_)\w

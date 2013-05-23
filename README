@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 0.4.1
+    version 0.4.2
 
 SYNOPSIS
       package An::Example::Package;
@@ -57,9 +57,9 @@ METHODS
 
             ->import( .... , projectdir => 'share' )
 
-        Specify what the "project dir" is as a path relative to the base of
-        your distributions source, and this directory will be used as a
-        ShareDir simulation path for the exported methods *During
+        Specify what the project directory is as a path relative to the base
+        of your distributions source, and this directory will be used as a
+        "ShareDir" simulation path for the exported methods *During
         development*.
 
         If not specified, the default value 'share' is used.
@@ -71,18 +71,18 @@ METHODS
         Generally you don't want to set this, as its worked out by caller()
         to work out the name of the file its being called from. This file's
         path is walked up to find the 'lib' element with a sibling of the
-        name of your 'projectdir'.
+        name of your "projectdir".
 
     *   "distname"
 
             ->import( .... , distname => 'somedistname' );
 
         Specifying this argument changes the way the functions are emitted
-        at *installed runtime*, so that instead of taking the standard
-        arguments File::ShareDir does, the specification of the distname in
-        those functions is eliminated.
+        at *installed "runtime"*, so that instead of taking the standard
+        arguments File::ShareDir does, the specification of the "distname"
+        in those functions is eliminated.
 
-        ie:
+        i.e:
 
             # without this flag
             use File::ShareDir::ProjectDistDir qw( :all );

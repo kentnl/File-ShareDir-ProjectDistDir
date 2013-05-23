@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.4.1';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.4.2';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -96,7 +96,17 @@ sub _devel_sharedir {
       $dir = $dir->parent;
     }
   }
-  if ( -d $dir->parent()->subdir($subdir) ) {
+  my $devel_share_dir = $dir->parent()->subdir($subdir);
+  if ( -d $devel_share_dir ) {
+    if ( -d $devel_share_dir->subdir('ImageMagic-6') ) {
+      # There's a quirk where a DuckDuckGo installed
+      # ImageMagic in such a way that it created the
+      # lib/../share
+      # structure that we use as a marker of a "devel" dir,
+      # which results in File::ShareDir::ProjectDistDir
+      # completely failing for *all* modules installed in the lib/ path.
+      return;
+    }
     return $dir->parent()->subdir($subdir);
   }
 
@@ -216,7 +226,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.4.1
+version 0.4.2
 
 =head1 SYNOPSIS
 
@@ -247,7 +257,7 @@ you install that, you specify the different directory there also ) as follows:
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses L< C<Sub::Exporter>|Sub::Exporter > to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
+This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
 
 =over 4
 
@@ -273,8 +283,8 @@ Import the dist_file method
 
     ->import( .... , projectdir => 'share' )
 
-Specify what the "project dir" is as a path relative to the base of your distributions source,
-and this directory will be used as a ShareDir simulation path for the exported methods I<During development>.
+Specify what the project directory is as a path relative to the base of your distributions source,
+and this directory will be used as a C<ShareDir> simulation path for the exported methods I<During development>.
 
 If not specified, the default value 'share' is used.
 
@@ -284,16 +294,16 @@ If not specified, the default value 'share' is used.
 
 Generally you don't want to set this, as its worked out by caller() to work out the name of
 the file its being called from. This file's path is walked up to find the 'lib' element with a sibling
-of the name of your 'projectdir'.
+of the name of your C<projectdir>.
 
 =item * B<C<distname>>
 
     ->import( .... , distname => 'somedistname' );
 
-Specifying this argument changes the way the functions are emitted at I<installed runtime>, so that instead of
-taking the standard arguments File::ShareDir does, the specification of the distname in those functions is eliminated.
+Specifying this argument changes the way the functions are emitted at I<installed C<runtime>>, so that instead of
+taking the standard arguments File::ShareDir does, the specification of the C<distname> in those functions is eliminated.
 
-ie:
+i.e:
 
     # without this flag
     use File::ShareDir::ProjectDistDir qw( :all );
