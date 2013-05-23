@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 0.4.1
+    version 0.4.2
 
 SYNOPSIS
       package An::Example::Package;
@@ -229,4 +229,11 @@ COPYRIGHT AND LICENSE
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
+
+POD ERRORS
+    Hey! The above document had some coding errors, which are explained
+    below:
+
+    Around line 260:
+        L<> starts or ends with whitespace
 
