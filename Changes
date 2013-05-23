@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+0.4.2 2013-05-23T17:11:31Z
  [Bug Fixes]
  - workaround for a user-installation that created a 'share' dir as a
    sibling of a 'lib' dir, which falsely lead us to believe the 'lib' dir
