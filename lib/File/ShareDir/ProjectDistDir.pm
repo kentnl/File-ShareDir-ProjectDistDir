@@ -219,7 +219,17 @@ sub _devel_sharedir {
       $dir = $dir->parent;
     }
   }
-  if ( -d $dir->parent()->subdir($subdir) ) {
+  my $devel_share_dir = $dir->parent()->subdir($subdir);
+  if ( -d $devel_share_dir ) {
+    if ( -d $devel_share_dir->subdir('ImageMagic-6') ) {
+      # There's a quirk where a DuckDuckGo installed
+      # ImageMagic in such a way that it created the
+      # lib/../share
+      # structure that we use as a marker of a "devel" dir,
+      # which results in File::ShareDir::ProjectDistDir
+      # completely failing for *all* modules installed in the lib/ path.
+      return;
+    }
     return $dir->parent()->subdir($subdir);
   }
 
