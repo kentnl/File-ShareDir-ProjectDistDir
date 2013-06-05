@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.4.3';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.4.4';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -113,17 +113,6 @@ sub _devel_sharedir {
   }
   my $devel_share_dir = $dir->parent()->subdir($subdir);
   if ( -d $devel_share_dir ) {
-    if ( -d $devel_share_dir->subdir('ImageMagic-6') ) {
-
-      # There's a quirk where a DuckDuckGo installed
-      # ImageMagic in such a way that it created the
-      # lib/../share
-      # structure that we use as a marker of a "devel" dir,
-      # which results in File::ShareDir::ProjectDistDir
-      # completely failing for *all* modules installed in the lib/ path.
-      _debug( 'ISPROD: exists : lib/../' . $subdir . '/ImageMagic-6' );
-      return;
-    }
     _debug( 'ISDEV : exists : lib/../' . $subdir . ' > ' . $devel_share_dir );
     return $dir->parent()->subdir($subdir);
   }
@@ -245,7 +234,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.4.3
+version 0.4.4
 
 =head1 SYNOPSIS
 
@@ -461,6 +450,15 @@ a path to the development directories 'share' directory. In non-development envi
 C<File::ShareDir::dist_file>.
 
 Caveats as a result of package-name as stated in L</build_dist_dir> also apply to this method.
+
+=begin MetaPOD::JSON v1.0.0
+
+{
+    "namespace":"File::ShareDir::ProjectDistDir"
+}
+
+
+=end MetaPOD::JSON
 
 =head1 AUTHOR
 

@@ -4,7 +4,7 @@
       "Kent Fredric <kentnl@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.131490",
    "license" : [
       "perl_5"
    ],
@@ -64,7 +64,7 @@
    "provides" : {
       "File::ShareDir::ProjectDistDir" : {
          "file" : "lib/File/ShareDir/ProjectDistDir.pm",
-         "version" : "v0.4.3"
+         "version" : "v0.4.4"
       }
    },
    "release_status" : "stable",
@@ -79,7 +79,7 @@
          "web" : "https://github.com/kentfredric/File-ShareDir-ProjectDistDir"
       }
    },
-   "version" : "0.4.3",
+   "version" : "0.4.4",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.29",
@@ -328,7 +328,7 @@
          {
             "class" : "Dist::Zilla::Plugin::ReadmeAnyFromPod",
             "name" : "@Author::KENTNL/ReadmeAnyFromPod",
-            "version" : "0.120120"
+            "version" : "0.131500"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::CPAN::Changes",
