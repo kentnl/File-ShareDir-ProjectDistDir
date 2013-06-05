@@ -5,6 +5,14 @@ package File::ShareDir::ProjectDistDir;
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
+=begin MetaPOD::JSON v1.0.0
+
+{
+    "namespace":"File::ShareDir::ProjectDistDir"
+}
+
+=end MetaPOD::JSON
+
 =head1 SYNOPSIS
 
   package An::Example::Package;
