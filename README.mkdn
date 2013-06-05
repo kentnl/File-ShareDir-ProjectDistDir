@@ -4,7 +4,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 # VERSION
 
-version 0.4.3
+version 0.4.4
 
 # SYNOPSIS
 
@@ -216,6 +216,12 @@ a path to the development directories 'share' directory. In non-development envi
 `File::ShareDir::dist_file`.
 
 Caveats as a result of package-name as stated in ["build\_dist\_dir"](#build\_dist\_dir) also apply to this method.
+
+{
+    "namespace":"File::ShareDir::ProjectDistDir"
+}
+
+
 
 # AUTHOR
 

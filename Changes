@@ -1,10 +1,17 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [00 Noteable Changes]
+ - Edge Case logic that was added in 0.4.2 removed.
+ - Test for edgecase that was added in 0.4.3 removed.
+
+ [Documentation]
+ - Basic MetaPOD information added.
 
 0.4.3 2013-05-23T18:29:12Z
  [00 Noteable Changes]
- - added basic debugging of the dev/prod determination logic, controlled by FILE_SHAREDIR_PROJECTDISTDIR_DEBUG=1
+ - added basic debugging of the dev/prod determination logic, controlled by
+   FILE_SHAREDIR_PROJECTDISTDIR_DEBUG=1
 
  [Tests]
  - added test case for Imagemagick
