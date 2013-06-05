@@ -1,5 +1,7 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+0.4.4 2013-06-05T17:04:23Z
+
 0.4.3 2013-05-23T18:29:12Z
  [00 Noteable Changes]
  - added basic debugging of the dev/prod determination logic, controlled by FILE_SHAREDIR_PROJECTDISTDIR_DEBUG=1

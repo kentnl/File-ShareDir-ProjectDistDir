@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.4.3';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.4.4';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -245,7 +245,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.4.3
+version 0.4.4
 
 =head1 SYNOPSIS
 
@@ -461,6 +461,15 @@ a path to the development directories 'share' directory. In non-development envi
 C<File::ShareDir::dist_file>.
 
 Caveats as a result of package-name as stated in L</build_dist_dir> also apply to this method.
+
+=begin MetaPOD::JSON v1.0.0
+
+{
+    "namespace":"File::ShareDir::ProjectDistDir"
+}
+
+
+=end MetaPOD::JSON
 
 =head1 AUTHOR
 
