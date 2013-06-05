@@ -37,12 +37,6 @@ t/06_files/develdir/lib/Example_05.pm
 t/06_files/develdir/share/file
 t/06_files/installdir/lib/Example_04.pm
 t/06_files/installdir/lib/auto/share/dist/Example_04/file
-t/07_files/develdir/lib/Example_05.pm
-t/07_files/develdir/share/file
-t/07_files/installdir/lib/Example_04.pm
-t/07_files/installdir/lib/auto/share/dist/Example_04/file
-t/07_files/installdir/share/ImageMagic-6/.keep
-t/07_imagemagick.t
 weaver.ini
 xt/author/critic.t
 xt/release/cpan-changes.t
