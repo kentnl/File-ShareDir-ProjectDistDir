@@ -143,7 +143,7 @@ sub _wrap_return {
     require Path::Class::File;
     return Path::Class::File->new("$value");
   }
-  die "Unknown return type $type";
+  return _croak("Unknown return type $type");
 }
 
 sub build_dist_dir {
