@@ -274,10 +274,10 @@ SIGNIFICANT CHANGES
         Which would mean any module calling itself "lib::*" would be unable
         to use this module.
 
-        So instead, as of 0.5.0, the heuristic revolves around certain
-        specific files being in the "dev" directory.
+    So instead, as of 0.5.0, the heuristic revolves around certain specific
+    files being in the "dev" directory.
 
-        Which is hopefully a more fault resilient mechanism.
+    Which is hopefully a more fault resilient mechanism.
 
    New Return Types
     Starting with 0.5.0, the internals are now based on "Path::Tiny" instead
@@ -311,11 +311,4 @@ COPYRIGHT AND LICENSE
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
-
-POD ERRORS
-    Hey! The above document had some coding errors, which are explained
-    below:
-
-    Around line 531:
-        You forgot a '=back' before '=head3'
 

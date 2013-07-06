@@ -524,6 +524,8 @@ Or similar, and instantly, you have:
 
 Which would mean any module calling itself C<lib::*> would be unable to use this module.
 
+=back
+
 So instead, as of C<0.5.0>, the heuristic revolves around certain specific files being in the C<dev> directory.
 
 Which is hopefully a more fault resilient mechanism.
