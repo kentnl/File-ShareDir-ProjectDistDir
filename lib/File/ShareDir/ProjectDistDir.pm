@@ -302,25 +302,6 @@ sub import {
   goto $exporter;
 }
 
-sub _devel_sharedir {
-  my ( $filename, $subdir ) = @_;
-
-  _debug( 'Working on: ' . $filename );
-  my $dev = find_dev( _path($filename)->parent );
-
-  return if not defined $dev;
-
-  my $devel_share_dir = $dev->child($subdir);
-  if ( -d $devel_share_dir ) {
-    _debug( 'ISDEV : exists : <devroot>/' . $subdir . ' > ' . $devel_share_dir );
-    return $devel_share_dir;
-  }
-  _debug( 'ISPROD: does not exist : <devroot>/' . $subdir . ' > ' . $devel_share_dir );
-
-  #warn "Not a devel $dir";
-  return;
-}
-
 =method build_dist_dir
 
     use File::ShareDir::ProjectDirDir ( : all );
@@ -375,62 +356,32 @@ sub _get_defaults {
   return $result;
 }
 
-sub _wrap_return {
-  my ( $type, $value ) = @_;
-  if ( not $type ) {
-    return $value unless ref $value;
-    return "$value";
-  }
-  if ( $type eq 'pathtiny' ) {
-    return $value if ref $value eq 'Path::Tiny';
-    return Path::Tiny::path($value);
-  }
-  if ( $type eq 'pathclassdir' ) {
-    return $value if ref $value eq 'Path::Class::Dir';
-    require Path::Class::Dir;
-    return Path::Class::Dir->new("$value");
-  }
-  if ( $type eq 'pathclassfile' ) {
-    return $value if ref $value eq 'Path::Class::File';
-    require Path::Class::File;
-    return Path::Class::File->new("$value");
-  }
-  return _croak("Unknown return type $type");
-}
+use File::ShareDir::ProjectDistDir::Core;
 
 sub build_dist_dir {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $projectdir = _get_defaults( projectdir => $arg, $col );
-  my $pathclass  = _get_defaults( pathclass  => $arg, $col );
-  my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
+  my $state = File::ShareDir::ProjectDistDir::Core->new(
+    {
+      for_file   => $col->{defaults}->{filename},
+      share_root => _get_defaults( projectdir => $arg, $col )
+    }
+  );
 
-  my $wrap_return_type;
-
-  if ($pathclass) { $wrap_return_type = 'pathclassdir' }
-  if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
-
-  my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
+  # In dev
+  if ( $state->share_dir ) {
+    return sub { return $state->share_dir . "" };
+  }
 
   my $distname = _get_defaults( distname => $arg, $col );
 
-  # In dev
-  if ($root) {
-    return sub { return _wrap_return( $wrap_return_type, $root ) };
-  }
-
   # Non-Dev, no hardcoded distname
   if ( not $distname ) {
-    my $string_method = \&File::ShareDir::dist_dir;
-    return sub { return _wrap_return( $wrap_return_type, $string_method->(@_) ) };
+    return sub { return File::ShareDir::dist_dir(@_) };
   }
 
   # Non-Dev, hardcoded distname
-  my $string_method = sub() {
-    @_ = ($distname);
-    goto &File::ShareDir::dist_dir;
-  };
-  return sub { return _wrap_return( $wrap_return_type, $string_method->(@_) ) };
+  return sub { return File::ShareDir::dist_dir( $distname, @_ ) };
 }
 
 =method build_dist_file
@@ -483,55 +434,31 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 sub build_dist_file {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $projectdir = _get_defaults( projectdir => $arg, $col );
-  my $pathclass  = _get_defaults( pathclass  => $arg, $col );
-  my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
-
-  my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
+  my $state = File::ShareDir::ProjectDistDir::Core->new(
+    {
+      for_file   => $col->{defaults}->{filename},
+      share_root => _get_defaults( projectdir => $arg, $col )
+    }
+  );
 
   my $distname = _get_defaults( distname => $arg, $col );
 
-  my $wrap_return_type;
-
-  if ($pathclass) { $wrap_return_type = 'pathclassfile' }
-  if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
-
-  if ($root) {
-    my $pathclass_method = sub {
-      my $file = ( $distname ? $_[0] : $_[1] );
-
-      # if the caller is devel, then we return the project root,
-      # regardless of what package you asked for.
-      # Might be bad, but we haven't imagined the scenario where yet.
-      my $path_o = $root->child($file)->absolute;
-      my $path_s = $path_o->stringify;
-      ## no critic ( ProhibitExplicitReturnUndef )
-      return undef unless -e $path_s;
-      if ( not -f $path_s ) {
-        return _croak("Found dist_file '$path_s', but not a file");
-      }
-      if ( not -r $path_s ) {
-        return _croak("File '$path_s', no read permissions");
-      }
-      return $path_o;
-    };
-    return sub {
-      return _wrap_return( $wrap_return_type, $pathclass_method->(@_) );
-    };
+  # in dev
+  if ( $state->share_dir ) {
+    if ($distname) {
+      return sub { $state->share_dir_file( $_[0] ) };
+    }
+    return sub { $state->share_dir_file( $_[1] ) };
   }
+
   if ( not $distname ) {
-    my $string_method = \&File::ShareDir::dist_file;
-    return sub { return _wrap_return( $wrap_return_type, $string_method->(@_) ) };
+    return sub { return File::ShareDir::dist_file(@_) };
   }
-  my $string_method = sub($) {
+  return sub {
     if ( @_ != 1 or not defined $_[0] ) {
       return _croak('dist_file takes only one argument,a filename, due to distname being specified during import');
     }
-    unshift @_, $distname;
-    goto &File::ShareDir::dist_file;
-  };
-  return sub {
-    return _wrap_return( $wrap_return_type, $string_method->(@_) );
+    return File::ShareDir::dist_file( $distname, @_ );
   };
 }
 
