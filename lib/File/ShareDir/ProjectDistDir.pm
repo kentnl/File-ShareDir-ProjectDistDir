@@ -52,7 +52,7 @@ C<lib> and C<share> based heuristics were a little fragile, for a few reasons:
 
 =over 4
 
-=item * C<lib> can, and does appear all over unix file systems, for purposes B<other> than development project roots.
+=item * C<lib> can, and does appear all over UNIX file systems, for purposes B<other> than development project roots.
 
 For instance, have a look in C</usr/>
 
@@ -62,7 +62,7 @@ For instance, have a look in C</usr/>
 
 This would have the very bad side effect of anything installed in C</usr/lib> thinking its "in development".
 
-Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symlink on most x86_64 systems.
+Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symbolic link on most x86_64 systems.
 
 =item * C<lib> is also reasonably common within C<CPAN> package names.
 
@@ -70,7 +70,7 @@ For instance:
 
     lib::abs
 
-Which means you'll have a heirarchy like:
+Which means you'll have a hierarchy like:
 
     $PREFIX/lib/lib/abs
 
@@ -84,6 +84,8 @@ Or similar, and instantly, you have:
     $PREFIX/lib/share/
 
 Which would mean any module calling itself C<lib::*> would be unable to use this module.
+
+=back
 
 So instead, as of C<0.5.0>, the heuristic revolves around certain specific files being in the C<dev> directory.
 
@@ -108,7 +110,7 @@ Now you can also get C<Path::Tiny> objects back, by passing:
 
 For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
 
-( In fact, I may even make 2 specific subclasses of PDD for people who want objects back, as it will make the API and the code much cleaner )
+( In fact, I may even make 2 specific subclasses of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
 
 =cut
 
@@ -393,7 +395,7 @@ sub _wrap_return {
     require Path::Class::File;
     return Path::Class::File->new("$value");
   }
-  die "Unknown return type $type";
+  return _croak("Unknown return type $type");
 }
 
 sub build_dist_dir {
