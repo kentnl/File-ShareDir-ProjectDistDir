@@ -6,15 +6,16 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.4.4';
+  $File::ShareDir::ProjectDistDir::VERSION = '0.5.0'; # TRIAL
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
 
 use Path::Class::File;
+use Path::IsDev qw();
+use Path::FindDev qw(find_dev);
 use Sub::Exporter qw(build_exporter);
-
 use File::ShareDir qw();
 
 my ($exporter) = build_exporter(
@@ -28,11 +29,14 @@ my ($exporter) = build_exporter(
   }
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
+
 if ( $ENV{$env_key} ) {
   ## no critic (ProtectPrivateVars)
   *File::ShareDir::ProjectDistDir::_debug = sub ($) {
     *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
   };
+  $Path::IsDev::DEBUG   = 1;
+  $Path::FindDev::DEBUG = 1;
 }
 else {
   ## no critic (ProtectPrivateVars)
@@ -40,6 +44,10 @@ else {
 }
 
 ## no critic (RequireArgUnpacking)
+sub _croak         { require Carp;              goto &Carp::croak }
+sub _path          { require Path::Tiny;        goto &Path::Tiny::path }
+sub _pathclassfile { require Path::Class::File; return Path::Class::File->new(@_) }
+sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_) }
 
 
 sub import {
@@ -69,7 +77,7 @@ sub import {
       undef $args[ $_ + 1 ];
       next;
     }
-    for my $setting (qw( projectdir filename distname pathclass )) {
+    for my $setting (qw( projectdir filename distname pathclass pathtiny )) {
       if ( $key eq $setting and not ref $value ) {
         $defaults->{$setting} = $value;
         undef $args[$_];
@@ -89,69 +97,80 @@ sub import {
 
 sub _devel_sharedir {
   my ( $filename, $subdir ) = @_;
-  my $file = Path::Class::File->new($filename);
-  my $dir  = $file->dir->absolute;
-  my $root = File::Spec->rootdir();
 
   _debug( 'Working on: ' . $filename );
-  _debug('Trying to find parent \'lib\'');
-  ## no critic ( ProhibitMagicNumbers )
-  while (1) {
-    if ( $dir->dir_list(-1) eq 'lib' ) {
-      _debug( 'Found lib : ' . $dir );
-      last;
-    }
-    if ( File::Spec->catdir( $dir->absolute->dir_list ) eq $root ) {
+  my $dev = find_dev( _path($filename)->parent );
 
-      #warn "Not a devel $dir, / hit";
-      _debug('ISPROD: Hit OS Root');
-      return;
-    }
-    if ( $dir->dir_list(-1) ne 'lib' ) {
-      $dir = $dir->parent;
-    }
-  }
-  my $devel_share_dir = $dir->parent()->subdir($subdir);
+  return if not defined $dev;
+
+  my $devel_share_dir = $dev->child($subdir);
   if ( -d $devel_share_dir ) {
-    _debug( 'ISDEV : exists : lib/../' . $subdir . ' > ' . $devel_share_dir );
-    return $dir->parent()->subdir($subdir);
+    _debug( 'ISDEV : exists : <devroot>/' . $subdir . ' > ' . $devel_share_dir );
+    return $devel_share_dir;
   }
-  _debug( 'ISPROD: does not exist : lib/../' . $subdir . ' > ' . $devel_share_dir );
+  _debug( 'ISPROD: does not exist : <devroot>/' . $subdir . ' > ' . $devel_share_dir );
 
   #warn "Not a devel $dir";
   return;
 }
 
 
+sub _get_defaults {
+  my ( $field, $arg, $col ) = @_;
+  my $result;
+  $result = $col->{defaults}->{$field} if $col->{defaults}->{$field};
+  $result = $arg->{$field}             if $arg->{$field};
+  return $result;
+}
+
+sub _wrap_return {
+  my ( $type, $value ) = @_;
+  if ( not $type ) {
+    return $value unless ref $value;
+    return "$value";
+  }
+  if ( $type eq 'pathtiny' ) {
+    return $value if ref $value eq 'Path::Tiny';
+    return Path::Tiny::path($value);
+  }
+  if ( $type eq 'pathclassdir' ) {
+    return $value if ref $value eq 'Path::Class::Dir';
+    require Path::Class::Dir;
+    return Path::Class::Dir->new("$value");
+  }
+  if ( $type eq 'pathclassfile' ) {
+    return $value if ref $value eq 'Path::Class::File';
+    require Path::Class::File;
+    return Path::Class::File->new("$value");
+  }
+  return _croak("Unknown return type $type");
+}
+
 sub build_dist_dir {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $projectdir;
-  $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
-  $projectdir = $arg->{projectdir}             if $arg->{projectdir};
+  my $projectdir = _get_defaults( projectdir => $arg, $col );
+  my $pathclass  = _get_defaults( pathclass  => $arg, $col );
+  my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
 
-  my $pathclass;
-  $pathclass = $col->{defaults}->{pathclass} if exists $col->{defaults}->{pathclass};
-  $pathclass = $arg->{pathclass}             if exists $arg->{pathclass};
+  my $wrap_return_type;
+
+  if ($pathclass) { $wrap_return_type = 'pathclassdir' }
+  if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
 
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
 
-  my $distname;
-  $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
-  $distname = $arg->{distname}             if $arg->{distname};
+  my $distname = _get_defaults( distname => $arg, $col );
 
   # In dev
   if ($root) {
-    my $pathclass_method = sub { return $root->absolute };
-    return $pathclass_method if $pathclass;
-    return sub { return $pathclass_method->(@_)->stringify };
+    return sub { return _wrap_return( $wrap_return_type, $root ) };
   }
 
   # Non-Dev, no hardcoded distname
   if ( not $distname ) {
     my $string_method = \&File::ShareDir::dist_dir;
-    return $string_method if not $pathclass;
-    return sub { return Path::Class::Dir->new( $string_method->(@_) ); }
+    return sub { return _wrap_return( $wrap_return_type, $string_method->(@_) ) };
   }
 
   # Non-Dev, hardcoded distname
@@ -159,27 +178,25 @@ sub build_dist_dir {
     @_ = ($distname);
     goto &File::ShareDir::dist_dir;
   };
-  return $string_method if not $pathclass;
-  return sub { return { Path::Class::Dir->new($string_method) } }
-
+  return sub { return _wrap_return( $wrap_return_type, $string_method->(@_) ) };
 }
 
 
 sub build_dist_file {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $projectdir;
-  $projectdir = $col->{defaults}->{projectdir} if $col->{defaults}->{projectdir};
-  $projectdir = $arg->{projectdir}             if $arg->{projectdir};
+  my $projectdir = _get_defaults( projectdir => $arg, $col );
+  my $pathclass  = _get_defaults( pathclass  => $arg, $col );
+  my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
 
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
-  my $distname;
-  $distname = $col->{defaults}->{distname} if $col->{defaults}->{distname};
-  $distname = $arg->{distname}             if $arg->{distname};
 
-  my $pathclass;
-  $pathclass = $col->{defaults}->{pathclass} if exists $col->{defaults}->{pathclass};
-  $pathclass = $arg->{pathclass}             if exists $arg->{pathclass};
+  my $distname = _get_defaults( distname => $arg, $col );
+
+  my $wrap_return_type;
+
+  if ($pathclass) { $wrap_return_type = 'pathclassfile' }
+  if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
 
   if ($root) {
     my $pathclass_method = sub {
@@ -188,38 +205,36 @@ sub build_dist_file {
       # if the caller is devel, then we return the project root,
       # regardless of what package you asked for.
       # Might be bad, but we haven't imagined the scenario where yet.
-      my $path_o = $root->file($file)->absolute;
+      my $path_o = $root->child($file)->absolute;
       my $path_s = $path_o->stringify;
       ## no critic ( ProhibitExplicitReturnUndef )
       return undef unless -e $path_s;
       if ( not -f $path_s ) {
-        require Carp;
-        Carp::croak("Found dist_file '$path_s', but not a file");
+        return _croak("Found dist_file '$path_s', but not a file");
       }
       if ( not -r $path_s ) {
-        require Carp;
-        Carp::croak("File '$path_s', no read permissions");
+        return _croak("File '$path_s', no read permissions");
       }
       return $path_o;
     };
-    return $pathclass_method if $pathclass;
-    return sub { return $pathclass_method->(@_)->stringify };
+    return sub {
+      return _wrap_return( $wrap_return_type, $pathclass_method->(@_) );
+    };
   }
   if ( not $distname ) {
     my $string_method = \&File::ShareDir::dist_file;
-    return $string_method if not $pathclass;
-    return sub { Path::Class::File->new( $string_method->(@_) ) };
+    return sub { return _wrap_return( $wrap_return_type, $string_method->(@_) ) };
   }
   my $string_method = sub($) {
     if ( @_ != 1 or not defined $_[0] ) {
-      require Carp;
-      Carp::croak('dist_file takes only one argument,a filename, due to distname being specified during import');
+      return _croak('dist_file takes only one argument,a filename, due to distname being specified during import');
     }
     unshift @_, $distname;
     goto &File::ShareDir::dist_file;
   };
-  return $string_method if not $pathclass;
-  return sub { Path::Class::File->new( $string_method->(@_) ) }
+  return sub {
+    return _wrap_return( $wrap_return_type, $string_method->(@_) );
+  };
 }
 
 1;
@@ -234,7 +249,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.4.4
+version 0.5.0
 
 =head1 SYNOPSIS
 
@@ -459,6 +474,82 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 
 
 =end MetaPOD::JSON
+
+=head1 SIGNIFICANT CHANGES
+
+=head2 0.5.0 - Heuristics and Return type changes
+
+=head3 New C<devdir> heuristic
+
+Starting with 0.5.0, instead of using our simple C<lib/../share> pattern heuristic, a more
+advanced heuristic is used from the new L<< C<Path::FindDev>|Path::FindDev >> and L<< C<Path::IsDev>|Path::IsDev >>.
+
+This relies on a more "concrete" marker somewhere at the top of your development tree, and more importantly, checks for the
+existence of specific files that are not likely to occur outside a project root.
+
+C<lib> and C<share> based heuristics were a little fragile, for a few reasons:
+
+=over 4
+
+=item * C<lib> can, and does appear all over UNIX file systems, for purposes B<other> than development project roots.
+
+For instance, have a look in C</usr/>
+
+    /usr/bin
+    /usr/lib
+    /usr/share  ## UHOH.
+
+This would have the very bad side effect of anything installed in C</usr/lib> thinking its "in development".
+
+Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symbolic link on most x86_64 systems.
+
+=item * C<lib> is also reasonably common within C<CPAN> package names.
+
+For instance:
+
+    lib::abs
+
+Which means you'll have a hierarchy like:
+
+    $PREFIX/lib/lib/abs
+
+All you need for something to go horribly wrong would be for somebody to install a C<CPAN> module named:
+
+    share::mystuff
+
+Or similar, and instantly, you have:
+
+    $PREFIX/lib/lib/
+    $PREFIX/lib/share/
+
+Which would mean any module calling itself C<lib::*> would be unable to use this module.
+
+=back
+
+So instead, as of C<0.5.0>, the heuristic revolves around certain specific files being in the C<dev> directory.
+
+Which is hopefully a more fault resilient mechanism.
+
+=head3 New Return Types
+
+Starting with 0.5.0, the internals are now based on L<< C<Path::Tiny>|Path::Tiny >> instead of L<< C<Path::Class>|Path::Class >>,
+and as a result, there may be a few glitches in transition.
+
+Also, previously you could get a C<Path::Class::*> object back from C<dist_dir> and C<dist_file> by importing it as such:
+
+    use File::ShareDir::ProjectDistDir
+        qw( dist_dir dist_file ),
+        defaults => { pathclass => 1 };
+
+Now you can also get C<Path::Tiny> objects back, by passing:
+
+    use File::ShareDir::ProjectDistDir
+        qw( dist_dir dist_file ),
+        defaults => { pathtiny => 1 };
+
+For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
+
+( In fact, I may even make 2 specific subclasses of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
 
 =head1 AUTHOR
 
