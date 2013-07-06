@@ -491,7 +491,7 @@ C<lib> and C<share> based heuristics were a little fragile, for a few reasons:
 
 =over 4
 
-=item * C<lib> can, and does appear all over unix file systems, for purposes B<other> than development project roots.
+=item * C<lib> can, and does appear all over UNIX file systems, for purposes B<other> than development project roots.
 
 For instance, have a look in C</usr/>
 
@@ -509,7 +509,7 @@ For instance:
 
     lib::abs
 
-Which means you'll have a heirarchy like:
+Which means you'll have a hierarchy like:
 
     $PREFIX/lib/lib/abs
 

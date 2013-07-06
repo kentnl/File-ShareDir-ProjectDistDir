@@ -235,7 +235,7 @@ SIGNIFICANT CHANGES
     "lib" and "share" based heuristics were a little fragile, for a few
     reasons:
 
-    *   "lib" can, and does appear all over unix file systems, for purposes
+    *   "lib" can, and does appear all over UNIX file systems, for purposes
         other than development project roots.
 
         For instance, have a look in "/usr/"
@@ -257,7 +257,7 @@ SIGNIFICANT CHANGES
 
             lib::abs
 
-        Which means you'll have a heirarchy like:
+        Which means you'll have a hierarchy like:
 
             $PREFIX/lib/lib/abs
 
