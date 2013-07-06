@@ -17,7 +17,7 @@ my %module_build_args = (
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "File-ShareDir-ProjectDistDir",
-  "dist_version" => "0.4.4",
+  "dist_version" => "0.4.5",
   "license" => "perl",
   "module_name" => "File::ShareDir::ProjectDistDir",
   "recommends" => {},
@@ -25,7 +25,11 @@ my %module_build_args = (
   "requires" => {
     "Carp" => 0,
     "File::ShareDir" => 0,
+    "Path::Class::Dir" => 0,
     "Path::Class::File" => 0,
+    "Path::FindDev" => 0,
+    "Path::IsDev" => 0,
+    "Path::Tiny" => 0,
     "Sub::Exporter" => 0,
     "perl" => "5.006",
     "strict" => 0,
@@ -36,7 +40,8 @@ my %module_build_args = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "FindBin" => 0,
-    "Test::More" => "0.98"
+    "Test::More" => "0.98",
+    "lib" => 0
   }
 );
 
