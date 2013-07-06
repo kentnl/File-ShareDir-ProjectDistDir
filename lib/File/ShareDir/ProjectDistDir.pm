@@ -44,11 +44,10 @@ else {
 }
 
 ## no critic (RequireArgUnpacking)
-sub _croak         {    require Carp; goto &Carp::croak }
-sub _path          {    require Path::Tiny;    goto &Path::Tiny::path }
-sub _pathclassfile {    require Path::Class::File; return Path::Class::File->new(@_) }
-sub _pathclassdir  {    require Path::Class::Dir;  return Path::Class::Dir->new(@_) }
-
+sub _croak         { require Carp;              goto &Carp::croak }
+sub _path          { require Path::Tiny;        goto &Path::Tiny::path }
+sub _pathclassfile { require Path::Class::File; return Path::Class::File->new(@_) }
+sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_) }
 
 
 sub import {
@@ -483,7 +482,7 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 =head3 New C<devdir> heuristic
 
 Starting with 0.5.0, instead of using our simple C<lib/../share> pattern heuristic, a more
-advanced heuristic is used from the new L<< C<Path::FindDev>|Path::FindDev >> and L<< C<Path::IsDev>|Path::IsDev >>. 
+advanced heuristic is used from the new L<< C<Path::FindDev>|Path::FindDev >> and L<< C<Path::IsDev>|Path::IsDev >>.
 
 This relies on a more "concrete" marker somewhere at the top of your development tree, and more importantly, checks for the
 existence of specific files that are not likely to occur outside a project root.
@@ -504,7 +503,7 @@ This would have the very bad side effect of anything installed in C</usr/lib> th
 
 Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symlink on most x86_64 systems.
 
-=item * C<lib> is also reasonably common within C<CPAN> package names. 
+=item * C<lib> is also reasonably common within C<CPAN> package names.
 
 For instance:
 
@@ -527,12 +526,12 @@ Which would mean any module calling itself C<lib::*> would be unable to use this
 
 So instead, as of C<0.5.0>, the heuristic revolves around certain specific files being in the C<dev> directory.
 
-Which is hopefully a more fault resilient mechanism. 
+Which is hopefully a more fault resilient mechanism.
 
 =head3 New Return Types
 
 Starting with 0.5.0, the internals are now based on L<< C<Path::Tiny>|Path::Tiny >> instead of L<< C<Path::Class>|Path::Class >>,
-and as a result, there may be a few glitches in transition. 
+and as a result, there may be a few glitches in transition.
 
 Also, previously you could get a C<Path::Class::*> object back from C<dist_dir> and C<dist_file> by importing it as such:
 
