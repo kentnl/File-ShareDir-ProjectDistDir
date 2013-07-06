@@ -248,8 +248,8 @@ SIGNIFICANT CHANGES
         "/usr/lib" thinking its "in development".
 
         Fortunately, nobody seems to have hit this specific bug, which I
-        suspect is due only to "/usr/lib" being a symlink on most x86_64
-        systems.
+        suspect is due only to "/usr/lib" being a symbolic link on most
+        x86_64 systems.
 
     *   "lib" is also reasonably common within "CPAN" package names.
 
@@ -300,8 +300,8 @@ SIGNIFICANT CHANGES
     For the time being, you can still get Path::Class objects back, but its
     likely to be deprecated in future.
 
-    ( In fact, I may even make 2 specific subclasses of PDD for people who
-    want objects back, as it will make the API and the code much cleaner )
+    ( In fact, I may even make 2 specific subclasses of "PDD" for people who
+    want objects back, as it will make the "API" and the code much cleaner )
 
 AUTHOR
     Kent Fredric <kentnl@cpan.org>
