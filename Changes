@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+0.5.0 2013-07-06T18:11:52Z
  [00 MAJOR CHANGES]
  - Entire Heuristics system replaced with Path::IsDev/Path::FindDev
  - Internals re-written to use Path::Tiny
