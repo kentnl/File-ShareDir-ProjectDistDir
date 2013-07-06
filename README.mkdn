@@ -4,7 +4,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 # VERSION
 
-version 0.4.4
+version 0.5.0
 
 # SYNOPSIS
 
@@ -223,13 +223,85 @@ Caveats as a result of package-name as stated in ["build\_dist\_dir"](#build\_di
 
 
 
-# AUTHOR
+# SIGNIFICANT CHANGES
 
-Kent Fredric <kentnl@cpan.org>
+## 0.5.0 - Heuristics and Return type changes
 
-# COPYRIGHT AND LICENSE
+### New `devdir` heuristic
 
-This software is copyright (c) 2013 by Kent Fredric <kentnl@cpan.org>.
+Starting with 0.5.0, instead of using our simple `lib/../share` pattern heuristic, a more
+advanced heuristic is used from the new [`Path::FindDev`](http://search.cpan.org/perldoc?Path::FindDev) and [`Path::IsDev`](http://search.cpan.org/perldoc?Path::IsDev).
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+This relies on a more "concrete" marker somewhere at the top of your development tree, and more importantly, checks for the
+existence of specific files that are not likely to occur outside a project root.
+
+`lib` and `share` based heuristics were a little fragile, for a few reasons:
+
+- `lib` can, and does appear all over unix file systems, for purposes __other__ than development project roots.
+
+    For instance, have a look in `/usr/`
+
+        /usr/bin
+        /usr/lib
+        /usr/share  ## UHOH.
+
+    This would have the very bad side effect of anything installed in `/usr/lib` thinking its "in development".
+
+    Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to `/usr/lib` being a symlink on most x86\_64 systems.
+
+- `lib` is also reasonably common within `CPAN` package names.
+
+    For instance:
+
+        lib::abs
+
+    Which means you'll have a heirarchy like:
+
+        $PREFIX/lib/lib/abs
+
+    All you need for something to go horribly wrong would be for somebody to install a `CPAN` module named:
+
+        share::mystuff
+
+    Or similar, and instantly, you have:
+
+        $PREFIX/lib/lib/
+        $PREFIX/lib/share/
+
+    Which would mean any module calling itself `lib::*` would be unable to use this module.
+
+    So instead, as of `0.5.0`, the heuristic revolves around certain specific files being in the `dev` directory.
+
+    Which is hopefully a more fault resilient mechanism.
+
+    ### New Return Types
+
+    Starting with 0.5.0, the internals are now based on [`Path::Tiny`](http://search.cpan.org/perldoc?Path::Tiny) instead of [`Path::Class`](http://search.cpan.org/perldoc?Path::Class),
+    and as a result, there may be a few glitches in transition.
+
+    Also, previously you could get a `Path::Class::*` object back from `dist_dir` and `dist_file` by importing it as such:
+
+        use File::ShareDir::ProjectDistDir
+            qw( dist_dir dist_file ),
+            defaults => { pathclass => 1 };
+
+    Now you can also get `Path::Tiny` objects back, by passing:
+
+        use File::ShareDir::ProjectDistDir
+            qw( dist_dir dist_file ),
+            defaults => { pathtiny => 1 };
+
+    For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
+
+    ( In fact, I may even make 2 specific subclasses of PDD for people who want objects back, as it will make the API and the code much cleaner )
+
+    # AUTHOR
+
+    Kent Fredric <kentnl@cpan.org>
+
+    # COPYRIGHT AND LICENSE
+
+    This software is copyright (c) 2013 by Kent Fredric <kentnl@cpan.org>.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.

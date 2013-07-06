@@ -36,6 +36,80 @@ you install that, you specify the different directory there also ) as follows:
     projectdir => 'templates',
   };
 
+=head1 SIGNIFICANT CHANGES
+
+=head2 0.5.0 - Heuristics and Return type changes
+
+=head3 New C<devdir> heuristic
+
+Starting with 0.5.0, instead of using our simple C<lib/../share> pattern heuristic, a more
+advanced heuristic is used from the new L<< C<Path::FindDev>|Path::FindDev >> and L<< C<Path::IsDev>|Path::IsDev >>.
+
+This relies on a more "concrete" marker somewhere at the top of your development tree, and more importantly, checks for the
+existence of specific files that are not likely to occur outside a project root.
+
+C<lib> and C<share> based heuristics were a little fragile, for a few reasons:
+
+=over 4
+
+=item * C<lib> can, and does appear all over unix file systems, for purposes B<other> than development project roots.
+
+For instance, have a look in C</usr/>
+
+    /usr/bin
+    /usr/lib
+    /usr/share  ## UHOH.
+
+This would have the very bad side effect of anything installed in C</usr/lib> thinking its "in development".
+
+Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symlink on most x86_64 systems.
+
+=item * C<lib> is also reasonably common within C<CPAN> package names.
+
+For instance:
+
+    lib::abs
+
+Which means you'll have a heirarchy like:
+
+    $PREFIX/lib/lib/abs
+
+All you need for something to go horribly wrong would be for somebody to install a C<CPAN> module named:
+
+    share::mystuff
+
+Or similar, and instantly, you have:
+
+    $PREFIX/lib/lib/
+    $PREFIX/lib/share/
+
+Which would mean any module calling itself C<lib::*> would be unable to use this module.
+
+So instead, as of C<0.5.0>, the heuristic revolves around certain specific files being in the C<dev> directory.
+
+Which is hopefully a more fault resilient mechanism.
+
+=head3 New Return Types
+
+Starting with 0.5.0, the internals are now based on L<< C<Path::Tiny>|Path::Tiny >> instead of L<< C<Path::Class>|Path::Class >>,
+and as a result, there may be a few glitches in transition.
+
+Also, previously you could get a C<Path::Class::*> object back from C<dist_dir> and C<dist_file> by importing it as such:
+
+    use File::ShareDir::ProjectDistDir
+        qw( dist_dir dist_file ),
+        defaults => { pathclass => 1 };
+
+Now you can also get C<Path::Tiny> objects back, by passing:
+
+    use File::ShareDir::ProjectDistDir
+        qw( dist_dir dist_file ),
+        defaults => { pathtiny => 1 };
+
+For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
+
+( In fact, I may even make 2 specific subclasses of PDD for people who want objects back, as it will make the API and the code much cleaner )
+
 =cut
 
 use Path::Class::File;
