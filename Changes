@@ -1,6 +1,23 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-0.5.0 2013-07-06T17:58:47Z
+0.5.0 2013-07-06T18:05:15Z
+ [00 MAJOR CHANGES]
+ - Entire Heuristics system replaced with Path::IsDev/Path::FindDev
+ - Internals re-written to use Path::Tiny
+ - Please read SIGNIFICANT CHANGES section on ::ProjectDistDir for details
+
+ [Dependencies::Added / runtime requires]
+ - Path::Class::Dir
+ - Path::FindDev
+ - Path::IsDev
+ - Path::Tiny
+
+ [Dependencies::Added / test requires]
+ - lib
+
+ [Dependencies::Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.7.3 → v1.7.4
+
 
 0.4.4 2013-06-05T17:11:18Z
  [00 Noteable Changes]
