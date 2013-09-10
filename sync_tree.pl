@@ -8,17 +8,17 @@ my $root = find_dev('./');
 
 chdir "$root";
 
-if ( not -d -e $root->child("maint") ) {
-    system(
-        'git', 'subtree', 'add', 
-            '--prefix=maint', 
-            'https://github.com/kentfredric/travis-scripts.git', 'master'
-    );
-} else {
-    system(
-        'git', 'subtree', 'merge', 
-            '--prefix=maint', 'master'
-#            'https://github.com/kentfredric/travis-scripts.git', 'master'
-    );
+sub git_subtree {
+    system('git','subtree', @_ ) == 0 or die "Git subtree had nonzero exit";
+}
+
+my $travis = 'https://github.com/kentfredric/travis-scripts.git';
+my $prefix = 'maint';
+
+if ( not -d -e $root->child($prefix) ) {
+  git_subtree('add','--prefix=' . $prefix , $travis, 'master' );
+}
+else {
+  git_subtree('pull','--prefix=' . $prefix , $travis, 'master' );
 }
 
