@@ -16,21 +16,21 @@ First, check out a copy of these scripts, it can be a temporary directory,
 and you'll only need to do this once.
 
 ```shell
-  > mkdir /tmp/tci-scripts
-  > cd    /tmp/tci-scripts
-  > git   clone https://github.com/kentfredric/travis-scripts.git
+$ mkdir /tmp/tci-scripts
+$ cd    /tmp/tci-scripts
+$ git   clone https://github.com/kentfredric/travis-scripts.git
 ```
 
 Then, chdir to the root of your project
 
 ```shell
-  > chdir $PROJECT
+$ chdir $PROJECT
 ```
 
 And lastly, execute the installer
 
 ```shell
-  > /tmp/tci-scripts/sync_tree.pl
+$ /tmp/tci-scripts/sync_tree.pl
 ```
 
 This will create the folder called `maint` within your distribution,
@@ -39,7 +39,7 @@ with a tree installed by `git subtree`, which will track this distribution.
 To update your copy of `/maint` to the latest, simply execute
 
 ```shell
-  > $PROJECT/maint/sync_tree.pl
+$ $PROJECT/maint/sync_tree.pl
 ```
 
 While somewhere in your project.
