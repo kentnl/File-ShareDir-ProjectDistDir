@@ -16,9 +16,9 @@ if ( not -d -e $root->child("maint") ) {
     );
 } else {
     system(
-        'git', 'subtree', 'pull', 
-            '--prefix=maint', 
-            'https://github.com/kentfredric/travis-scripts.git', 'master'
+        'git', 'subtree', 'merge', 
+            '--prefix=maint', 'master'
+#            'https://github.com/kentfredric/travis-scripts.git', 'master'
     );
 }
 
