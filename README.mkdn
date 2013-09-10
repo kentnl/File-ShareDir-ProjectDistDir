@@ -33,13 +33,13 @@ And lastly, execute the installer
 $ /tmp/tci-scripts/sync_tree.pl
 ```
 
-This will create the folder called `maint` within your distribution,
+This will create the folder called `maint-travis-ci` within your distribution,
 with a tree installed by `git subtree`, which will track this distribution.
 
-To update your copy of `/maint` to the latest, simply execute
+To update your copy of `/maint-travis-ci` to the latest, simply execute
 
 ```shell
-$ $PROJECT/maint/sync_tree.pl
+$ $PROJECT/maint-travis-ci/sync_tree.pl
 ```
 
 While somewhere in your project.
