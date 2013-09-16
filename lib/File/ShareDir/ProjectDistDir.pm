@@ -110,7 +110,7 @@ Now you can also get C<Path::Tiny> objects back, by passing:
 
 For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
 
-( In fact, I may even make 2 specific subclasses of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
+( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
 
 =cut
 
