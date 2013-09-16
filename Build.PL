@@ -7,17 +7,17 @@ use Module::Build 0.3601;
 
 my %module_build_args = (
   "build_requires" => {
-    "Module::Build" => "0.4005"
+    "Module::Build" => "0.4007"
   },
   "configure_requires" => {
-    "Module::Build" => "0.4005"
+    "Module::Build" => "0.4007"
   },
   "dist_abstract" => "Simple set-and-forget using of a '/share' directory in your projects root",
   "dist_author" => [
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "File-ShareDir-ProjectDistDir",
-  "dist_version" => "0.5.0",
+  "dist_version" => "0.5.1",
   "license" => "perl",
   "module_name" => "File::ShareDir::ProjectDistDir",
   "recommends" => {},
@@ -37,9 +37,9 @@ my %module_build_args = (
   },
   "script_files" => [],
   "test_requires" => {
-    "File::Find" => 0,
-    "File::Temp" => 0,
     "FindBin" => 0,
+    "IO::Handle" => 0,
+    "IPC::Open3" => 0,
     "Test::More" => "0.98",
     "lib" => 0
   }
