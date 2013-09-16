@@ -3,7 +3,7 @@ use warnings;
 
 package Example_05;
 
-use File::ShareDir::ProjectDistDir ':all', projectdir => 'templates';
+use File::ShareDir::ProjectDistDir ':all', defaults => { projectdir => 'templates' };
 
 use Path::Class::File;
 

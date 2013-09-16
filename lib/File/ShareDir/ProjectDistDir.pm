@@ -127,29 +127,19 @@ my ($exporter) = build_exporter(
       all       => [qw( dist_dir dist_file )],
       'default' => [qw( dist_dir dist_file )]
     },
-    collectors => [ 'defaults', ],
+    collectors => [ 'defaults','caller' ],
   }
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 
 if ( $ENV{$env_key} ) {
-  ## no critic (ProtectPrivateVars)
-  *File::ShareDir::ProjectDistDir::_debug = sub ($) {
-    *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
-  };
+  $File::ShareDir::ProjectDistDir::DEBUG = 1;
   $Path::IsDev::DEBUG   = 1;
   $Path::FindDev::DEBUG = 1;
-}
-else {
-  ## no critic (ProtectPrivateVars)
-  *File::ShareDir::ProjectDistDir::_debug = sub ($) { }
 }
 
 ## no critic (RequireArgUnpacking)
 sub _croak         { require Carp;              goto &Carp::croak }
-sub _path          { require Path::Tiny;        goto &Path::Tiny::path }
-sub _pathclassfile { require Path::Class::File; return Path::Class::File->new(@_) }
-sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_) }
 
 =method import
 
@@ -257,48 +247,14 @@ which is mostly used internally, and their corresponding other values are packed
 
 =cut
 
+
 sub import {
   my ( $class, @args ) = @_;
-  my $has_defaults = undef;
-
-  my ( $xclass, $xfilename, $xline ) = caller;
-
-  my $defaults = {
-    filename   => $xfilename,
-    projectdir => 'share',
-    pathclass  => undef,
-  };
-
   if ( not @args ) {
-    @_ = ( $class, ':all', defaults => $defaults );
-    goto $exporter;
+    push @args, ':all';
   }
-
-  for ( 0 .. $#args - 1 ) {
-    my ( $key, $value );
-    next unless $key = $args[$_] and $value = $args[ $_ + 1 ];
-
-    if ( $key eq 'defaults' ) {
-      $defaults = $value;
-      undef $args[$_];
-      undef $args[ $_ + 1 ];
-      next;
-    }
-    for my $setting (qw( projectdir filename distname pathclass pathtiny )) {
-      if ( $key eq $setting and not ref $value ) {
-        $defaults->{$setting} = $value;
-        undef $args[$_];
-        undef $args[ $_ + 1 ];
-        last;
-      }
-    }
-  }
-
-  $defaults->{filename}   = $xfilename if not defined $defaults->{filename};
-  $defaults->{projectdir} = 'share'    if not defined $defaults->{projectdir};
-
-  @_ = ( $class, ( grep { defined } @args ), 'defaults' => $defaults );
-
+  push @args, caller => { filename => [caller()]->[1] };
+  @_ = ( $class, ( grep { defined } @args ) );
   goto $exporter;
 }
 
@@ -348,32 +304,22 @@ start to matter once it is installed. This is a potential avenues for bugs if yo
 
 =cut
 
-sub _get_defaults {
-  my ( $field, $arg, $col ) = @_;
-  my $result;
-  $result = $col->{defaults}->{$field} if $col->{defaults}->{$field};
-  $result = $arg->{$field}             if $arg->{$field};
-  return $result;
-}
 
-use File::ShareDir::ProjectDistDir::Core;
+use File::ShareDir::ProjectDistDir::Object;
 
 sub build_dist_dir {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $state = File::ShareDir::ProjectDistDir::Core->new(
-    {
-      for_file   => $col->{defaults}->{filename},
-      share_root => _get_defaults( projectdir => $arg, $col )
-    }
+  my $object = File::ShareDir::ProjectDistDir::Object->new_from_builder(
+    $name, $arg, $col 
   );
 
-  # In dev
-  if ( $state->share_dir ) {
-    return sub { return $state->share_dir . "" };
+   # In dev
+  if ( $object->share_dir ) {
+    return sub { return $object->share_dir . "" };
   }
 
-  my $distname = _get_defaults( distname => $arg, $col );
+  my $distname = $object->fixed_distname;
 
   # Non-Dev, no hardcoded distname
   if ( not $distname ) {
@@ -434,21 +380,18 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 sub build_dist_file {
   my ( $class, $name, $arg, $col ) = @_;
 
-  my $state = File::ShareDir::ProjectDistDir::Core->new(
-    {
-      for_file   => $col->{defaults}->{filename},
-      share_root => _get_defaults( projectdir => $arg, $col )
-    }
+  my $object = File::ShareDir::ProjectDistDir::Object->new_from_builder(
+    $name, $arg, $col 
   );
 
-  my $distname = _get_defaults( distname => $arg, $col );
+  my $distname = $object->fixed_distname;
 
   # in dev
-  if ( $state->share_dir ) {
+  if ( $object->share_dir ) {
     if ($distname) {
-      return sub { $state->share_dir_file( $_[0] ) };
+      return sub { $object->share_dir_file( $_[0] ) };
     }
-    return sub { $state->share_dir_file( $_[1] ) };
+    return sub { $object->share_dir_file( $_[1] ) };
   }
 
   if ( not $distname ) {

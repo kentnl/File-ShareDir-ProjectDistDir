@@ -3,7 +3,7 @@ use warnings;
 
 package Example_05;
 
-use File::ShareDir::ProjectDistDir qw( :all ), distname => 'Example_05';
+use File::ShareDir::ProjectDistDir qw( :all ), defaults => { distname => 'Example_05' };
 
 use Path::Class::File;
 
