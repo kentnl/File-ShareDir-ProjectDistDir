@@ -1,5 +1,30 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+0.5.1 2013-09-16T07:34:01Z
+ [!Minor]
+ - No serious changes, just 0.5.0 without -TRIAL
+ - and a few test changes and relevant dep changes.
+
+ [Dependencies::Added / develop requires]
+ - Test::Kwalitee 1.08
+
+ [Dependencies::Added / test requires]
+ - IO::Handle
+ - IPC::Open3
+
+ [Dependencies::Changed / build requires]
+ - Module::Build 0.4005 → 0.4007
+
+ [Dependencies::Changed / configure requires]
+ - Module::Build 0.4005 → 0.4007
+
+ [Dependencies::Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL v1.7.4 → v1.8.3
+
+ [Dependencies::Removed / test requires]
+ - File::Find
+ - File::Temp
+
 0.5.0 2013-07-06T18:11:52Z
  [00 MAJOR CHANGES]
  - Entire Heuristics system replaced with Path::IsDev/Path::FindDev

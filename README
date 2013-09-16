@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 0.5.0
+    version 0.5.1
 
 SYNOPSIS
       package An::Example::Package;
@@ -300,8 +300,9 @@ SIGNIFICANT CHANGES
     For the time being, you can still get Path::Class objects back, but its
     likely to be deprecated in future.
 
-    ( In fact, I may even make 2 specific subclasses of "PDD" for people who
-    want objects back, as it will make the "API" and the code much cleaner )
+    ( In fact, I may even make 2 specific sub-classes of "PDD" for people
+    who want objects back, as it will make the "API" and the code much
+    cleaner )
 
 AUTHOR
     Kent Fredric <kentnl@cpan.org>

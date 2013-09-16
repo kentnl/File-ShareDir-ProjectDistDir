@@ -6,7 +6,7 @@ BEGIN {
   $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $File::ShareDir::ProjectDistDir::VERSION = '0.5.0'; # TRIAL
+  $File::ShareDir::ProjectDistDir::VERSION = '0.5.1';
 }
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
@@ -249,7 +249,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.5.0
+version 0.5.1
 
 =head1 SYNOPSIS
 
@@ -549,7 +549,7 @@ Now you can also get C<Path::Tiny> objects back, by passing:
 
 For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
 
-( In fact, I may even make 2 specific subclasses of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
+( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
 
 =head1 AUTHOR
 
