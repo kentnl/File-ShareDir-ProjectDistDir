@@ -17,7 +17,7 @@ my %module_build_args = (
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "File-ShareDir-ProjectDistDir",
-  "dist_version" => "0.5.1",
+  "dist_version" => "0.5.2",
   "license" => "perl",
   "module_name" => "File::ShareDir::ProjectDistDir",
   "recommends" => {},
@@ -37,6 +37,7 @@ my %module_build_args = (
   },
   "script_files" => [],
   "test_requires" => {
+    "File::Spec" => 0,
     "FindBin" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
