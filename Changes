@@ -1,6 +1,11 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [Bugfix]
+ - Use a Test::Compile not known to break on Win32
+
+ [Dependencies::Added / test requires]
+ - File::Spec
 
 0.5.1 2013-09-16T07:34:01Z
  [!Minor]
