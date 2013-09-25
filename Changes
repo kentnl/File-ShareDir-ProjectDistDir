@@ -1,6 +1,6 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-0.5.2 2013-09-25T18:16:46Z
+0.5.2 2013-09-25T20:04:10Z
  [Bugfix]
  - Use a Test::Compile not known to break on Win32
 
