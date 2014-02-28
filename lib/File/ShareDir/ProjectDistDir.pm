@@ -526,17 +526,29 @@ sub build_dist_file {
   if ($pathclass) { $wrap_return_type = 'pathclassfile' }
   if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
 
+  my $check_file = sub {
+    my ( $distdir, $wanted_file ) = @_;
+    my $child = _path($distdir)->child($wanted_file);
+    return undef unless -e $child;
+    if ( not -f $child ) {
+      return _croak("Found dist_file '$child', but not a file");
+    }
+    if ( not -r $child ) {
+      return _croak("File '$child', no read permissions");
+    }
+    return _wrap_return( $wrap_return_type, $child );
+  };
   if ( not $distname ) {
     return sub {
       my ( $udistname, $wanted_file ) = @_;
       my $distdir = $class->_get_cached_dist_dir_result( $filename, $projectdir, $udistname, $strict );
-      return _wrap_return( $wrap_return_type, _path($distdir)->child($wanted_file) );
+      return $check_file->( $distdir, $wanted_file );
     };
   }
   return sub {
     my ($wanted_file) = @_;
     my $distdir = $class->_get_cached_dist_dir_result( $filename, $projectdir, $distname, $strict );
-    return _wrap_return( $wrap_return_type, _path($distdir)->child($wanted_file) );
+    return $check_file->( $distdir, $wanted_file );
   };
 }
 
