@@ -136,11 +136,13 @@ my ($exporter) = build_exporter(
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 
+## no critic (Subroutines::ProhibitSubroutinePrototypes)
 sub _debug($) {}
+## use critic
 
 if ( $ENV{$env_key} ) {
   no warnings 'redefine';
-  ## no critic (ProtectPrivateVars)
+  ## no critic (ProtectPrivateVars,TestingAndDebugging::ProhibitNoWarnings)
   *File::ShareDir::ProjectDistDir::_debug = sub ($) {
     *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
   };
@@ -410,7 +412,7 @@ sub _get_cached_dist_dir_result {
 }
 
 sub build_dist_dir {
-  my ( $class, $name, $arg, $col ) = @_;
+  my ( $class, undef, $arg, $col ) = @_;
 
   my $projectdir = _get_defaults( projectdir => $arg, $col );
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
@@ -424,8 +426,6 @@ sub build_dist_dir {
   if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
 
   my $distname = _get_defaults( distname => $arg, $col );
-
-  #my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir, $strict );
 
   if ( not $distname ) {
     return sub {
@@ -488,7 +488,7 @@ sub build_dist_dir {
 
 
 sub build_dist_file {
-  my ( $class, $name, $arg, $col ) = @_;
+  my ( $class, undef, $arg, $col ) = @_;
 
   my $projectdir = _get_defaults( projectdir => $arg, $col );
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
