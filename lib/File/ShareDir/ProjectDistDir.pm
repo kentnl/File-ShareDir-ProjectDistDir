@@ -226,6 +226,11 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
+
+
+
+
+
 use Path::IsDev qw();
 use Path::FindDev qw(find_dev);
 use Sub::Exporter qw(build_exporter);
@@ -277,6 +282,9 @@ sub _need_pathclass {
   }
   return 1;
 }
+
+
+
 
 
 
@@ -725,7 +733,8 @@ you install that, you specify the different directory there also ) as follows:
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximized by understanding that first.
+This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximized by
+understanding that first.
 
 =over 4
 
@@ -797,11 +806,13 @@ As opposed to
 
     <root>/<projectdir>
 
-This means if Heuristics misfire and accidentally find another distributions C<share> directory, it will not pick up on it unless that C<share> dir also has that layout, and will instead revert to the C<installdir> path in C<@INC>
+This means if Heuristics misfire and accidentally find another distributions C<share> directory, it will not pick up on it
+unless that C<share> dir also has that layout, and will instead revert to the C<installdir> path in C<@INC>
 
 B<This parameter may become the default option in the future>
 
-Specifying this parameter also mandates you B<MUST> declare the C<DISTNAME> value in your file somewhere. Doing otherwise is considered insanity anyway.
+Specifying this parameter also mandates you B<MUST> declare the C<DISTNAME> value in your file somewhere. Doing otherwise is
+considered insanity anyway.
 
 =item * B<C<defaults>>
 
@@ -992,7 +1003,8 @@ Then when C<Foo-Bar-Baz> is installed as:
     <DEVROOT>/inc/lib/Foo/Bar/Baz.pm
     <DEVROOT>/inc/lib/auto/share/dist/Foo-Bar-Baz
 
-Then C<Baz.pm> will not see the C<DEVROOT> and assume "Hey, this is development" and then proceed to try finding files in C<DEVROOT/share>
+Then C<Baz.pm> will not see the C<DEVROOT> and assume "Hey, this is development" and then proceed to try finding files in
+C<DEVROOT/share>
 
 Instead, C<DEVROOT> must have C<DEVROOT/share/dist/Foo-Bar-Baz> too, otherwise it reverts
 to C<DEVROOT/inc/lib/auto...>
@@ -1033,7 +1045,8 @@ However, outside that, C<x.y.z> semantics are still intended to be semi-meaningf
 
 =head3 C<dev> path determination now deferred to call time instead of C<use>
 
-This was essentially a required change to make C<strict> mode plausible, because strict mode _requires_ the distname to be known, even in the development enviroment.
+This was essentially a required change to make C<strict> mode plausible, because strict mode _requires_ the distname to be
+known, even in the development enviroment.
 
 This should not have any user visible effects, but please, if you have any problems, file a bug.
 
@@ -1047,7 +1060,8 @@ Is now simply sugar syntax for
 
 This should have no side effects in your code, but please file any bugs you experience.
 
-( return value is still undef if the file does not exist, and still C<croak>'s if the file is not a file, or unreadable, but these may both be subject to change )
+( return value is still undef if the file does not exist, and still C<croak>'s if the file is not a file, or unreadable, but
+these may both be subject to change )
 
 =head2 0.5.0 - Heuristics and Return type changes
 
@@ -1073,7 +1087,8 @@ For instance, have a look in C</usr/>
 
 This would have the very bad side effect of anything installed in C</usr/lib> thinking its "in development".
 
-Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symbolic link on most x86_64 systems.
+Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symbolic link on most
+x86_64 systems.
 
 =item * C<lib> is also reasonably common within C<CPAN> package names.
 
@@ -1121,7 +1136,8 @@ Now you can also get C<Path::Tiny> objects back, by passing:
 
 B<< For the time being, you can still get Path::Class objects back, it is deprecated since 1.000000 >>
 
-( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
+( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the
+code much cleaner )
 
 =head1 AUTHOR
 
