@@ -66,6 +66,8 @@ t/classic/06_files/develdir/lib/Example_05.pm
 t/classic/06_files/develdir/share/file
 t/classic/06_files/installdir/lib/Example_04.pm
 t/classic/06_files/installdir/lib/auto/share/dist/Example_04/file
+t/deprecations/fatal_no_pathclass_installed.t
+t/deprecations/warn_on_pathclass.t
 t/strict/01_devel.t
 t/strict/01_files/.devdir
 t/strict/01_files/lib/Example_01.pm

@@ -118,6 +118,114 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 use Path::IsDev qw();
 use Path::FindDev qw(find_dev);
 use Sub::Exporter qw(build_exporter);
@@ -156,13 +264,34 @@ sub _carp  { require Carp; goto &Carp::carp }
 sub _path { require Path::Tiny; goto &Path::Tiny::path }
 
 sub _need_pathclass {
-    for my $package( '', '::File', '::Dir' ) {
-        local $@;
-        my $code = sprintf 'require %s%s;1', 'Path::Class' , $package;
-        ## no critic (RequireCarping)
-        die $@ unless eval $code;
-    }
+  for my $package ( '', '::File', '::Dir' ) {
+    local $@;
+    my $code = sprintf 'require %s%s;1', 'Path::Class', $package;
+    ## no critic (RequireCarping)
+    next if eval $code;
+    my $err = $@;
+    _carp('Path::Class is not installed and you requested it, make it a dependency of your package');
+    die $@;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -319,6 +448,8 @@ sub import {
 
   goto $exporter;
 }
+
+
 
 
 
@@ -523,17 +654,29 @@ sub build_dist_file {
   if ($pathclass) { $wrap_return_type = 'pathclassfile' }
   if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
 
+  my $check_file = sub {
+    my ( $distdir, $wanted_file ) = @_;
+    my $child = _path($distdir)->child($wanted_file);
+    return undef unless -e $child;
+    if ( not -f $child ) {
+      return _croak("Found dist_file '$child', but not a file");
+    }
+    if ( not -r $child ) {
+      return _croak("File '$child', no read permissions");
+    }
+    return _wrap_return( $wrap_return_type, $child );
+  };
   if ( not $distname ) {
     return sub {
       my ( $udistname, $wanted_file ) = @_;
       my $distdir = $class->_get_cached_dist_dir_result( $filename, $projectdir, $udistname, $strict );
-      return _wrap_return( $wrap_return_type, _path($distdir)->child($wanted_file) );
+      return $check_file->( $distdir, $wanted_file );
     };
   }
   return sub {
     my ($wanted_file) = @_;
     my $distdir = $class->_get_cached_dist_dir_result( $filename, $projectdir, $distname, $strict );
-    return _wrap_return( $wrap_return_type, _path($distdir)->child($wanted_file) );
+    return $check_file->( $distdir, $wanted_file );
   };
 }
 
@@ -642,6 +785,24 @@ i.e:
     my $dir = dist_dir();
     my $file = dist_file('path/to/file.pm' );
 
+=item * B<C<strict>>
+
+    ->import( ... , strict => 1 );
+
+This parameter specifies that all C<dist> share dirs will occur within the C<projectdir> directory using the following layout:
+
+    <root>/<projectdir>/dist/<DISTNAME>/
+
+As opposed to
+
+    <root>/<projectdir>
+
+This means if Heuristics missfire and accidentally find somebody elses C<share> dir, it will not pick up on it unless that C<share> dir also has that layout, and will instead revert to the C<installdir> path in C<@INC>
+
+B<This parameter may become the default option in the future>
+
+Specifying this parameter also mandates you B<MUST> declare the C<DISTNAME> value in your file somewhere. Doing otherwise is considered insanity anyway.
+
 =item * B<C<defaults>>
 
     ->import( ... , defaults => {
@@ -721,8 +882,10 @@ Generates the exported 'dist_dir' method. In development environments, the gener
 a path to the development directories 'share' directory. In non-development environments, this simply returns
 C<File::ShareDir::dist_dir>.
 
-As a result of this, specifying the Distribution name is not required during development, however, it will
+As a result of this, specifying the Distribution name is not required during development ( unless in C<strict> mode ), however, it will
 start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
+
+In C<strict> mode, the distribution name is B<ALWAYS REQUIRED>, either at least at C<import> or C<dist_dir()> time.
 
 =head2 build_dist_file
 
@@ -778,6 +941,114 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 =end MetaPOD::JSON
 
 =head1 SIGNIFICANT CHANGES
+
+=head2 1.000000
+
+=head3 Strict Mode.
+
+=head4 Using Strict Mode
+
+    use File::ShareDir::ProjectDistDir ':all', strict => 1;
+    use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+
+=head4 Why you should use strict mode
+
+Starting with C<1.000000>, there is a parameter C<strict> that changes
+how sharedir resolution performs.
+
+Without strict:
+
+    lib/...
+    share/...
+
+With strict
+
+    lib/...
+    share/dist/Dist-Name-Here/...
+
+This technique greatly builds resilience to the long standing problem
+with "develop" vs "install" heuristic ambiguity.
+
+Here at least,
+
+    dist_dir('Dist-Name')
+
+Will instead fall back to
+
+    @INC/auto/share/dist/Dist-Name
+
+When
+
+    share/dist/Dist-Name
+
+Does not exist.
+
+This means if you have a layout like this:
+
+    <DEVROOT>/inc/<a local::lib path here>
+    <DEVROOT>/lib/<development files here>
+
+Then when "Foo-Bar-Baz" is installed as:
+
+    <DEVROOT>/inc/lib/Foo/Bar/Baz.pm
+    <DEVROOT>/inc/lib/auto/share/dist/Foo-Bar-Baz
+
+Then C<Baz.pm> will not see the C<DEVROOT> and assume "Hey, this is development" and then proceed to try finding files in C<DEVROOT/share>
+
+Instead, C<DEVROOT> must have C<DEVROOT/share/dist/Foo-Bar-Baz> too, otherwise it reverts
+to C<DEVROOT/inc/lib/auto...>
+
+=head3 C<Path::Class> interfaces deprecated and dependency dropped.
+
+If you have any dependence on this function, now is the time to get yourself off it.
+
+=head4 Minimum Changes to stay with C<Path::Class> short term.
+
+As the dependency has been dropped on Path::Class, if you have CPAN
+modules relying on Path::Class interface, you should now at a very minimum
+start declaring
+
+    { requires => "Path::Class" }
+
+This will keep your dist working, but will not be future proof against futher changes.
+
+=head4 Staying with C<Path::Class> long term.
+
+Recommended approach if you want to stay using the C<Path::Class> interface:
+
+    use File::ShareDir::... etc
+    use Path::Class qw( dir file );
+
+    my $dir = dir( dist_dir('Dist-Name') );
+
+This should future-proof you against anything File::ShareDir may do in the future.
+
+=head3 C<Versioning Scheme arbitrary converted to float>
+
+This change is a superficial one, and should have no bearing on how significant you think this release is.
+
+It is a significant release, but the primary reason for the version change is simply to avoid compatibility issues in
+I<versions themselves>.
+
+However, outside that, C<x.y.z> semantics are still intended to be semi-meaningful, just with less C<.> and more C<0> ☺
+
+=head3 C<dev> path determination now deferred to call time instead of C<use>
+
+This was essentially a required change to make C<strict> mode plausible, because strict mode _requires_ the distname to be known, even in the development enviroment.
+
+This should not have any user visible effects, but please, if you have any problems, file a bug.
+
+=head3 C<file> component determination wrested from C<File::ShareDir>.
+
+    dist_file('foo','bar')
+
+Is now simply sugar syntax for
+
+    path(dist_dir('foo'))->child('bar')
+
+This should have no side effects in your code, but please file any bugs you experience.
+
+( return value is still undef if the file does not exist, and still C<croak>'s if the file is not a file, or unreadable, but these may both be subject to change )
 
 =head2 0.5.0 - Heuristics and Return type changes
 
@@ -849,7 +1120,7 @@ Now you can also get C<Path::Tiny> objects back, by passing:
         qw( dist_dir dist_file ),
         defaults => { pathtiny => 1 };
 
-For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
+B<< For the time being, you can still get Path::Class objects back, it is deprecated since 1.000000 >>
 
 ( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
 
