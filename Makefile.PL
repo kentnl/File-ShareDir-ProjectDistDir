@@ -40,7 +40,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "version" => 0
   },
-  "VERSION" => "0.5.3",
+  "VERSION" => "1.000000",
   "test" => {
     "TESTS" => "t/*.t t/00-compile/*.t t/classic/*.t t/deprecations/*.t t/strict/*.t"
   }
