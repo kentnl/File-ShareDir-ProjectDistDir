@@ -807,7 +807,7 @@ As opposed to
     <root>/<projectdir>
 
 This means if Heuristics misfire and accidentally find another distributions C<share> directory, it will not pick up on it
-unless that C<share> dir also has that layout, and will instead revert to the C<installdir> path in C<@INC>
+unless that C<share> directory also has that layout, and will instead revert to the C<installdir> path in C<@INC>
 
 B<This parameter may become the default option in the future>
 
@@ -964,7 +964,7 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 =head4 Why you should use strict mode
 
 Starting with C<1.000000>, there is a parameter C<strict> that changes
-how sharedir resolution performs.
+how C<sharedir> resolution performs.
 
 Without strict:
 
@@ -1021,7 +1021,7 @@ start declaring
 
     { requires => "Path::Class" }
 
-This will keep your dist working, but will not be future proof against futher changes.
+This will keep your dist working, but will not be future proof against further changes.
 
 =head4 Staying with C<Path::Class> long term.
 
@@ -1045,8 +1045,8 @@ However, outside that, C<x.y.z> semantics are still intended to be semi-meaningf
 
 =head3 C<dev> path determination now deferred to call time instead of C<use>
 
-This was essentially a required change to make C<strict> mode plausible, because strict mode _requires_ the distname to be
-known, even in the development enviroment.
+This was essentially a required change to make C<strict> mode plausible, because strict mode _requires_ the C<distname> to be
+known, even in the development environment.
 
 This should not have any user visible effects, but please, if you have any problems, file a bug.
 
@@ -1060,7 +1060,7 @@ Is now simply sugar syntax for
 
 This should have no side effects in your code, but please file any bugs you experience.
 
-( return value is still undef if the file does not exist, and still C<croak>'s if the file is not a file, or unreadable, but
+( return value is still C<undef> if the file does not exist, and still C<croak>'s if the file is not a file, or unreadable, but
 these may both be subject to change )
 
 =head2 0.5.0 - Heuristics and Return type changes

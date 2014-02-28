@@ -111,8 +111,8 @@ METHODS
 
         This means if Heuristics misfire and accidentally find another
         distributions "share" directory, it will not pick up on it unless
-        that "share" dir also has that layout, and will instead revert to
-        the "installdir" path in @INC
+        that "share" directory also has that layout, and will instead revert
+        to the "installdir" path in @INC
 
         This parameter may become the default option in the future
 
@@ -257,7 +257,7 @@ SIGNIFICANT CHANGES
 
    Why you should use strict mode
     Starting with 1.000000, there is a parameter "strict" that changes how
-    sharedir resolution performs.
+    "sharedir" resolution performs.
 
     Without strict:
 
@@ -314,7 +314,7 @@ SIGNIFICANT CHANGES
         { requires => "Path::Class" }
 
     This will keep your dist working, but will not be future proof against
-    futher changes.
+    further changes.
 
    Staying with "Path::Class" long term.
     Recommended approach if you want to stay using the "Path::Class"
@@ -340,8 +340,8 @@ SIGNIFICANT CHANGES
 
    "dev" path determination now deferred to call time instead of "use"
     This was essentially a required change to make "strict" mode plausible,
-    because strict mode _requires_ the distname to be known, even in the
-    development enviroment.
+    because strict mode _requires_ the "distname" to be known, even in the
+    development environment.
 
     This should not have any user visible effects, but please, if you have
     any problems, file a bug.
@@ -356,7 +356,7 @@ SIGNIFICANT CHANGES
     This should have no side effects in your code, but please file any bugs
     you experience.
 
-    ( return value is still undef if the file does not exist, and still
+    ( return value is still "undef" if the file does not exist, and still
     "croak"'s if the file is not a file, or unreadable, but these may both
     be subject to change )
 
