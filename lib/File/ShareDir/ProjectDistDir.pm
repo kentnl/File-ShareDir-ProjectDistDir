@@ -443,7 +443,7 @@ sub import {
   $defaults->{projectdir} = 'share'    if not defined $defaults->{projectdir};
 
   if ( defined $defaults->{pathclass} ) {
-    _carp("Path::Class support depecated and will be removed from a future release, see Documentation for details");
+    _carp( 'Path::Class support depecated and will be removed from a future release.' . ' see Documentation for details' );
     _need_pathclass();
   }
 
@@ -499,7 +499,6 @@ sub import {
 
 
 
-
 sub _get_defaults {
   my ( $field, $arg, $col ) = @_;
   my $result;
@@ -507,8 +506,6 @@ sub _get_defaults {
   $result = $arg->{$field}             if $arg->{$field};
   return $result;
 }
-
-my $warned;
 
 sub _wrap_return {
   my ( $type, $value ) = @_;
@@ -660,9 +657,9 @@ sub build_dist_file {
   my $check_file = sub {
     my ( $distdir, $wanted_file ) = @_;
     my $child = _path($distdir)->child($wanted_file);
-    return undef unless -e $child;
-    if ( not -f $child ) {
-      return _croak("Found dist_file '$child', but not a file");
+    return unless -e $child;
+    if ( -d $child ) {
+      return _croak("Found dist_file '$child', but is a dir");
     }
     if ( not -r $child ) {
       return _croak("File '$child', no read permissions");
@@ -881,12 +878,11 @@ which is mostly used internally, and their corresponding other values are packed
 
     # And leverages Sub::Exporter to create 2 subs in your package.
 
-Generates the exported 'dist_dir' method. In development environments, the generated method will return
-a path to the development directories 'share' directory. In non-development environments, this simply returns
-C<File::ShareDir::dist_dir>.
+Generates the exported 'dist_dir' method. In development environments, the generated method will return a path to the
+development directories 'share' directory. In non-development environments, this simply returns C<File::ShareDir::dist_dir>.
 
-As a result of this, specifying the Distribution name is not required during development ( unless in C<strict> mode ), however, it will
-start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
+As a result of this, specifying the Distribution name is not required during development ( unless in C<strict> mode ), however,
+it will start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
 
 In C<strict> mode, the distribution name is B<ALWAYS REQUIRED>, either at least at C<import> or C<dist_dir()> time.
 
