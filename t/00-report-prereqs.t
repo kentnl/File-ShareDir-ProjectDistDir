@@ -110,6 +110,7 @@ my $static_prereqs = do { my $x = {
                       'requires' => {
                                       'Carp' => '0',
                                       'File::ShareDir' => '0',
+                                      'Path::Class' => '0',
                                       'Path::Class::Dir' => '0',
                                       'Path::Class::File' => '0',
                                       'Path::FindDev' => '0',

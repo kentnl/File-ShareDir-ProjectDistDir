@@ -150,10 +150,19 @@ if ( $ENV{$env_key} ) {
 }
 
 ## no critic (RequireArgUnpacking)
-sub _croak         { require Carp;              goto &Carp::croak }
-sub _path          { require Path::Tiny;        goto &Path::Tiny::path }
-sub _pathclassfile { require Path::Class::File; return Path::Class::File->new(@_) }
-sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_) }
+sub _croak { require Carp; goto &Carp::croak }
+sub _carp  { require Carp; goto &Carp::carp }
+
+sub _path { require Path::Tiny; goto &Path::Tiny::path }
+
+sub _need_pathclass {
+    require ## Hide
+        Path::Class;
+    require ## Hide
+        Path::Class::File;
+    require ## Hide
+        Path::Class::Dir;
+}
 
 
 
@@ -301,6 +310,11 @@ sub import {
   $defaults->{filename}   = $xfilename if not defined $defaults->{filename};
   $defaults->{projectdir} = 'share'    if not defined $defaults->{projectdir};
 
+  if ( defined $defaults->{pathclass} ) {
+    _carp("Path::Class support depecated and will be removed from a future release, see Documentation for details");
+    _need_pathclass();
+  }
+
   @_ = ( $class, ( grep { defined } @args ), 'defaults' => $defaults );
 
   goto $exporter;
@@ -360,6 +374,8 @@ sub _get_defaults {
   return $result;
 }
 
+my $warned;
+
 sub _wrap_return {
   my ( $type, $value ) = @_;
   if ( not $type ) {
@@ -372,12 +388,12 @@ sub _wrap_return {
   }
   if ( 'pathclassdir' eq $type ) {
     return $value if 'Path::Class::Dir' eq ref $value;
-    require Path::Class::Dir;
+    _need_pathclass;
     return Path::Class::Dir->new("$value");
   }
   if ( 'pathclassfile' eq $type ) {
     return $value if 'Path::Class::File' eq ref $value;
-    require Path::Class::File;
+    _need_pathclass;
     return Path::Class::File->new("$value");
   }
   return _croak("Unknown return type $type");

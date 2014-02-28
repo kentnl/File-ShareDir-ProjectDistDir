@@ -81,6 +81,7 @@
          "requires" : {
             "Carp" : "0",
             "File::ShareDir" : "0",
+            "Path::Class" : "0",
             "Path::Class::Dir" : "0",
             "Path::Class::File" : "0",
             "Path::FindDev" : "0",
@@ -183,6 +184,7 @@
          "File::Spec::Functions" : "3.47",
          "FindBin" : "1.51",
          "List::Util" : "1.38",
+         "Path::Class" : "0.33",
          "Path::Class::Dir" : "0.33",
          "Path::Class::File" : "0.33",
          "Path::FindDev" : "0.4.2",
