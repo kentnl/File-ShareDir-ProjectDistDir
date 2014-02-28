@@ -1,9 +1,13 @@
+use 5.008;
 use strict;
 use warnings;
+use utf8;
 
 package File::ShareDir::ProjectDistDir;
 $File::ShareDir::ProjectDistDir::VERSION = '0.5.3';
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
+
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
