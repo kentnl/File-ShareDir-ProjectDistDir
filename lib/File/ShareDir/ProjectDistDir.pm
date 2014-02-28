@@ -142,7 +142,7 @@ sub _debug($) {}
 
 if ( $ENV{$env_key} ) {
   no warnings 'redefine';
-  ## no critic (ProtectPrivateVars,TestingAndDebugging::ProhibitNoWarnings)
+  ## no critic (ProtectPrivateVars TestingAndDebugging::ProhibitNoWarnings)
   *File::ShareDir::ProjectDistDir::_debug = sub ($) {
     *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
   };
