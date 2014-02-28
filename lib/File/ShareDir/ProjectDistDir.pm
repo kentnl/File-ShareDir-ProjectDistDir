@@ -267,6 +267,7 @@ sub import {
     filename   => $xfilename,
     projectdir => 'share',
     pathclass  => undef,
+    strict     => undef,
   };
 
   if ( not @args ) {
@@ -278,13 +279,13 @@ sub import {
     my ( $key, $value );
     next unless $key = $args[$_] and $value = $args[ $_ + 1 ];
 
-    if ( $key eq 'defaults' ) {
+    if ( 'defaults' eq $key ) {
       $defaults = $value;
       undef $args[$_];
       undef $args[ $_ + 1 ];
       next;
     }
-    for my $setting (qw( projectdir filename distname pathclass pathtiny )) {
+    for my $setting (qw( projectdir filename distname pathclass pathtiny strict )) {
       if ( $key eq $setting and not ref $value ) {
         $defaults->{$setting} = $value;
         undef $args[$_];
@@ -404,6 +405,8 @@ sub build_dist_dir {
   my $projectdir = _get_defaults( projectdir => $arg, $col );
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
   my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
+  my $strict     = _get_defaults( strict     => $arg, $col );
+  my $filename   = _get_defaults( filename   => $arg, $col );
 
   my $wrap_return_type;
 
@@ -487,6 +490,8 @@ sub build_dist_file {
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
   my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
 
+  my $strict   = _get_defaults( strict   => $arg, $col );
+  my $filename = _get_defaults( filename => $arg, $col );
   my $root = _devel_sharedir( $col->{defaults}->{filename}, $projectdir );
 
   my $distname = _get_defaults( distname => $arg, $col );
