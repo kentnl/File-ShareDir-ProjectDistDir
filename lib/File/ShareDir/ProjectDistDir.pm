@@ -156,12 +156,12 @@ sub _carp  { require Carp; goto &Carp::carp }
 sub _path { require Path::Tiny; goto &Path::Tiny::path }
 
 sub _need_pathclass {
-    require ## Hide
-        Path::Class;
-    require ## Hide
-        Path::Class::File;
-    require ## Hide
-        Path::Class::Dir;
+    for my $package( '', '::File', '::Dir' ) {
+        local $@;
+        my $code = sprintf 'require %s;1', $package;
+        ## no critic (RequireCarping)
+        die $@ unless eval $code;
+    }
 }
 
 
