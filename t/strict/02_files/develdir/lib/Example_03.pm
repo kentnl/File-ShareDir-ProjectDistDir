@@ -3,12 +3,4 @@ use warnings;
 
 package Example_03;
 
-#use File::ShareDir::ProjectDistDir;
-
-#use Path::Class::File;
-
-#sub test {
-#  return scalar Path::Class::File->new( dist_file('Example_01', 'file') )->slurp();
-#}
-
 1;
