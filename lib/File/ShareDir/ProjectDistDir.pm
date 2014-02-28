@@ -395,6 +395,7 @@ sub _get_cached_dist_dir_result {
   my $dev = find_dev( _path($filename)->parent );
 
   if ( not defined $dev ) {
+    ## no critic (Variables::ProhibitPackageVars)
     local $Carp::CarpLevel = $Carp::CarpLevel + 1;
     return File::ShareDir::dist_dir($distname);
   }
@@ -409,6 +410,7 @@ sub _get_cached_dist_dir_result {
     return ( $DIST_DIR_CACHE{$distname} = $devel_share_dir );
   }
   _debug( 'ISPROD: does not exist : <devroot>/' . $devel_share_dir->relative($dev) );
+  ## no critic (Variables::ProhibitPackageVars)
   local $Carp::CarpLevel = $Carp::CarpLevel + 1;
   return File::ShareDir::dist_dir($distname);
 }
