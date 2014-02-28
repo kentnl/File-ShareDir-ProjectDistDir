@@ -413,7 +413,7 @@ base_max = 130
 
 [ValuesAndExpressions::RequireNumberSeparators]
 
-[ValuesAndExpressions::RequireNumericVersion]
+[-ValuesAndExpressions::RequireNumericVersion]
 
 [ValuesAndExpressions::RequireQuotedHeredocTerminator]
 

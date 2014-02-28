@@ -33,7 +33,7 @@ METHODS
         use File::ShareDir::ProjectDistDir (@args);
 
     This uses "Sub::Exporter" to do the heavy lifting, so most usage of this
-    module can be maximised by understanding that first.
+    module can be maximized by understanding that first.
 
     *   ":all"
 
