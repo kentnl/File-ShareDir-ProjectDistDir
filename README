@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 0.5.2
+    version 1.000000
 
 SYNOPSIS
       package An::Example::Package;
@@ -33,7 +33,7 @@ METHODS
         use File::ShareDir::ProjectDistDir (@args);
 
     This uses "Sub::Exporter" to do the heavy lifting, so most usage of this
-    module can be maximised by understanding that first.
+    module can be maximized by understanding that first.
 
     *   ":all"
 
@@ -95,6 +95,30 @@ METHODS
 
             my $dir = dist_dir();
             my $file = dist_file('path/to/file.pm' );
+
+    *   "strict"
+
+            ->import( ... , strict => 1 );
+
+        This parameter specifies that all "dist" "sharedirs" will occur
+        within the "projectdir" directory using the following layout:
+
+            <root>/<projectdir>/dist/<DISTNAME>/
+
+        As opposed to
+
+            <root>/<projectdir>
+
+        This means if Heuristics misfire and accidentally find another
+        distributions "share" directory, it will not pick up on it unless
+        that "share" directory also has that layout, and will instead revert
+        to the "installdir" path in @INC
+
+        This parameter may become the default option in the future
+
+        Specifying this parameter also mandates you MUST declare the
+        "DISTNAME" value in your file somewhere. Doing otherwise is
+        considered insanity anyway.
 
     *   "defaults"
 
@@ -173,9 +197,12 @@ METHODS
     "File::ShareDir::dist_dir".
 
     As a result of this, specifying the Distribution name is not required
-    during development, however, it will start to matter once it is
-    installed. This is a potential avenues for bugs if you happen to name it
-    wrong.
+    during development ( unless in "strict" mode ), however, it will start
+    to matter once it is installed. This is a potential avenues for bugs if
+    you happen to name it wrong.
+
+    In "strict" mode, the distribution name is ALWAYS REQUIRED, either at
+    least at "import" or "dist_dir()" time.
 
   build_dist_file
         use File::ShareDir::ProjectDirDir ( : all );
@@ -222,6 +249,117 @@ METHODS
     apply to this method.
 
 SIGNIFICANT CHANGES
+  1.000000
+   Strict Mode.
+   Using Strict Mode
+        use File::ShareDir::ProjectDistDir ':all', strict => 1;
+        use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+
+   Why you should use strict mode
+    Starting with 1.000000, there is a parameter "strict" that changes how
+    "sharedir" resolution performs.
+
+    Without strict:
+
+        lib/...
+        share/...
+
+    With strict
+
+        lib/...
+        share/dist/Dist-Name-Here/...
+
+    This technique greatly builds resilience to the long standing problem
+    with "develop" vs "install" heuristic ambiguity.
+
+    Here at least,
+
+        dist_dir('Dist-Name')
+
+    Will instead fall back to
+
+        @INC/auto/share/dist/Dist-Name
+
+    When
+
+        share/dist/Dist-Name
+
+    Does not exist.
+
+    This means if you have a layout like this:
+
+        <DEVROOT>/inc/<a local::lib path here>
+        <DEVROOT>/lib/<development files here>
+
+    Then when "Foo-Bar-Baz" is installed as:
+
+        <DEVROOT>/inc/lib/Foo/Bar/Baz.pm
+        <DEVROOT>/inc/lib/auto/share/dist/Foo-Bar-Baz
+
+    Then "Baz.pm" will not see the "DEVROOT" and assume "Hey, this is
+    development" and then proceed to try finding files in "DEVROOT/share"
+
+    Instead, "DEVROOT" must have "DEVROOT/share/dist/Foo-Bar-Baz" too,
+    otherwise it reverts to "DEVROOT/inc/lib/auto..."
+
+   "Path::Class" interfaces deprecated and dependency dropped.
+    If you have any dependence on this function, now is the time to get
+    yourself off it.
+
+   Minimum Changes to stay with "Path::Class" short term.
+    As the dependency has been dropped on "Path::Class", if you have "CPAN"
+    modules relying on "Path::Class" interface, you should now at a very
+    minimum start declaring
+
+        { requires => "Path::Class" }
+
+    This will keep your dist working, but will not be future proof against
+    further changes.
+
+   Staying with "Path::Class" long term.
+    Recommended approach if you want to stay using the "Path::Class"
+    interface:
+
+        use File::ShareDir::... etc
+        use Path::Class qw( dir file );
+
+        my $dir = dir( dist_dir('Dist-Name') );
+
+    This should future-proof you against anything File::ShareDir may do in
+    the future.
+
+   "Versioning Scheme arbitrary converted to float"
+    This change is a superficial one, and should have no bearing on how
+    significant you think this release is.
+
+    It is a significant release, but the primary reason for the version
+    change is simply to avoid compatibility issues in *versions themselves*.
+
+    However, outside that, "x.y.z" semantics are still intended to be
+    semi-meaningful, just with less "." and more 0 ☺
+
+   "dev" path determination now deferred to call time instead of "use"
+    This was essentially a required change to make "strict" mode plausible,
+    because strict mode _requires_ the "distname" to be known, even in the
+    development environment.
+
+    This should not have any user visible effects, but please, if you have
+    any problems, file a bug.
+
+   "file" component determination wrested from "File::ShareDir".
+        dist_file('foo','bar')
+
+    Is now simply sugar syntax for
+
+        path(dist_dir('foo'))->child('bar')
+
+    This should have no side effects in your code, but please file any bugs
+    you experience.
+
+    ( return value is still "undef" if the file does not exist, and still
+    "croak"'s if the file is not a file, or unreadable, but these may both
+    be subject to change )
+
   0.5.0 - Heuristics and Return type changes
    New "devdir" heuristic
     Starting with 0.5.0, instead of using our simple "lib/../share" pattern
@@ -297,8 +435,8 @@ SIGNIFICANT CHANGES
             qw( dist_dir dist_file ),
             defaults => { pathtiny => 1 };
 
-    For the time being, you can still get Path::Class objects back, but its
-    likely to be deprecated in future.
+    For the time being, you can still get Path::Class objects back, it is
+    deprecated since 1.000000
 
     ( In fact, I may even make 2 specific sub-classes of "PDD" for people
     who want objects back, as it will make the "API" and the code much
@@ -308,7 +446,7 @@ AUTHOR
     Kent Fredric <kentnl@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Kent Fredric <kentnl@cpan.org>.
+    This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
