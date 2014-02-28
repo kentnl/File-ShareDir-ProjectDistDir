@@ -3,7 +3,7 @@ use warnings;
 
 package Example_04;
 
-use File::ShareDir::ProjectDistDir;
+use File::ShareDir::ProjectDistDir ':all', strict => 1;
 
 use Path::Class::File;
 
