@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+1.000000 2014-02-28T15:00:49Z
  [00 MAJOR CHANGES]
  - add 'strict' mode
  - defer dev path and determination to calltime
