@@ -100,7 +100,7 @@ METHODS
 
             ->import( ... , strict => 1 );
 
-        This parameter specifies that all "dist" share dirs will occur
+        This parameter specifies that all "dist" "sharedirs" will occur
         within the "projectdir" directory using the following layout:
 
             <root>/<projectdir>/dist/<DISTNAME>/
@@ -109,10 +109,10 @@ METHODS
 
             <root>/<projectdir>
 
-        This means if Heuristics missfire and accidentally find somebody
-        elses "share" dir, it will not pick up on it unless that "share" dir
-        also has that layout, and will instead revert to the "installdir"
-        path in @INC
+        This means if Heuristics misfire and accidentally find another
+        distributions "share" directory, it will not pick up on it unless
+        that "share" dir also has that layout, and will instead revert to
+        the "installdir" path in @INC
 
         This parameter may become the default option in the future
 
@@ -307,8 +307,8 @@ SIGNIFICANT CHANGES
     yourself off it.
 
    Minimum Changes to stay with "Path::Class" short term.
-    As the dependency has been dropped on Path::Class, if you have CPAN
-    modules relying on Path::Class interface, you should now at a very
+    As the dependency has been dropped on "Path::Class", if you have "CPAN"
+    modules relying on "Path::Class" interface, you should now at a very
     minimum start declaring
 
         { requires => "Path::Class" }

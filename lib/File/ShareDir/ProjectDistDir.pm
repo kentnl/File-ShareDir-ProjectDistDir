@@ -264,15 +264,18 @@ sub _carp  { require Carp; goto &Carp::carp }
 sub _path { require Path::Tiny; goto &Path::Tiny::path }
 
 sub _need_pathclass {
-  for my $package ( '', '::File', '::Dir' ) {
-    local $@;
+  for my $package ( q[], q[::File], q[::Dir] ) {
+    ## no critic (Variables::RequireInitializationForLocalVars)
+    local $@ = undef;
     my $code = sprintf 'require %s%s;1', 'Path::Class', $package;
-    ## no critic (RequireCarping)
+    ## no critic (BuiltinFunctions::ProhibitStringyEval,Lax::ProhibitStringyEval::ExceptForRequire)
     next if eval $code;
     my $err = $@;
-    _carp('Path::Class is not installed and you requested it, make it a dependency of your package');
-    die $@;
+    _carp('Path::Class is not installed.');
+    ## no critic (RequireCarping, ErrorHandling::RequireUseOfExceptions)
+    die $err;
   }
+  return 1;
 }
 
 
@@ -789,7 +792,7 @@ i.e:
 
     ->import( ... , strict => 1 );
 
-This parameter specifies that all C<dist> share dirs will occur within the C<projectdir> directory using the following layout:
+This parameter specifies that all C<dist> C<sharedirs> will occur within the C<projectdir> directory using the following layout:
 
     <root>/<projectdir>/dist/<DISTNAME>/
 
@@ -797,7 +800,7 @@ As opposed to
 
     <root>/<projectdir>
 
-This means if Heuristics missfire and accidentally find somebody elses C<share> dir, it will not pick up on it unless that C<share> dir also has that layout, and will instead revert to the C<installdir> path in C<@INC>
+This means if Heuristics misfire and accidentally find another distributions C<share> directory, it will not pick up on it unless that C<share> dir also has that layout, and will instead revert to the C<installdir> path in C<@INC>
 
 B<This parameter may become the default option in the future>
 
@@ -988,7 +991,7 @@ This means if you have a layout like this:
     <DEVROOT>/inc/<a local::lib path here>
     <DEVROOT>/lib/<development files here>
 
-Then when "Foo-Bar-Baz" is installed as:
+Then when C<Foo-Bar-Baz> is installed as:
 
     <DEVROOT>/inc/lib/Foo/Bar/Baz.pm
     <DEVROOT>/inc/lib/auto/share/dist/Foo-Bar-Baz
@@ -1004,8 +1007,8 @@ If you have any dependence on this function, now is the time to get yourself off
 
 =head4 Minimum Changes to stay with C<Path::Class> short term.
 
-As the dependency has been dropped on Path::Class, if you have CPAN
-modules relying on Path::Class interface, you should now at a very minimum
+As the dependency has been dropped on C<Path::Class>, if you have C<CPAN>
+modules relying on C<Path::Class> interface, you should now at a very minimum
 start declaring
 
     { requires => "Path::Class" }
