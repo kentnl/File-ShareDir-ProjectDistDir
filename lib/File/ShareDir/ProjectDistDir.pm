@@ -2,14 +2,116 @@ use strict;
 use warnings;
 
 package File::ShareDir::ProjectDistDir;
-BEGIN {
-  $File::ShareDir::ProjectDistDir::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $File::ShareDir::ProjectDistDir::VERSION = '0.5.2';
-}
-
+$File::ShareDir::ProjectDistDir::VERSION = '0.5.3';
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 use Path::Class::File;
@@ -48,6 +150,111 @@ sub _croak         { require Carp;              goto &Carp::croak }
 sub _path          { require Path::Tiny;        goto &Path::Tiny::path }
 sub _pathclassfile { require Path::Class::File; return Path::Class::File->new(@_) }
 sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_) }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub import {
@@ -113,6 +320,51 @@ sub _devel_sharedir {
   #warn "Not a devel $dir";
   return;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub _get_defaults {
@@ -182,6 +434,52 @@ sub build_dist_dir {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sub build_dist_file {
   my ( $class, $name, $arg, $col ) = @_;
 
@@ -249,7 +547,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 0.5.2
+version 0.5.3
 
 =head1 SYNOPSIS
 
@@ -557,7 +855,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
