@@ -127,8 +127,6 @@ spell_command = aspell list --lang en_US
 
 [Documentation::ProhibitAdjacentLinks]
 
-[Documentation::ProhibitAdjacentLinks::Parser]
-
 [Documentation::ProhibitBadAproposMarkup]
 
 [Documentation::ProhibitDuplicateHeadings]
