@@ -26,7 +26,8 @@ pass('Test requirements available');
 my $ex;
 
 sub test {
-  package Foo; 
+
+  package Foo;
   File::ShareDir::ProjectDistDir->import( q[:all], pathclass => 1 );
   1;
 }
@@ -42,7 +43,7 @@ my $err = Capture::Tiny::capture_stderr(
   }
 );
 like( $err, qr/Path::Class support depecated/, "warns about invocation" );
-like( $err, qr/Path::Class is not installed/, "warns if require failed");
-like( $ex, qr/Can\'t locate Path\/Class\.pm/, "dies with core failure");
+like( $err, qr/Path::Class is not installed/,  "warns if require failed" );
+like( $ex,  qr/Can\'t locate Path\/Class\.pm/, "dies with core failure" );
 done_testing;
 
