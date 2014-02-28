@@ -118,7 +118,6 @@ For the time being, you can still get Path::Class objects back, but its likely t
 
 =cut
 
-use Path::Class::File;
 use Path::IsDev qw();
 use Path::FindDev qw(find_dev);
 use Sub::Exporter qw(build_exporter);
