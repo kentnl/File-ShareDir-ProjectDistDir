@@ -16,6 +16,8 @@ maint-travis-ci/merge_travis_yml.pl
 maint-travis-ci/sterilize_env.pl
 maint-travis-ci/sync_tree.pl
 maint-travis-ci/yamls/sterile.yaml
+maint/perlcritic.rc.gen.pl
+perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_File_ShareDir_ProjectDistDir_pm.t
 t/00-report-prereqs.t

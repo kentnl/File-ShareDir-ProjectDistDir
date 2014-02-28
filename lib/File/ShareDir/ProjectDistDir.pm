@@ -137,7 +137,7 @@ my ($exporter) = build_exporter(
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 
 ## no critic (Subroutines::ProhibitSubroutinePrototypes)
-sub _debug($) {}
+sub _debug($) { }
 ## use critic
 
 if ( $ENV{$env_key} ) {
@@ -265,7 +265,7 @@ sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_)
 sub import {
   my ( $class, @args ) = @_;
 
-  my ( undef, $xfilename, undef) = caller;
+  my ( undef, $xfilename, undef ) = caller;
 
   my $defaults = {
     filename   => $xfilename,
