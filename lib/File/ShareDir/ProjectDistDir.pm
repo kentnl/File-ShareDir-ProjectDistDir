@@ -1,9 +1,13 @@
+use 5.008;
 use strict;
 use warnings;
+use utf8;
 
 package File::ShareDir::ProjectDistDir;
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
+
+# AUTHORITY
 
 =begin MetaPOD::JSON v1.0.0
 
@@ -125,24 +129,25 @@ my ($exporter) = build_exporter(
     exports => [ dist_dir => \&build_dist_dir, dist_file => \&build_dist_file ],
     groups  => {
       all       => [qw( dist_dir dist_file )],
-      'default' => [qw( dist_dir dist_file )]
+      'default' => [qw( dist_dir dist_file )],
     },
     collectors => [ 'defaults', ],
-  }
+  },
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 
+## no critic (Subroutines::ProhibitSubroutinePrototypes)
+sub _debug($) { }
+## use critic
+
 if ( $ENV{$env_key} ) {
-  ## no critic (ProtectPrivateVars)
+  ## no critic (ProtectPrivateVars,TestingAndDebugging::ProhibitNoWarnings)
+  no warnings 'redefine';
   *File::ShareDir::ProjectDistDir::_debug = sub ($) {
     *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
   };
   $Path::IsDev::DEBUG   = 1;
   $Path::FindDev::DEBUG = 1;
-}
-else {
-  ## no critic (ProtectPrivateVars)
-  *File::ShareDir::ProjectDistDir::_debug = sub ($) { }
 }
 
 ## no critic (RequireArgUnpacking)
@@ -155,7 +160,7 @@ sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_)
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
+This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximized by understanding that first.
 
 =over 4
 
@@ -259,9 +264,8 @@ which is mostly used internally, and their corresponding other values are packed
 
 sub import {
   my ( $class, @args ) = @_;
-  my $has_defaults = undef;
 
-  my ( $xclass, $xfilename, $xline ) = caller;
+  my ( undef, $xfilename, undef ) = caller;
 
   my $defaults = {
     filename   => $xfilename,
@@ -363,17 +367,17 @@ sub _wrap_return {
     return $value unless ref $value;
     return "$value";
   }
-  if ( $type eq 'pathtiny' ) {
-    return $value if ref $value eq 'Path::Tiny';
+  if ( 'pathtiny' eq $type ) {
+    return $value if 'Path::Tiny' eq ref $value;
     return _path($value);
   }
-  if ( $type eq 'pathclassdir' ) {
-    return $value if ref $value eq 'Path::Class::Dir';
+  if ( 'pathclassdir' eq $type ) {
+    return $value if 'Path::Class::Dir' eq ref $value;
     require Path::Class::Dir;
     return Path::Class::Dir->new("$value");
   }
-  if ( $type eq 'pathclassfile' ) {
-    return $value if ref $value eq 'Path::Class::File';
+  if ( 'pathclassfile' eq $type ) {
+    return $value if 'Path::Class::File' eq ref $value;
     require Path::Class::File;
     return Path::Class::File->new("$value");
   }
@@ -408,7 +412,7 @@ sub _get_cached_dist_dir_result {
 }
 
 sub build_dist_dir {
-  my ( $class, $name, $arg, $col ) = @_;
+  my ( $class, undef, $arg, $col ) = @_;
 
   my $projectdir = _get_defaults( projectdir => $arg, $col );
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
@@ -484,7 +488,7 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 =cut
 
 sub build_dist_file {
-  my ( $class, $name, $arg, $col ) = @_;
+  my ( $class, undef, $arg, $col ) = @_;
 
   my $projectdir = _get_defaults( projectdir => $arg, $col );
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
