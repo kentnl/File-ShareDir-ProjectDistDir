@@ -129,10 +129,10 @@ my ($exporter) = build_exporter(
     exports => [ dist_dir => \&build_dist_dir, dist_file => \&build_dist_file ],
     groups  => {
       all       => [qw( dist_dir dist_file )],
-      'default' => [qw( dist_dir dist_file )]
+      'default' => [qw( dist_dir dist_file )],
     },
     collectors => [ 'defaults', ],
-  }
+  },
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 
@@ -263,9 +263,8 @@ sub _pathclassdir  { require Path::Class::Dir;  return Path::Class::Dir->new(@_)
 
 sub import {
   my ( $class, @args ) = @_;
-  my $has_defaults = undef;
 
-  my ( $xclass, $xfilename, $xline ) = caller;
+  my ( undef, $xfilename, undef) = caller;
 
   my $defaults = {
     filename   => $xfilename,
@@ -283,7 +282,7 @@ sub import {
     my ( $key, $value );
     next unless $key = $args[$_] and $value = $args[ $_ + 1 ];
 
-    if ( $key eq 'defaults' ) {
+    if ( 'defaults' eq $key ) {
       $defaults = $value;
       undef $args[$_];
       undef $args[ $_ + 1 ];
@@ -367,17 +366,17 @@ sub _wrap_return {
     return $value unless ref $value;
     return "$value";
   }
-  if ( $type eq 'pathtiny' ) {
-    return $value if ref $value eq 'Path::Tiny';
+  if ( 'pathtiny' eq $type ) {
+    return $value if 'Path::Tiny' eq ref $value;
     return _path($value);
   }
-  if ( $type eq 'pathclassdir' ) {
-    return $value if ref $value eq 'Path::Class::Dir';
+  if ( 'pathclassdir' eq $type ) {
+    return $value if 'Path::Class::Dir' eq ref $value;
     require Path::Class::Dir;
     return Path::Class::Dir->new("$value");
   }
-  if ( $type eq 'pathclassfile' ) {
-    return $value if ref $value eq 'Path::Class::File';
+  if ( 'pathclassfile' eq $type ) {
+    return $value if 'Path::Class::File' eq ref $value;
     require Path::Class::File;
     return Path::Class::File->new("$value");
   }
@@ -496,8 +495,8 @@ sub build_dist_file {
   my $pathclass  = _get_defaults( pathclass  => $arg, $col );
   my $pathtiny   = _get_defaults( pathtiny   => $arg, $col );
 
-  my $strict     = _get_defaults( strict     => $arg, $col );
-  my $filename   = _get_defaults( filename   => $arg, $col );
+  my $strict   = _get_defaults( strict   => $arg, $col );
+  my $filename = _get_defaults( filename => $arg, $col );
 
   my $distname = _get_defaults( distname => $arg, $col );
 
@@ -506,16 +505,15 @@ sub build_dist_file {
   if ($pathclass) { $wrap_return_type = 'pathclassfile' }
   if ($pathtiny)  { $wrap_return_type = 'pathtiny' }
 
-
   if ( not $distname ) {
     return sub {
-      my ($udistname, $wanted_file) = @_;
+      my ( $udistname, $wanted_file ) = @_;
       my $distdir = $class->_get_cached_dist_dir_result( $filename, $projectdir, $udistname, $strict );
       return _wrap_return( $wrap_return_type, _path($distdir)->child($wanted_file) );
     };
   }
   return sub {
-    my ( $wanted_file ) = @_;
+    my ($wanted_file) = @_;
     my $distdir = $class->_get_cached_dist_dir_result( $filename, $projectdir, $distname, $strict );
     return _wrap_return( $wrap_return_type, _path($distdir)->child($wanted_file) );
   };
