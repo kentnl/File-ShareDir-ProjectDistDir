@@ -307,28 +307,6 @@ sub import {
   goto $exporter;
 }
 
-sub _devel_sharedir {
-  my ( $filename, $subdir, $strict ) = @_;
-
-  _debug( 'Working on: ' . $filename );
-  my $dev = find_dev( _path($filename)->parent );
-
-  return if not defined $dev;
-
-  my $devel_share_dir = $dev->child($subdir);
-  if ( not $strict ) {
-    if ( -d $devel_share_dir ) {
-      _debug( 'ISDEV : exists : <devroot>/' . $subdir . ' > ' . $devel_share_dir );
-      return $devel_share_dir;
-    }
-    _debug( 'ISPROD: does not exist : <devroot>/' . $subdir . ' > ' . $devel_share_dir );
-    return;
-  }
-
-  #warn "Not a devel $dir";
-  return;
-}
-
 
 
 
@@ -419,7 +397,8 @@ sub _get_cached_distdir_result {
   if ( not defined $dev ) {
     return File::ShareDir::dist_dir($distname);
   }
-  my $devel_share_dir = $dev->child($subdir);
+
+  my $devel_share_dir = $dev->child($projectdir);
 
   if ($strict) {
     $devel_share_dir = $devel_share_dir->child( 'dist', $distname );
