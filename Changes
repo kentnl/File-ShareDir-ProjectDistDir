@@ -1,6 +1,21 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [00 MAJOR CHANGES]
+ - add 'strict' mode
+ - defer dev path and determination to calltime
+ - switch to float versions.
+ - start warning about Path::Class usage
+ - stop depending on Path::Class
+ - stop using Path::Class
+ - use EUMM for tooling.
+ - Seriously, read SIGNIFICANT CHANGES for details.
+
+ [Dependencies::Aggregate]
+ - 5.008 : 47 deps
+ - 5.010 : 37 deps
+ - 5.019 : 20 deps
+
  [Dependencies::Stats]
  - Dependencies changed since 0.5.2, see Changes.deps{,.all,.dev} for
    details
