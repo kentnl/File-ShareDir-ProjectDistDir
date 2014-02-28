@@ -118,7 +118,6 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
-use Path::Class::File;
 use Path::IsDev qw();
 use Path::FindDev qw(find_dev);
 use Sub::Exporter qw(build_exporter);
