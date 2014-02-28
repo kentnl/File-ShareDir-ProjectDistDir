@@ -42,6 +42,117 @@ you install that, you specify the different directory there also ) as follows:
 
 =head1 SIGNIFICANT CHANGES
 
+=head2 1.000000
+
+=head3 Strict Mode.
+
+=head4 Using Strict Mode
+
+    use File::ShareDir::ProjectDistDir ':all', strict => 1;
+    use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+
+=head4 Why you should use strict mode
+
+Starting with C<1.000000>, there is a parameter C<strict> that changes
+how C<sharedir> resolution performs.
+
+Without strict:
+
+    lib/...
+    share/...
+
+With strict
+
+    lib/...
+    share/dist/Dist-Name-Here/...
+
+This technique greatly builds resilience to the long standing problem
+with "develop" vs "install" heuristic ambiguity.
+
+Here at least,
+
+    dist_dir('Dist-Name')
+
+Will instead fall back to
+
+    @INC/auto/share/dist/Dist-Name
+
+When
+
+    share/dist/Dist-Name
+
+Does not exist.
+
+This means if you have a layout like this:
+
+    <DEVROOT>/inc/<a local::lib path here>
+    <DEVROOT>/lib/<development files here>
+
+Then when C<Foo-Bar-Baz> is installed as:
+
+    <DEVROOT>/inc/lib/Foo/Bar/Baz.pm
+    <DEVROOT>/inc/lib/auto/share/dist/Foo-Bar-Baz
+
+Then C<Baz.pm> will not see the C<DEVROOT> and assume "Hey, this is development" and then proceed to try finding files in
+C<DEVROOT/share>
+
+Instead, C<DEVROOT> must have C<DEVROOT/share/dist/Foo-Bar-Baz> too, otherwise it reverts
+to C<DEVROOT/inc/lib/auto...>
+
+=head3 C<Path::Class> interfaces deprecated and dependency dropped.
+
+If you have any dependence on this function, now is the time to get yourself off it.
+
+=head4 Minimum Changes to stay with C<Path::Class> short term.
+
+As the dependency has been dropped on C<Path::Class>, if you have C<CPAN>
+modules relying on C<Path::Class> interface, you should now at a very minimum
+start declaring
+
+    { requires => "Path::Class" }
+
+This will keep your dist working, but will not be future proof against further changes.
+
+=head4 Staying with C<Path::Class> long term.
+
+Recommended approach if you want to stay using the C<Path::Class> interface:
+
+    use File::ShareDir::... etc
+    use Path::Class qw( dir file );
+
+    my $dir = dir( dist_dir('Dist-Name') );
+
+This should future-proof you against anything File::ShareDir may do in the future.
+
+=head3 C<Versioning Scheme arbitrary converted to float>
+
+This change is a superficial one, and should have no bearing on how significant you think this release is.
+
+It is a significant release, but the primary reason for the version change is simply to avoid compatibility issues in
+I<versions themselves>.
+
+However, outside that, C<x.y.z> semantics are still intended to be semi-meaningful, just with less C<.> and more C<0> ☺
+
+=head3 C<dev> path determination now deferred to call time instead of C<use>
+
+This was essentially a required change to make C<strict> mode plausible, because strict mode _requires_ the C<distname> to be
+known, even in the development environment.
+
+This should not have any user visible effects, but please, if you have any problems, file a bug.
+
+=head3 C<file> component determination wrested from C<File::ShareDir>.
+
+    dist_file('foo','bar')
+
+Is now simply sugar syntax for
+
+    path(dist_dir('foo'))->child('bar')
+
+This should have no side effects in your code, but please file any bugs you experience.
+
+( return value is still C<undef> if the file does not exist, and still C<croak>'s if the file is not a file, or unreadable, but
+these may both be subject to change )
+
 =head2 0.5.0 - Heuristics and Return type changes
 
 =head3 New C<devdir> heuristic
@@ -66,7 +177,8 @@ For instance, have a look in C</usr/>
 
 This would have the very bad side effect of anything installed in C</usr/lib> thinking its "in development".
 
-Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symbolic link on most x86_64 systems.
+Fortunately, nobody seems to have hit this specific bug, which I suspect is due only to C</usr/lib> being a symbolic link on most
+x86_64 systems.
 
 =item * C<lib> is also reasonably common within C<CPAN> package names.
 
@@ -112,9 +224,10 @@ Now you can also get C<Path::Tiny> objects back, by passing:
         qw( dist_dir dist_file ),
         defaults => { pathtiny => 1 };
 
-For the time being, you can still get Path::Class objects back, but its likely to be deprecated in future.
+B<< For the time being, you can still get Path::Class objects back, it is deprecated since 1.000000 >>
 
-( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the code much cleaner )
+( In fact, I may even make 2 specific sub-classes of C<PDD> for people who want objects back, as it will make the C<API> and the
+code much cleaner )
 
 =cut
 
@@ -174,7 +287,8 @@ sub _need_pathclass {
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximized by understanding that first.
+This uses L<< C<Sub::Exporter>|Sub::Exporter >> to do the heavy lifting, so most usage of this module can be maximized by
+understanding that first.
 
 =over 4
 
@@ -233,6 +347,26 @@ i.e:
 
     my $dir = dist_dir();
     my $file = dist_file('path/to/file.pm' );
+
+=item * B<C<strict>>
+
+    ->import( ... , strict => 1 );
+
+This parameter specifies that all C<dist> C<sharedirs> will occur within the C<projectdir> directory using the following layout:
+
+    <root>/<projectdir>/dist/<DISTNAME>/
+
+As opposed to
+
+    <root>/<projectdir>
+
+This means if Heuristics misfire and accidentally find another distributions C<share> directory, it will not pick up on it
+unless that C<share> directory also has that layout, and will instead revert to the C<installdir> path in C<@INC>
+
+B<This parameter may become the default option in the future>
+
+Specifying this parameter also mandates you B<MUST> declare the C<DISTNAME> value in your file somewhere. Doing otherwise is
+considered insanity anyway.
 
 =item * B<C<defaults>>
 
@@ -363,12 +497,13 @@ sub import {
     # And leverages Sub::Exporter to create 2 subs in your package.
 
 
-Generates the exported 'dist_dir' method. In development environments, the generated method will return
-a path to the development directories 'share' directory. In non-development environments, this simply returns
-C<File::ShareDir::dist_dir>.
+Generates the exported 'dist_dir' method. In development environments, the generated method will return a path to the
+development directories 'share' directory. In non-development environments, this simply returns C<File::ShareDir::dist_dir>.
 
-As a result of this, specifying the Distribution name is not required during development, however, it will
-start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
+As a result of this, specifying the Distribution name is not required during development ( unless in C<strict> mode ), however,
+it will start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
+
+In C<strict> mode, the distribution name is B<ALWAYS REQUIRED>, either at least at C<import> or C<dist_dir()> time.
 
 =cut
 
