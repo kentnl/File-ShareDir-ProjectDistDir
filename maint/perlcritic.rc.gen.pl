@@ -13,8 +13,7 @@ use Perl::Critic::ProfileCompiler::Util qw( create_bundle );
 my $bundle = create_bundle('Example::Author::KENTNL');
 $bundle->configure;
 
-my @stopwords = (
-);
+my @stopwords = ();
 for my $var (@stopwords) {
   $bundle->add_or_append_policy_field( 'Documentation::PodSpelling' => ( 'stop_words' => $var ) );
 }
