@@ -4,7 +4,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 # VERSION
 
-version 0.5.2
+version 0.5.3
 
 # SYNOPSIS
 
@@ -35,7 +35,7 @@ you install that, you specify the different directory there also ) as follows:
 
     use File::ShareDir::ProjectDistDir (@args);
 
-This uses [`Sub::Exporter`](http://search.cpan.org/perldoc?Sub::Exporter) to do the heavy lifting, so most usage of this module can be maximised by understanding that first.
+This uses [`Sub::Exporter`](https://metacpan.org/pod/Sub::Exporter) to do the heavy lifting, so most usage of this module can be maximized by understanding that first.
 
 - __`:all`__
 
@@ -215,13 +215,7 @@ In development environments, the generated method will return
 a path to the development directories 'share' directory. In non-development environments, this simply returns
 `File::ShareDir::dist_file`.
 
-Caveats as a result of package-name as stated in ["build\_dist\_dir"](#build\_dist\_dir) also apply to this method.
-
-{
-    "namespace":"File::ShareDir::ProjectDistDir"
-}
-
-
+Caveats as a result of package-name as stated in ["build\_dist\_dir"](#build_dist_dir) also apply to this method.
 
 # SIGNIFICANT CHANGES
 
@@ -230,7 +224,7 @@ Caveats as a result of package-name as stated in ["build\_dist\_dir"](#build\_di
 ### New `devdir` heuristic
 
 Starting with 0.5.0, instead of using our simple `lib/../share` pattern heuristic, a more
-advanced heuristic is used from the new [`Path::FindDev`](http://search.cpan.org/perldoc?Path::FindDev) and [`Path::IsDev`](http://search.cpan.org/perldoc?Path::IsDev).
+advanced heuristic is used from the new [`Path::FindDev`](https://metacpan.org/pod/Path::FindDev) and [`Path::IsDev`](https://metacpan.org/pod/Path::IsDev).
 
 This relies on a more "concrete" marker somewhere at the top of your development tree, and more importantly, checks for the
 existence of specific files that are not likely to occur outside a project root.
@@ -276,7 +270,7 @@ Which is hopefully a more fault resilient mechanism.
 
 ### New Return Types
 
-Starting with 0.5.0, the internals are now based on [`Path::Tiny`](http://search.cpan.org/perldoc?Path::Tiny) instead of [`Path::Class`](http://search.cpan.org/perldoc?Path::Class),
+Starting with 0.5.0, the internals are now based on [`Path::Tiny`](https://metacpan.org/pod/Path::Tiny) instead of [`Path::Class`](https://metacpan.org/pod/Path::Class),
 and as a result, there may be a few glitches in transition.
 
 Also, previously you could get a `Path::Class::*` object back from `dist_dir` and `dist_file` by importing it as such:
@@ -301,7 +295,7 @@ Kent Fredric <kentnl@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
