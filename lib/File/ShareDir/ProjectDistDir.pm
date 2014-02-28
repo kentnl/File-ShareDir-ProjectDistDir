@@ -158,7 +158,7 @@ sub _path { require Path::Tiny; goto &Path::Tiny::path }
 sub _need_pathclass {
     for my $package( '', '::File', '::Dir' ) {
         local $@;
-        my $code = sprintf 'require %s;1', $package;
+        my $code = sprintf 'require %s%s;1', 'Path::Class' , $package;
         ## no critic (RequireCarping)
         die $@ unless eval $code;
     }
