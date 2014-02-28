@@ -386,7 +386,7 @@ sub _wrap_return {
 
 our %DIST_DIR_CACHE;
 
-sub _get_cached_distdir_result {
+sub _get_cached_dist_dir_result {
   my ( $class, $filename, $projectdir, $distname, $strict ) = @_;
   if ( defined $DIST_DIR_CACHE{$distname} ) {
     return $DIST_DIR_CACHE{$distname};
