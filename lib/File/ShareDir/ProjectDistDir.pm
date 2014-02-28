@@ -136,17 +136,16 @@ my ($exporter) = build_exporter(
 );
 my $env_key = 'FILE_SHAREDIR_PROJECTDISTDIR_DEBUG';
 
+sub _debug($) {}
+
 if ( $ENV{$env_key} ) {
+  no warnings 'redefine';
   ## no critic (ProtectPrivateVars)
   *File::ShareDir::ProjectDistDir::_debug = sub ($) {
     *STDERR->printf( qq{[ProjectDistDir] %s\n}, $_[0] );
   };
   $Path::IsDev::DEBUG   = 1;
   $Path::FindDev::DEBUG = 1;
-}
-else {
-  ## no critic (ProtectPrivateVars)
-  *File::ShareDir::ProjectDistDir::_debug = sub ($) { }
 }
 
 ## no critic (RequireArgUnpacking)
@@ -386,7 +385,7 @@ sub _wrap_return {
 our %DIST_DIR_CACHE;
 
 sub _get_cached_dist_dir_result {
-  my ( $class, $filename, $projectdir, $distname, $strict ) = @_;
+  my ( undef, $filename, $projectdir, $distname, $strict ) = @_;
   if ( defined $DIST_DIR_CACHE{$distname} ) {
     return $DIST_DIR_CACHE{$distname};
   }
