@@ -15,6 +15,10 @@ sub git_subtree {
   safe_exec( 'git', 'subtree', @_ );
 }
 
+sub git_subrepo {
+  safe_exec( 'git', 'subrepo', @_ );
+}
+
 my $travis = 'https://github.com/kentfredric/travis-scripts.git';
 my $prefix = 'maint-travis-ci';
 
@@ -48,14 +52,30 @@ if ( not $opts->{push} ) {
   $commitish = $opts->{commit} if $opts->{has_commit};
 
   if ( not -d -e $root->child($prefix) ) {
-    git_subtree( 'add', '--squash', '--prefix=' . $prefix, $travis, $commitish );
+    if ( $ENV{"SUBREPO"} ) {
+      git_subrepo( 'clone', $travis, $prefix, '-b', $commitish );
+    }
+    else {
+      git_subtree( 'add', '--squash', '--prefix=' . $prefix, $travis, $commitish );
+    }
   }
   else {
-    git_subtree( 'pull', '--squash', '-m', 'Synchronise git subtree maint-travis-ci', '--prefix=' . $prefix, $travis,
-      $commitish );
+    if ( $ENV{"SUBREPO"} ) {
+      git_subrepo( 'pull', $prefix, '-b', $commitish );
+    }
+    else {
+
+      git_subtree(
+        'pull', '--squash', '-m',
+        'Synchronise git subtree maint-travis-ci',
+        '--prefix=' . $prefix,
+        $travis, $commitish
+      );
+    }
   }
 }
 else {
+  die "NO!" if $ENV{"SUBREPO"};
   git_subtree( 'push', '--prefix=' . $prefix, $opts->{push_to}, $opts->{pushas} );
 }
 

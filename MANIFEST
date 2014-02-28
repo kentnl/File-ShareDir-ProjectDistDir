@@ -12,6 +12,7 @@ README
 dist.ini
 lib/File/ShareDir/ProjectDistDir.pm
 maint-travis-ci/.gitrepo
+maint-travis-ci/.perltidyrc
 maint-travis-ci/README.mkdn
 maint-travis-ci/before_script.pl
 maint-travis-ci/branch_reset.pl
