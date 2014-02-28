@@ -527,6 +527,8 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' directory in your projects root

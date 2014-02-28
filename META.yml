@@ -271,6 +271,10 @@ x_Dist_Zilla:
               name: '@CorePrep/H1Nester'
               version: '4.006'
             -
+              class: Pod::Weaver::Plugin::SingleEncoding
+              name: -SingleEncoding
+              version: '4.006'
+            -
               class: Pod::Weaver::Section::Name
               name: Name
               version: '4.006'
