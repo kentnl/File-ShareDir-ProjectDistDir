@@ -156,15 +156,18 @@ sub _carp  { require Carp; goto &Carp::carp }
 sub _path { require Path::Tiny; goto &Path::Tiny::path }
 
 sub _need_pathclass {
-  for my $package ( '', '::File', '::Dir' ) {
-    local $@;
+  for my $package ( q[], q[::File], q[::Dir] ) {
+    ## no critic (Variables::RequireInitializationForLocalVars)
+    local $@ = undef;
     my $code = sprintf 'require %s%s;1', 'Path::Class', $package;
-    ## no critic (RequireCarping)
+    ## no critic (BuiltinFunctions::ProhibitStringyEval,Lax::ProhibitStringyEval::ExceptForRequire)
     next if eval $code;
     my $err = $@;
-    _carp('Path::Class is not installed and you requested it, make it a dependency of your package');
-    die $@;
+    _carp('Path::Class is not installed.');
+    ## no critic (RequireCarping, ErrorHandling::RequireUseOfExceptions)
+    die $err;
   }
+  return 1;
 }
 
 =method import
@@ -314,7 +317,7 @@ sub import {
   $defaults->{projectdir} = 'share'    if not defined $defaults->{projectdir};
 
   if ( defined $defaults->{pathclass} ) {
-    _carp("Path::Class support depecated and will be removed from a future release, see Documentation for details");
+    _carp( 'Path::Class support depecated and will be removed from a future release.' . ' see Documentation for details' );
     _need_pathclass();
   }
 
@@ -376,8 +379,6 @@ sub _get_defaults {
   $result = $arg->{$field}             if $arg->{$field};
   return $result;
 }
-
-my $warned;
 
 sub _wrap_return {
   my ( $type, $value ) = @_;
@@ -529,9 +530,9 @@ sub build_dist_file {
   my $check_file = sub {
     my ( $distdir, $wanted_file ) = @_;
     my $child = _path($distdir)->child($wanted_file);
-    return undef unless -e $child;
-    if ( not -f $child ) {
-      return _croak("Found dist_file '$child', but not a file");
+    return unless -e $child;
+    if ( -d $child ) {
+      return _croak("Found dist_file '$child', but is a dir");
     }
     if ( not -r $child ) {
       return _croak("File '$child', no read permissions");
