@@ -1,38 +1,51 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-1.000000 2014-02-28T14:44:47Z
+1.000000 2014-02-28T15:00:49Z
+ [00 MAJOR CHANGES]
+ - add 'strict' mode
+ - defer dev path and determination to calltime
+ - switch to float versions.
+ - start warning about Path::Class usage
+ - stop depending on Path::Class
+ - stop using Path::Class
+ - use EUMM for tooling.
+ - Seriously, read SIGNIFICANT CHANGES for details.
+
+ [Dependencies::Aggregate]
+ - 5.008 : 47 deps
+ - 5.010 : 37 deps
+ - 5.019 : 20 deps
+
+ [Dependencies::Stats]
+ - Dependencies changed since 0.5.2, see Changes.deps{,.all,.dev} for
+   details
+ - build: -1
+ - configure: +2 -1
+ - develop: +43 ↑1 -4
+ - runtime: +1 ↑1 -2
+ - test: +8 ↓1 -3
 
 0.5.2 2013-09-25T20:04:10Z
  [Bugfix]
  - Use a Test::Compile not known to break on Win32
 
- [Dependencies::Added / test requires]
- - File::Spec
+ [Dependencies::Stats]
+ - Dependencies changed since 0.5.1, see Changes.deps{,.all,.dev} for
+   details
+ - test: +1
 
 0.5.1 2013-09-16T07:34:01Z
  [!Minor]
  - No serious changes, just 0.5.0 without -TRIAL
  - and a few test changes and relevant dep changes.
 
- [Dependencies::Added / develop requires]
- - Test::Kwalitee 1.08
-
- [Dependencies::Added / test requires]
- - IO::Handle
- - IPC::Open3
-
- [Dependencies::Changed / build requires]
- - Module::Build 0.4005 → 0.4007
-
- [Dependencies::Changed / configure requires]
- - Module::Build 0.4005 → 0.4007
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.7.4 → v1.8.3
-
- [Dependencies::Removed / test requires]
- - File::Find
- - File::Temp
+ [Dependencies::Stats]
+ - Dependencies changed since 0.5.0, see Changes.deps{,.all,.dev} for
+   details
+ - build: ↑1
+ - configure: ↑1
+ - develop: +1 ↑1
+ - test: +2 -2
 
 0.5.0 2013-07-06T18:11:52Z
  [00 MAJOR CHANGES]
@@ -40,17 +53,12 @@
  - Internals re-written to use Path::Tiny
  - Please read SIGNIFICANT CHANGES section on ::ProjectDistDir for details
 
- [Dependencies::Added / runtime requires]
- - Path::Class::Dir
- - Path::FindDev
- - Path::IsDev
- - Path::Tiny
-
- [Dependencies::Added / test requires]
- - lib
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.7.3 → v1.7.4
+ [Dependencies::Stats]
+ - Dependencies changed since 0.4.4, see Changes.deps{,.all,.dev} for
+   details
+ - develop: ↑1
+ - runtime: +4
+ - test: +1
 
 0.4.4 2013-06-05T17:11:18Z
  [00 Noteable Changes]
@@ -77,17 +85,12 @@
  - This is only really a temporary solution, in lieu of better debugging
    diagnostics.
 
- [Dependencies::Added / develop requires]
- - Test::CPAN::Changes 0.19
-
- [Dependencies::Changed / build requires]
- - Module::Build 0.4003 → 0.4005
-
- [Dependencies::Changed / configure requires]
- - Module::Build 0.4003 → 0.4005
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.7.0 → v1.7.3
+ [Dependencies::Stats]
+ - Dependencies changed since 0.4.1, see Changes.deps{,.all,.dev} for
+   details
+ - build: ↑1
+ - configure: ↑1
+ - develop: +1 ↑1
 
  [Packaging]
  - use MB 0.4004 test_requires
@@ -95,21 +98,12 @@
 0.4.1 2013-02-13T23:17:46Z
  - No significant changes from 0.4.0, but non-trial
 
- [Dependencies::Added / develop requires]
- - Pod::Coverage::TrustPod
- - Test::CPAN::Meta
- - Test::Pod 1.41
- - Test::Pod::Coverage 1.08
- - version 0.9901
-
- [Dependencies::Changed / build requires]
- - Module::Build 0.4002 → 0.4003
-
- [Dependencies::Changed / configure requires]
- - Module::Build 0.4002 → 0.4003
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.4.2 → v1.7.0
+ [Dependencies::Stats]
+ - Dependencies changed since 0.4.0, see Changes.deps{,.all,.dev} for
+   details
+ - build: ↑1
+ - configure: ↑1
+ - develop: +5 ↑1
 
  [Documentation]
  - update copyright year
@@ -118,17 +112,13 @@
  - bugtracker moved to github issues
 
 0.4.0 2012-07-28T21:54:15Z
- [Dependencies::Changed / build requires]
- - Module::Build 0.3601 → 0.4002
-
- [Dependencies::Changed / configure requires]
- - Module::Build 0.3601 → 0.4002
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.3.0 → v1.4.2
-
- [Dependencies::Changed / test requires]
- - Test::More 0.96 → 0.98
+ [Dependencies::Stats]
+ - Dependencies changed since 0.3.2, see Changes.deps{,.all,.dev} for
+   details
+ - build: ↑1
+ - configure: ↑1
+ - develop: ↑1
+ - test: ↑1
 
  [Features]
  - now can specify 'pathclass => 1' in various places and get Path::Class
@@ -146,11 +136,10 @@
    this still is a problem, I'll use $dir->parent eq $dir being the loop
    terminator.
 
- [Dependencies::Changed / develop recommends]
- - Dist::Zilla::PluginBundle::Author::KENTNL::Lite 0.01009803 → v1.3.0
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.2.0 → v1.3.0
+ [Dependencies::Stats]
+ - Dependencies changed since 0.3.1, see Changes.deps{,.all,.dev} for
+   details
+ - develop: ↑2
 
 0.3.1 2012-03-07T03:57:06Z
  [00 Summary]
@@ -159,8 +148,10 @@
    via 'use version', so this is somewhat experimental consideration of
    that fact.
 
- [Dependencies::Changed / runtime requires]
- - perl v5.10.0 → 5.006
+ [Dependencies::Stats]
+ - Dependencies changed since 0.3.0, see Changes.deps{,.all,.dev} for
+   details
+ - runtime: ↓1
 
 0.3.0 2012-03-05T05:27:43Z
  [00 Noteworthy Changes]
@@ -168,11 +159,11 @@
  - greatly enhanced documentation
  - supports 'projectdir' on a per-export level.
 
- [Dependencies::Added / runtime requires]
- - perl v5.10.0
-
- [Dependencies::Changed / develop suggests]
- - Dist::Zilla::PluginBundle::Author::KENTNL v1.0.0 → v1.2.0
+ [Dependencies::Stats]
+ - Dependencies changed since 0.2.0, see Changes.deps{,.all,.dev} for
+   details
+ - develop: ↑1
+ - runtime: +1
 
  [Documentation]
  - verbosely detailed the workings of the import method and its helper
@@ -191,12 +182,11 @@
  - t/06_distname.t
 
 0.2.0 2011-10-15T02:08:29Z
- [Dependencies::Added / runtime requires]
- - strict
- - warnings
-
- [Dependencies::Removed / test requires]
- - English
+ [Dependencies::Stats]
+ - Dependencies changed since 0.1.1, see Changes.deps{,.all,.dev} for
+   details
+ - runtime: +2
+ - test: -1
 
  [Features]
  - Custom Project Dir:

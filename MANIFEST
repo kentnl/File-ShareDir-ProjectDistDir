@@ -3,6 +3,9 @@
 .perltidyrc
 .travis.yml
 Changes
+Changes.deps
+Changes.deps.all
+Changes.deps.dev
 LICENSE
 MANIFEST
 META.json
