@@ -383,7 +383,7 @@ sub _wrap_return {
   }
   if ( $type eq 'pathtiny' ) {
     return $value if ref $value eq 'Path::Tiny';
-    return Path::Tiny::path($value);
+    return _path($value);
   }
   if ( $type eq 'pathclassdir' ) {
     return $value if ref $value eq 'Path::Class::Dir';
