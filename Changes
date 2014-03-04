@@ -4,6 +4,11 @@
  [Bugfix]
  - Fixed test failure on Perls that don't like unsetting %INC
 
+ [Dependencies::Aggregate]
+ - 5.008 : 47 → 47
+ - 5.010 : 37 → 37
+ - 5.019 : 20 → 20
+
 1.000000 2014-02-28T15:00:49Z
  [00 MAJOR CHANGES]
  - add 'strict' mode
