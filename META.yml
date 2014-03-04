@@ -22,7 +22,7 @@ name: File-ShareDir-ProjectDistDir
 provides:
   File::ShareDir::ProjectDistDir:
     file: lib/File/ShareDir/ProjectDistDir.pm
-    version: '1.000000'
+    version: '1.000001'
 requires:
   Carp: '0'
   File::ShareDir: '0'
@@ -38,7 +38,7 @@ resources:
   bugtracker: https://github.com/kentfredric/File-ShareDir-ProjectDistDir/issues
   homepage: https://github.com/kentfredric/File-ShareDir-ProjectDistDir
   repository: https://github.com/kentfredric/File-ShareDir-ProjectDistDir.git
-version: '1.000000'
+version: '1.000001'
 x_BuiltWith:
   modules:
     CPAN::Meta: '2.133380'
@@ -92,8 +92,8 @@ x_BuiltWith:
     File::Spec::Functions: '3.47'
     FindBin: '1.51'
     List::Util: '1.38'
-    Path::FindDev: 0.4.2
-    Path::IsDev: '1.000002'
+    Path::FindDev: 0.5.0
+    Path::IsDev: '1.001000'
     Path::Tiny: '0.052'
     Pod::Coverage::TrustPod: '0.100003'
     Sub::Exporter: '0.987'

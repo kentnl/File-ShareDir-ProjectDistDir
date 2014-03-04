@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 
 package File::ShareDir::ProjectDistDir;
-$File::ShareDir::ProjectDistDir::VERSION = '1.000000';
+$File::ShareDir::ProjectDistDir::VERSION = '1.000001';
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -702,7 +702,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 SYNOPSIS
 

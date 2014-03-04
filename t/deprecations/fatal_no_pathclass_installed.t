@@ -44,6 +44,9 @@ my $err = Capture::Tiny::capture_stderr(
 );
 like( $err, qr/Path::Class support depecated/, "warns about invocation" );
 like( $err, qr/Path::Class is not installed/,  "warns if require failed" );
-like( $ex,  qr/Can\'t locate Path\/Class\.pm/, "dies with core failure" );
+isnt( $ex, undef, "An exception was thrown" );
+if ( $ex ne '' ) {
+  like( $ex, qr/Can\'t locate Path\/Class\.pm/, "dies with core failure" );
+}
 done_testing;
 
