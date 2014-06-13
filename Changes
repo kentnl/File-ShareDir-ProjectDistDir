@@ -1,6 +1,11 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [Bugfix]
+ - most tests refactored to have their dependent files inflated into existence during testing.
+ - This is to avoid issues with an HP-UX box which has a tar implementation that truncates filenames at 100 chars.
+ - closes #13
+
  [Dependencies::Stats]
  - Dependencies changed since 1.000001, see misc/*.deps* for details
  - configure: (recommends: ↑1)
