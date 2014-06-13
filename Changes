@@ -1,6 +1,8 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+1.000002 2014-06-13T15:17:10Z
  [Bugfix]
  - most tests refactored to have their dependent files inflated into existence during testing.
  - This is to avoid issues with an HP-UX box which has a tar implementation that truncates filenames at 100 chars.
