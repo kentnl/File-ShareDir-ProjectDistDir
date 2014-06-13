@@ -31,10 +31,12 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
+    "Class::Tiny" => 0,
     "ExtUtils::MakeMaker" => 0,
     "File::Spec::Functions" => 0,
     "FindBin" => 0,
     "List::Util" => 0,
+    "Moo" => 0,
     "Test::More" => "0.96",
     "lib" => 0,
     "version" => 0
@@ -48,11 +50,13 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Carp" => 0,
+  "Class::Tiny" => 0,
   "ExtUtils::MakeMaker" => 0,
   "File::ShareDir" => 0,
   "File::Spec::Functions" => 0,
   "FindBin" => 0,
   "List::Util" => 0,
+  "Moo" => 0,
   "Path::FindDev" => 0,
   "Path::IsDev" => 0,
   "Path::Tiny" => 0,

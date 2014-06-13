@@ -13,6 +13,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+dist.ini.meta
 lib/File/ShareDir/ProjectDistDir.pm
 maint-travis-ci/.gitrepo
 maint-travis-ci/.perltidyrc
@@ -38,9 +39,6 @@ perlcritic.rc
 t/00-compile/lib_File_ShareDir_ProjectDistDir_pm.t
 t/00-report-prereqs.t
 t/classic/01_devel.t
-t/classic/01_files/.devdir
-t/classic/01_files/lib/Example_01.pm
-t/classic/01_files/share/file
 t/classic/02_files/develdir/.devdir
 t/classic/02_files/develdir/lib/Example_03.pm
 t/classic/02_files/develdir/share/file
@@ -71,6 +69,7 @@ t/classic/06_files/installdir/lib/Example_04.pm
 t/classic/06_files/installdir/lib/auto/share/dist/Example_04/file
 t/deprecations/fatal_no_pathclass_installed.t
 t/deprecations/warn_on_pathclass.t
+t/lib/FakeFS.pm
 t/strict/01_devel.t
 t/strict/01_files/.devdir
 t/strict/01_files/lib/Example_01.pm
@@ -88,11 +87,6 @@ t/strict/03_files/installdir/lib/Example_04.pm
 t/strict/03_files/installdir/lib/auto/share/dist/Example_04/file
 t/strict/03_installed_and_dev_different.t
 t/strict/04_developing_installed.t
-t/strict/04_files/develdir/.devdir
-t/strict/04_files/develdir/lib/Example_06.pm
-t/strict/04_files/develdir/share/dist/Example_06/file
-t/strict/04_files/installdir/lib/Example_06.pm
-t/strict/04_files/installdir/lib/auto/share/dist/Example_06/file
 t/strict/05_devel_spec.t
 t/strict/05_files/.devdir
 t/strict/05_files/lib/Example_05.pm
