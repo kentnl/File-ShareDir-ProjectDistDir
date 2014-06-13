@@ -4,7 +4,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 # VERSION
 
-version 1.000001
+version 1.000002
 
 # SYNOPSIS
 
@@ -38,25 +38,25 @@ you install that, you specify the different directory there also ) as follows:
 This uses [`Sub::Exporter`](https://metacpan.org/pod/Sub::Exporter) to do the heavy lifting, so most usage of this module can be maximized by
 understanding that first.
 
-- __`:all`__
+- **`:all`**
 
         ->import( ':all' , .... )
 
     Import both `dist_dir` and `dist_file`
 
-- __`dist_dir`__
+- **`dist_dir`**
 
         ->import('dist_dir' , .... )
 
     Import the dist\_dir method
 
-- __`dist_dir`__
+- **`dist_dir`**
 
         ->import('dist_file' , .... )
 
     Import the dist\_file method
 
-- __`projectdir`__
+- **`projectdir`**
 
         ->import( .... , projectdir => 'share' )
 
@@ -65,7 +65,7 @@ understanding that first.
 
     If not specified, the default value 'share' is used.
 
-- __`filename`__
+- **`filename`**
 
         ->import( .... , filename => 'some/path/to/foo.pm' );
 
@@ -73,7 +73,7 @@ understanding that first.
     the file its being called from. This file's path is walked up to find the 'lib' element with a sibling
     of the name of your `projectdir`.
 
-- __`distname`__
+- **`distname`**
 
         ->import( .... , distname => 'somedistname' );
 
@@ -94,7 +94,7 @@ understanding that first.
         my $dir = dist_dir();
         my $file = dist_file('path/to/file.pm' );
 
-- __`strict`__
+- **`strict`**
 
         ->import( ... , strict => 1 );
 
@@ -109,12 +109,12 @@ understanding that first.
     This means if Heuristics misfire and accidentally find another distributions `share` directory, it will not pick up on it
     unless that `share` directory also has that layout, and will instead revert to the `installdir` path in `@INC`
 
-    __This parameter may become the default option in the future__
+    **This parameter may become the default option in the future**
 
-    Specifying this parameter also mandates you __MUST__ declare the `DISTNAME` value in your file somewhere. Doing otherwise is
+    Specifying this parameter also mandates you **MUST** declare the `DISTNAME` value in your file somewhere. Doing otherwise is
     considered insanity anyway.
 
-- __`defaults`__
+- **`defaults`**
 
         ->import( ... , defaults => {
             filename => ....,
@@ -193,7 +193,7 @@ development directories 'share' directory. In non-development environments, this
 As a result of this, specifying the Distribution name is not required during development ( unless in `strict` mode ), however,
 it will start to matter once it is installed. This is a potential avenues for bugs if you happen to name it wrong.
 
-In `strict` mode, the distribution name is __ALWAYS REQUIRED__, either at least at `import` or `dist_dir()` time.
+In `strict` mode, the distribution name is **ALWAYS REQUIRED**, either at least at `import` or `dist_dir()` time.
 
 ## build\_dist\_file
 
@@ -364,7 +364,7 @@ existence of specific files that are not likely to occur outside a project root.
 
 `lib` and `share` based heuristics were a little fragile, for a few reasons:
 
-- `lib` can, and does appear all over UNIX file systems, for purposes __other__ than development project roots.
+- `lib` can, and does appear all over UNIX file systems, for purposes **other** than development project roots.
 
     For instance, have a look in `/usr/`
 
@@ -419,7 +419,7 @@ Now you can also get `Path::Tiny` objects back, by passing:
         qw( dist_dir dist_file ),
         defaults => { pathtiny => 1 };
 
-__For the time being, you can still get Path::Class objects back, it is deprecated since 1.000000__
+**For the time being, you can still get Path::Class objects back, it is deprecated since 1.000000**
 
 ( In fact, I may even make 2 specific sub-classes of `PDD` for people who want objects back, as it will make the `API` and the
 code much cleaner )
