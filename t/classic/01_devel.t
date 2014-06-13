@@ -27,7 +27,7 @@ sub test {
   return scalar path( dist_file( 'Example_01', 'file' ) )->slurp();
 }
 
-1; 
+1;
 EOF
 }
 use lib "$FindBin::Bin/01_files/lib";
