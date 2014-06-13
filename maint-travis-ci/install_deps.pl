@@ -24,8 +24,9 @@ if ( env_true('DEVELOPER_DEPS') ) {
   push @params, '--dev';
 }
 if ( env_is( 'TRAVIS_BRANCH', 'master' ) ) {
-  cpanm( @params, 'Devel::Confess' );
-  $ENV{PERL5OPT} = '-MDevel::Confess';
+
+  # cpanm( @params, 'Devel::Confess' );
+  # $ENV{PERL5OPT} = '-MDevel::Confess';
   cpanm( @params, 'Dist::Zilla', 'Capture::Tiny',      'Pod::Weaver' );
   cpanm( @params, '--dev',       'Dist::Zilla~>5.002', 'Pod::Weaver' );
   safe_exec( 'git', 'config', '--global', 'user.email', 'kentfredric+travisci@gmail.com' );
