@@ -1,20 +1,15 @@
-1.000001
+1.000002
+ [Added / test requires]
+ - Class::Tiny
+
+1.000001 2014-03-04T14:17:26Z
 
 1.000000 2014-02-28T15:00:49Z
- [Added / configure recommends]
- - ExtUtils::MakeMaker 6.90
-
  [Added / configure requires]
  - ExtUtils::MakeMaker 6.30
 
  [Added / runtime requires]
  - utf8
-
- [Added / test recommends]
- - CPAN::Meta
- - CPAN::Meta::Requirements 2.120900
- - ExtUtils::MakeMaker 6.90
- - Test::More 1.001002
 
  [Added / test requires]
  - ExtUtils::MakeMaker

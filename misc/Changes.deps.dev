@@ -1,4 +1,15 @@
-1.000001
+1.000002
+ [Added / develop suggests]
+ - Dist::Zilla::App::Command::bakeini 0.001000
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.016000
+
+ [Removed / develop requires]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.012000
+
+ [Removed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL::Lite v1.3.0
+
+1.000001 2014-03-04T14:17:26Z
 
 1.000000 2014-02-28T15:00:49Z
  [Added / develop requires]
