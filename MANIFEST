@@ -42,11 +42,6 @@ t/classic/01_devel.t
 t/classic/02_installed_only.t
 t/classic/03_installed_and_dev_different.t
 t/classic/04_developing_installed.t
-t/classic/04_files/develdir/.devdir
-t/classic/04_files/develdir/lib/Example_06.pm
-t/classic/04_files/develdir/share/file
-t/classic/04_files/installdir/lib/Example_06.pm
-t/classic/04_files/installdir/lib/auto/share/dist/Example_06/file
 t/classic/05_devel_spec.t
 t/classic/05_files/.devdir
 t/classic/05_files/lib/Example_05.pm
