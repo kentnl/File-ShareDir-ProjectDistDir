@@ -40,11 +40,6 @@ t/00-compile/lib_File_ShareDir_ProjectDistDir_pm.t
 t/00-report-prereqs.t
 t/classic/01_devel.t
 t/classic/02_installed_only.t
-t/classic/03_files/develdir/.devdir
-t/classic/03_files/develdir/lib/Example_05.pm
-t/classic/03_files/develdir/share/file
-t/classic/03_files/installdir/lib/Example_04.pm
-t/classic/03_files/installdir/lib/auto/share/dist/Example_04/file
 t/classic/03_installed_and_dev_different.t
 t/classic/04_developing_installed.t
 t/classic/04_files/develdir/.devdir
