@@ -39,11 +39,6 @@ perlcritic.rc
 t/00-compile/lib_File_ShareDir_ProjectDistDir_pm.t
 t/00-report-prereqs.t
 t/classic/01_devel.t
-t/classic/02_files/develdir/.devdir
-t/classic/02_files/develdir/lib/Example_03.pm
-t/classic/02_files/develdir/share/file
-t/classic/02_files/installdir/lib/Example_02.pm
-t/classic/02_files/installdir/lib/auto/share/dist/Example_02/file
 t/classic/02_installed_only.t
 t/classic/03_files/develdir/.devdir
 t/classic/03_files/develdir/lib/Example_05.pm
