@@ -47,11 +47,6 @@ t/classic/05_files/.devdir
 t/classic/05_files/lib/Example_05.pm
 t/classic/05_files/templates/file
 t/classic/06_distname.t
-t/classic/06_files/develdir/.devdir
-t/classic/06_files/develdir/lib/Example_05.pm
-t/classic/06_files/develdir/share/file
-t/classic/06_files/installdir/lib/Example_04.pm
-t/classic/06_files/installdir/lib/auto/share/dist/Example_04/file
 t/deprecations/fatal_no_pathclass_installed.t
 t/deprecations/warn_on_pathclass.t
 t/lib/FakeFS.pm
