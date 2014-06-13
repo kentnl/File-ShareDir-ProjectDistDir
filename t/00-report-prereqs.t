@@ -133,7 +133,6 @@ my $static_prereqs = do { my $x = {
                                    'File::Spec::Functions' => '0',
                                    'FindBin' => '0',
                                    'List::Util' => '0',
-                                   'Moo' => '0',
                                    'Test::More' => '0.96',
                                    'lib' => '0',
                                    'version' => '0'

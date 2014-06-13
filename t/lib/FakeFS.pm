@@ -36,7 +36,6 @@ sub DESTROY {
   path( $self->root )->remove_tree( { safe => 0 } );
 }
 
-no Moo;
 
 1;
 
