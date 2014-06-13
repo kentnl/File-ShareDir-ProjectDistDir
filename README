@@ -3,7 +3,7 @@ NAME
     '/share' directory in your projects root
 
 VERSION
-    version 1.000001
+    version 1.000002
 
 SYNOPSIS
       package An::Example::Package;

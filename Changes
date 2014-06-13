@@ -1,5 +1,7 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+1.000002 2014-03-04T14:20:24Z
+
 1.000001 2014-03-04T14:17:26Z
  [Bugfix]
  - Fixed test failure on Perls that don't like unsetting %INC
