@@ -74,11 +74,6 @@ t/strict/01_devel.t
 t/strict/01_files/.devdir
 t/strict/01_files/lib/Example_01.pm
 t/strict/01_files/share/dist/Example_01/file
-t/strict/02_files/develdir/.devdir
-t/strict/02_files/develdir/lib/Example_03.pm
-t/strict/02_files/develdir/share/file
-t/strict/02_files/installdir/lib/Example_02.pm
-t/strict/02_files/installdir/lib/auto/share/dist/Example_02/file
 t/strict/02_installed_only.t
 t/strict/03_files/develdir/.devdir
 t/strict/03_files/develdir/lib/Example_05.pm
