@@ -29,6 +29,7 @@ sub add_file {
 
 sub DESTROY {
   my ($self) = @_;
+  return if $ENV{NODELETE};
   for my $file ( @{ $self->files } ) {
     $file->remove;
   }

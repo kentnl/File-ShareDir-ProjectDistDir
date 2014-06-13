@@ -11,7 +11,7 @@ my $fake;
 BEGIN {
   $fake = FakeFS->new( root => "$FindBin::Bin/02_files" );
   $fake->add_file( 'develdir/.devdir'                               => q[] );
-  $fake->add_file( 'develdir/share/file'                            => q[03] );
+  $fake->add_file( 'develdir/share/file'                            => qq[03\n] );
   $fake->add_file( 'installdir/lib/auto/share/dist/Example_02/file' => q[02] );
   $fake->add_file( 'develdir/lib/Example_03.pm'                     => <<'EOF_A');
 use strict;
