@@ -31,6 +31,10 @@ maint-travis-ci/yamls/sterile.mkdn
 maint-travis-ci/yamls/sterile.yaml
 maint-travis-ci/yamls/sterile2.yaml
 maint/perlcritic.rc.gen.pl
+misc/Changes.deps
+misc/Changes.deps.all
+misc/Changes.deps.dev
+misc/Changes.deps.opt
 perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_File_ShareDir_ProjectDistDir_pm.t
