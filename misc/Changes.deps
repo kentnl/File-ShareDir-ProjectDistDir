@@ -1,4 +1,8 @@
-1.000002
+This file contains changes in REQUIRED dependencies for standard CPAN phases (configure/build/runtime/test)
+
+1.000003
+
+1.000002 2014-06-13T15:17:10Z
  [Added / test requires]
  - Class::Tiny
 
