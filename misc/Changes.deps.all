@@ -1,6 +1,32 @@
 This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
 
 1.000003
+ [Added / develop requires]
+ - Dist::Zilla::Plugin::Git::Contributors 0.006
+
+ [Added / test requires]
+ - File::Spec
+
+ [Changed / configure requires]
+ - ExtUtils::MakeMaker 6.30 → 0
+
+ [Changed / develop requires]
+ - Test::Kwalitee 1.12 → 1.21
+
+ [Changed / develop suggests]
+ - Dist::Zilla::App::Command::bakeini 0.001000 → 0.001002
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.016000 → 2.017002
+
+ [Changed / test recommends]
+ - CPAN::Meta 0 → 2.120900
+
+ [Removed / test recommends]
+ - CPAN::Meta::Requirements 2.120900
+
+ [Removed / test requires]
+ - File::Spec::Functions
+ - List::Util
+ - version
 
 1.000002 2014-06-13T15:17:10Z
  [Added / develop suggests]
