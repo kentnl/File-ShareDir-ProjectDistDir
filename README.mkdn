@@ -4,7 +4,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 # VERSION
 
-version 1.000003
+version 1.000004
 
 # SYNOPSIS
 
