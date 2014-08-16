@@ -6,6 +6,7 @@
  - no code changes.
  - tests updated.
  - metadata updated.
+ - whitespace reduced.
 
  [Dependencies::Stats]
  - Dependencies changed since 1.000002, see misc/*.deps* for details
@@ -15,6 +16,9 @@
 
  [Metadata]
  - migrate to kentnl org.
+
+ [Misc]
+ - Improve source side POD to reduce build side whitespace.
 
  [Tests]
  - update Test::ReportPrereqs
