@@ -4,7 +4,9 @@ use warnings;
 use utf8;
 
 package File::ShareDir::ProjectDistDir;
-$File::ShareDir::ProjectDistDir::VERSION = '1.000003';
+
+our $VERSION = '1.000003';
+
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY

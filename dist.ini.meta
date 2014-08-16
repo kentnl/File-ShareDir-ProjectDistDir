@@ -17,6 +17,7 @@ twitter_hash_tags = #perl #cpan
 auto_prereqs_skip = ^Example_
 copyfiles         = LICENSE
 srcreadme         = mkdn
+bumpversions      = 1
 
 ;version_major     = 0
 ;version_minor     = 1
