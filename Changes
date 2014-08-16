@@ -1,6 +1,23 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [00 Trivial]
+ - CPANDAY!
+ - no code changes.
+ - tests updated.
+ - metadata updated.
+
+ [Dependencies::Stats]
+ - Dependencies changed since 1.000002, see misc/*.deps* for details
+ - configure: ↓1
+ - develop: +1 ↑1 (suggests: ↑2)
+ - test: +1 -3 (recommends: ↑1 -1)
+
+ [Metadata]
+ - migrate to kentnl org.
+
+ [Tests]
+ - update Test::ReportPrereqs
 
 1.000002 2014-06-13T15:17:10Z
  [Bugfix]

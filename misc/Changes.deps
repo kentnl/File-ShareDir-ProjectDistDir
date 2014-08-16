@@ -1,6 +1,16 @@
 This file contains changes in REQUIRED dependencies for standard CPAN phases (configure/build/runtime/test)
 
 1.000003
+ [Added / test requires]
+ - File::Spec
+
+ [Changed / configure requires]
+ - ExtUtils::MakeMaker 6.30 → 0
+
+ [Removed / test requires]
+ - File::Spec::Functions
+ - List::Util
+ - version
 
 1.000002 2014-06-13T15:17:10Z
  [Added / test requires]
