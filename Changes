@@ -1,5 +1,7 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+1.000003 2014-08-16T06:43:47Z
+
 1.000002 2014-06-13T15:17:10Z
  [Bugfix]
  - most tests refactored to have their dependent files inflated into existence during testing.
