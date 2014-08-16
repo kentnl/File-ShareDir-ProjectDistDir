@@ -17,7 +17,7 @@ misc/Changes.deps
 misc/Changes.deps.all
 misc/Changes.deps.dev
 misc/Changes.deps.opt
-perlcritic.deps
+misc/perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_File_ShareDir_ProjectDistDir_pm.t
 t/00-report-prereqs.dd
