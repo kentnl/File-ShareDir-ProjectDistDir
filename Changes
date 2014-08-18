@@ -1,6 +1,18 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ [00 Trivial]
+ - Minor documentation fixes.
+
+ [Dependencies::Stats]
+ - Dependencies changed since 1.000003, see misc/*.deps* for details
+ - develop: +1 (suggests: ↑1)
+
+ [Documentation]
+ - misnamed heading, thanks to Michał Wojciechowski (GH #14)
+
+ [Metadata]
+ - new contributor.
 
 1.000003 2014-08-16T06:53:18Z
  [00 Trivial]

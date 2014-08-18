@@ -50,7 +50,7 @@ understanding that first.
 
     Import the dist\_dir method
 
-- **`dist_dir`**
+- **`dist_file`**
 
         ->import('dist_file' , .... )
 
