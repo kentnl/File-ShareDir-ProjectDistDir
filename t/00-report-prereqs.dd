@@ -9,6 +9,7 @@ do { my $x = {
                       },
        'develop' => {
                       'requires' => {
+                                      'Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes' => '0.001001',
                                       'Dist::Zilla::Plugin::Authority' => '1.006',
                                       'Dist::Zilla::Plugin::AutoPrereqs' => '0',
                                       'Dist::Zilla::Plugin::BumpVersionAfterRelease' => '0',
@@ -61,7 +62,7 @@ do { my $x = {
                                     },
                       'suggests' => {
                                       'Dist::Zilla::App::Command::bakeini' => '0.001002',
-                                      'Dist::Zilla::PluginBundle::Author::KENTNL' => '2.017002'
+                                      'Dist::Zilla::PluginBundle::Author::KENTNL' => '2.019000'
                                     }
                     },
        'runtime' => {

@@ -5,7 +5,7 @@ use utf8;
 
 package File::ShareDir::ProjectDistDir;
 
-our $VERSION = '1.000003';
+our $VERSION = '1.000004';
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
@@ -492,7 +492,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 1.000003
+version 1.000004
 
 =head1 SYNOPSIS
 
@@ -540,7 +540,7 @@ Import both C<dist_dir> and C<dist_file>
 
 Import the dist_dir method
 
-=item * B<C<dist_dir>>
+=item * B<C<dist_file>>
 
     ->import('dist_file' , .... )
 
