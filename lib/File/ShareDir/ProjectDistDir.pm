@@ -5,7 +5,7 @@ use utf8;
 
 package File::ShareDir::ProjectDistDir;
 
-our $VERSION = '1.000004';
+our $VERSION = '1.000005';
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
@@ -492,7 +492,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 1.000004
+version 1.000005
 
 =head1 SYNOPSIS
 
