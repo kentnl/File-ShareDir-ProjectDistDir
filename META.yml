@@ -604,3 +604,5 @@ x_Dist_Zilla:
       is_trial: '0'
     version: '5.020'
 x_authority: cpan:KENTNL
+x_contributors:
+  - 'Michał Wojciechowski <odyniec@odyniec.eu.org>'

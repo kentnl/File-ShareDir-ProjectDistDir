@@ -540,7 +540,7 @@ Import both C<dist_dir> and C<dist_file>
 
 Import the dist_dir method
 
-=item * B<C<dist_dir>>
+=item * B<C<dist_file>>
 
     ->import('dist_file' , .... )
 
