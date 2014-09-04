@@ -98,7 +98,7 @@
          "recommends" : {
             "CPAN::Meta" : "2.120900",
             "ExtUtils::MakeMaker" : "6.98",
-            "Test::More" : "1.001003"
+            "Test::More" : "1.001006"
          },
          "requires" : {
             "Class::Tiny" : "0",
@@ -135,7 +135,7 @@
          "Carp" : "1.34",
          "Class::Tiny" : "1.000",
          "Dist::Zilla::App::Command::bakeini" : "0.001002",
-         "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.003001",
+         "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.003002",
          "Dist::Zilla::Plugin::Authority" : "1.006",
          "Dist::Zilla::Plugin::AutoPrereqs" : "5.020",
          "Dist::Zilla::Plugin::BumpVersionAfterRelease" : "0.002",
@@ -155,7 +155,7 @@
          "Dist::Zilla::Plugin::Manifest" : "5.020",
          "Dist::Zilla::Plugin::ManifestSkip" : "5.020",
          "Dist::Zilla::Plugin::MetaConfig" : "5.020",
-         "Dist::Zilla::Plugin::MetaData::BuiltWith" : "1.002000",
+         "Dist::Zilla::Plugin::MetaData::BuiltWith" : "1.003000",
          "Dist::Zilla::Plugin::MetaJSON" : "5.020",
          "Dist::Zilla::Plugin::MetaProvides::Package" : "2.001001",
          "Dist::Zilla::Plugin::MetaTests" : "5.020",
@@ -192,7 +192,7 @@
          "Test::CPAN::Changes" : "0.30",
          "Test::CPAN::Meta" : "0.23",
          "Test::Kwalitee" : "1.22",
-         "Test::More" : "1.001003",
+         "Test::More" : "1.001006",
          "Test::Pod" : "1.48",
          "Test::Pod::Coverage" : "1.10",
          "lib" : "0.63",
@@ -275,7 +275,7 @@
                }
             },
             "name" : "@Author::KENTNL/MetaData::BuiltWith",
-            "version" : "1.002000"
+            "version" : "1.003000"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Contributors",
@@ -551,7 +551,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes",
             "name" : "@Author::KENTNL/Author::KENTNL::RecommendFixes",
-            "version" : "0.003001"
+            "version" : "0.003002"
          },
          {
             "class" : "Dist::Zilla::Plugin::ReadmeFromPod",
@@ -652,9 +652,6 @@
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::NextRelease",
-            "config" : {
-               "Dist::Zilla::Plugin::Git::NextRelease" : {}
-            },
             "name" : "@Author::KENTNL/Git::NextRelease",
             "version" : "0.003000"
          },
