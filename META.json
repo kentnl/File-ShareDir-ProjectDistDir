@@ -77,7 +77,7 @@
          },
          "suggests" : {
             "Dist::Zilla::App::Command::bakeini" : "0.001002",
-            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.020000"
+            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.020001"
          }
       },
       "runtime" : {
@@ -157,7 +157,7 @@
          "Dist::Zilla::Plugin::MetaConfig" : "5.020",
          "Dist::Zilla::Plugin::MetaData::BuiltWith" : "1.003000",
          "Dist::Zilla::Plugin::MetaJSON" : "5.020",
-         "Dist::Zilla::Plugin::MetaProvides::Package" : "2.001001",
+         "Dist::Zilla::Plugin::MetaProvides::Package" : "2.001002",
          "Dist::Zilla::Plugin::MetaTests" : "5.020",
          "Dist::Zilla::Plugin::MetaYAML" : "5.020",
          "Dist::Zilla::Plugin::MinimumPerl" : "1.003",
@@ -166,7 +166,7 @@
          "Dist::Zilla::Plugin::PodWeaver" : "4.006",
          "Dist::Zilla::Plugin::Prereqs" : "5.020",
          "Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled" : "0.002001",
-         "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0.142250",
+         "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0.142470",
          "Dist::Zilla::Plugin::ReadmeFromPod" : "0.21",
          "Dist::Zilla::Plugin::RewriteVersion::Sanitized" : "0.001003",
          "Dist::Zilla::Plugin::RunExtraTests" : "0.022",
@@ -179,7 +179,7 @@
          "Dist::Zilla::Plugin::TestRelease" : "5.020",
          "Dist::Zilla::Plugin::Twitter" : "0.025",
          "Dist::Zilla::Plugin::UploadToCPAN" : "5.020",
-         "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.020000",
+         "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.020001",
          "ExtUtils::MakeMaker" : "6.98",
          "File::ShareDir" : "1.102",
          "File::Spec" : "3.49",
@@ -253,7 +253,7 @@
                }
             },
             "name" : "@Author::KENTNL/MetaProvides::Package",
-            "version" : "2.001001"
+            "version" : "2.001002"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaData::BuiltWith",
@@ -561,7 +561,7 @@
          {
             "class" : "Dist::Zilla::Plugin::ReadmeAnyFromPod",
             "name" : "@Author::KENTNL/ReadmeAnyFromPod",
-            "version" : "0.142250"
+            "version" : "0.142470"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::CPAN::Changes",
