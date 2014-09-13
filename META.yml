@@ -74,7 +74,7 @@ x_BuiltWith:
     Dist::Zilla::Plugin::PodSyntaxTests: '5.020'
     Dist::Zilla::Plugin::PodWeaver: '4.006'
     Dist::Zilla::Plugin::Prereqs: '5.020'
-    Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled: '0.002001'
+    Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled: '0.003001'
     Dist::Zilla::Plugin::ReadmeAnyFromPod: '0.142470'
     Dist::Zilla::Plugin::ReadmeFromPod: '0.21'
     Dist::Zilla::Plugin::RewriteVersion::Sanitized: '0.001003'
@@ -534,8 +534,10 @@ x_Dist_Zilla:
           modules:
             - ExtUtils::MakeMaker
             - Test::More
+          source_relation: requires
+          target_relation: recommends
       name: '@Author::KENTNL/Prereqs::Recommend::MatchInstalled'
-      version: '0.002001'
+      version: '0.003001'
     -
       class: Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled
       config:
@@ -547,8 +549,10 @@ x_Dist_Zilla:
           modules:
             - Dist::Zilla::PluginBundle::Author::KENTNL
             - Dist::Zilla::App::Command::bakeini
+          source_relation: requires
+          target_relation: recommends
       name: '@Author::KENTNL/always_latest_develop_bundle'
-      version: '0.002001'
+      version: '0.003001'
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
