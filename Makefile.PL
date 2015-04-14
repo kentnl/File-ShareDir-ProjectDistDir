@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.008;
+use 5.006;
 
 use ExtUtils::MakeMaker;
 
@@ -15,7 +15,7 @@ my %WriteMakefileArgs = (
   "DISTNAME" => "File-ShareDir-ProjectDistDir",
   "EXE_FILES" => [],
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.008",
+  "MIN_PERL_VERSION" => "5.006",
   "NAME" => "File::ShareDir::ProjectDistDir",
   "PREREQ_PM" => {
     "Carp" => 0,
@@ -33,8 +33,7 @@ my %WriteMakefileArgs = (
     "File::Spec" => 0,
     "FindBin" => 0,
     "Test::More" => "0.96",
-    "lib" => 0,
-    "utf8" => 0
+    "lib" => 0
   },
   "VERSION" => "1.000005",
   "test" => {
@@ -57,7 +56,6 @@ my %FallbackPrereqs = (
   "Test::More" => "0.96",
   "lib" => 0,
   "strict" => 0,
-  "utf8" => 0,
   "warnings" => 0
 );
 

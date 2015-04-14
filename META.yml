@@ -9,8 +9,7 @@ build_requires:
   FindBin: '0'
   Test::More: '0.96'
   lib: '0'
-  perl: '5.008'
-  utf8: '0'
+  perl: '5.006'
 configure_requires:
   ExtUtils::MakeMaker: '0'
   perl: '5.006'
@@ -34,7 +33,7 @@ requires:
   Path::IsDev: '0'
   Path::Tiny: '0'
   Sub::Exporter: '0'
-  perl: '5.008'
+  perl: '5.006'
   strict: '0'
   warnings: '0'
 resources:
