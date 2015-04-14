@@ -23,7 +23,7 @@ name: File-ShareDir-ProjectDistDir
 provides:
   File::ShareDir::ProjectDistDir:
     file: lib/File/ShareDir/ProjectDistDir.pm
-    version: '1.000005'
+    version: '1.000006'
 recommends:
   Path::Tiny: '0.058'
 requires:
@@ -40,7 +40,7 @@ resources:
   bugtracker: https://github.com/kentnl/File-ShareDir-ProjectDistDir/issues
   homepage: https://github.com/kentnl/File-ShareDir-ProjectDistDir
   repository: https://github.com/kentnl/File-ShareDir-ProjectDistDir.git
-version: '1.000005'
+version: '1.000006'
 x_BuiltWith:
   external_file: misc/built_with.json
 x_Dist_Zilla:
@@ -393,7 +393,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: 1.000005-source
+          tag: 1.000006-source
           tag_format: '%v-source'
           tag_message: v%v
           time_zone: local
@@ -447,7 +447,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: releases
           signed: 0
-          tag: '1.000005'
+          tag: '1.000006'
           tag_format: '%v'
           tag_message: v%v
           time_zone: local
