@@ -12,7 +12,7 @@ before_script:
 branches:
   only:
     - master
-    - build/master
+    - builds
     - releases
 install:
   - time perl ./maint-travis-ci/install_deps_early.pl
@@ -20,37 +20,38 @@ install:
 language: perl
 matrix:
   allow_failures:
-    - perl: 5.8
+    - perl: '5.8'
     - env: STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1
     - env: STERILIZE_ENV=0 DEVELOPER_DEPS=1
   include:
-    - env: STERILIZE_ENV=0
-      perl: 5.8
-    - env: STERILIZE_ENV=0
-      perl: 5.10
-    - env: STERILIZE_ENV=0
-      perl: 5.12
-    - env: STERILIZE_ENV=0
-      perl: 5.14
-    - env: STERILIZE_ENV=0
-      perl: 5.16
-    - env: STERILIZE_ENV=0
-      perl: 5.20
-    - env: STERILIZE_ENV=0
-      perl: 5.21
-    - env: STERILIZE_ENV=1
-      perl: 5.8
-    - env: STERILIZE_ENV=1
-      perl: 5.10
-    - env: STERILIZE_ENV=1
-      perl: 5.20
-    - env: STERILIZE_ENV=1
-      perl: 5.21
-    - env: STERILIZE_ENV=0 DEVELOPER_DEPS=1
-      perl: 5.21
-    - env: STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1
-      perl: 5.21
     - env: STERILIZE_ENV=0 COVERAGE_TESTING=1
-      perl: 5.21
+      perl: '5.21'
+    - env: STERILIZE_ENV=1
+      perl: '5.21'
+    - env: STERILIZE_ENV=0
+      perl: '5.8'
+    - env: STERILIZE_ENV=0
+      perl: '5.10'
+    - env: STERILIZE_ENV=0
+      perl: '5.12'
+    - env: STERILIZE_ENV=0
+      perl: '5.14'
+    - env: STERILIZE_ENV=0
+      perl: '5.16'
+    - env: STERILIZE_ENV=0
+      perl: '5.20'
+    - env: STERILIZE_ENV=0
+      perl: '5.21'
+    - env: STERILIZE_ENV=1
+      perl: '5.8'
+    - env: STERILIZE_ENV=1
+      perl: '5.10'
+    - env: STERILIZE_ENV=1
+      perl: '5.20'
+    - env: STERILIZE_ENV=0 DEVELOPER_DEPS=1
+      perl: '5.21'
+    - env: STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1
+      perl: '5.21'
 script:
   - time perl ./maint-travis-ci/script.pl
+sudo: false
