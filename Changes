@@ -1,6 +1,6 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-1.000005 2014-08-18T22:19:28Z b6c99cb
+1.000005 2015-04-14T12:16:15Z 609def4
  [Dependencies::Stats]
  - Dependencies changed since 1.000004, see misc/*.deps* for details
  - configure: +1 (recommends: ↑1)

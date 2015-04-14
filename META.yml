@@ -10,9 +10,10 @@ build_requires:
   Test::More: '0.96'
   lib: '0'
   perl: '5.008'
+  utf8: '0'
 configure_requires:
   ExtUtils::MakeMaker: '0'
-  perl: '5.008'
+  perl: '5.006'
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 5.034, CPAN::Meta::Converter version 2.150001'
 license: perl
@@ -35,7 +36,6 @@ requires:
   Sub::Exporter: '0'
   perl: '5.008'
   strict: '0'
-  utf8: '0'
   warnings: '0'
 resources:
   bugtracker: https://github.com/kentnl/File-ShareDir-ProjectDistDir/issues

@@ -1,7 +1,6 @@
-use 5.008;
+use 5.006;
 use strict;
 use warnings;
-use utf8;
 
 package File::ShareDir::ProjectDistDir;
 

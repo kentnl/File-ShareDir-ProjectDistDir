@@ -25,7 +25,6 @@ my %WriteMakefileArgs = (
     "Path::Tiny" => 0,
     "Sub::Exporter" => 0,
     "strict" => 0,
-    "utf8" => 0,
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
@@ -34,7 +33,8 @@ my %WriteMakefileArgs = (
     "File::Spec" => 0,
     "FindBin" => 0,
     "Test::More" => "0.96",
-    "lib" => 0
+    "lib" => 0,
+    "utf8" => 0
   },
   "VERSION" => "1.000005",
   "test" => {

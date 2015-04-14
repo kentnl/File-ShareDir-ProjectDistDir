@@ -20,7 +20,7 @@
          },
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
-            "perl" : "5.008"
+            "perl" : "5.006"
          }
       },
       "develop" : {
@@ -103,7 +103,6 @@
             "Sub::Exporter" : "0",
             "perl" : "5.008",
             "strict" : "0",
-            "utf8" : "0",
             "warnings" : "0"
          }
       },
@@ -120,7 +119,8 @@
             "FindBin" : "0",
             "Test::More" : "0.96",
             "lib" : "0",
-            "perl" : "5.008"
+            "perl" : "5.008",
+            "utf8" : "0"
          }
       }
    },
