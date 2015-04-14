@@ -5,8 +5,10 @@ This file contains changes in REQUIRED dependencies for standard CPAN phases (co
  - perl 5.006
 
  [Added / test requires]
- - perl 5.008
- - utf8
+ - perl 5.006
+
+ [Changed / runtime requires]
+ - perl 5.008 → 5.006
 
  [Removed / runtime requires]
  - utf8

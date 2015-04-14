@@ -748,7 +748,7 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 =head4 Using Strict Mode
 
     use File::ShareDir::ProjectDistDir ':all', strict => 1;
-    use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+    use File::ShareDir::ProjectDistDir 'dist_dir' => { strict => 1 };
 
 =head4 Why you should use strict mode
 

@@ -34,7 +34,11 @@ my @files = (
     't/strict/05_files/.devdir',
     't/strict/05_files/lib/Example_05.pm',
     't/strict/05_files/templates/dist/Example_05/file',
-    't/strict/06_distname.t'
+    't/strict/06_distname.t',
+    't/strict/07_files/.devdir',
+    't/strict/07_files/lib/Example_01.pm',
+    't/strict/07_files/share/dist/Example_01/file',
+    't/strict/07_gh15.t'
 );
 
 eol_unix_ok($_, { trailing_whitespace => 1 }) foreach @files;

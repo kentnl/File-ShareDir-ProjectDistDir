@@ -810,6 +810,7 @@
    },
    "x_authority" : "cpan:KENTNL",
    "x_contributors" : [
+      "Michael Jemmeson <mjemmeson@cpan.org>",
       "Michał Wojciechowski <odyniec@odyniec.eu.org>"
    ]
 }
