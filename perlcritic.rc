@@ -42,6 +42,8 @@ allow_includes = 1
 
 [BuiltinFunctions::ProhibitUniversalIsa]
 
+[BuiltinFunctions::ProhibitUselessTopic]
+
 [BuiltinFunctions::ProhibitVoidGrep]
 
 [BuiltinFunctions::ProhibitVoidMap]
@@ -86,7 +88,7 @@ allow_includes = 1
 
 [CodeLayout::RequireTrailingCommas]
 
-[CodeLayout::RequireUseUTF8]
+[-CodeLayout::RequireUseUTF8]
 
 [Compatibility::ConstantLeadingUnderscore]
 
@@ -144,6 +146,8 @@ spell_command = aspell list --lang en_US
 [Documentation::ProhibitVerbatimMarkup]
 
 [Documentation::RequireEndBeforeLastPod]
+
+[Documentation::RequireFilenameMarkup]
 
 [Documentation::RequireFinalCut]
 
@@ -292,13 +296,15 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [RegularExpressions::ProhibitUnusualDelimiters]
 
+[RegularExpressions::ProhibitUselessTopic]
+
 [RegularExpressions::RequireBracesForMultiline]
 
 [RegularExpressions::RequireDotMatchAnything]
 
 [RegularExpressions::RequireExtendedFormatting]
 
-[RegularExpressions::RequireLineBoundaryMatching]
+[-RegularExpressions::RequireLineBoundaryMatching]
 
 [Subroutines::ProhibitAmpersandSigils]
 
