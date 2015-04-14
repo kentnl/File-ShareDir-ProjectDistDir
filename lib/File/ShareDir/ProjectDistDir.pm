@@ -1,11 +1,10 @@
-use 5.008;
+use 5.006;
 use strict;
 use warnings;
-use utf8;
 
 package File::ShareDir::ProjectDistDir;
 
-our $VERSION = '1.000004';
+our $VERSION = '1.000005';
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
@@ -492,7 +491,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 1.000004
+version 1.000005
 
 =head1 SYNOPSIS
 
@@ -749,7 +748,7 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 =head4 Using Strict Mode
 
     use File::ShareDir::ProjectDistDir ':all', strict => 1;
-    use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+    use File::ShareDir::ProjectDistDir 'dist_dir' => { strict => 1 };
 
 =head4 Why you should use strict mode
 
@@ -935,7 +934,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2015 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
