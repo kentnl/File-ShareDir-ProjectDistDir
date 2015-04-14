@@ -5,7 +5,7 @@
  - Dependencies changed since 1.000004, see misc/*.deps* for details
  - configure: +1 (recommends: ↑1)
  - develop: +8 ↑3 -2 (recommends: +1, suggests: ↑2)
- - runtime: (recommends: +1)
+ - runtime: ↓1 -1 (recommends: +1)
  - test: +1 (recommends: ↑1 ↓1)
 
 1.000004 2014-08-18T22:18:54Z
