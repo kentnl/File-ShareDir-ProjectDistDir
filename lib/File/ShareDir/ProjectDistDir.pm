@@ -512,7 +512,7 @@ you install that, you specify the different directory there also ) as follows:
 =head4 Using Strict Mode
 
     use File::ShareDir::ProjectDistDir ':all', strict => 1;
-    use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+    use File::ShareDir::ProjectDistDir 'dist_dir' => { strict => 1 };
 
 =head4 Why you should use strict mode
 
