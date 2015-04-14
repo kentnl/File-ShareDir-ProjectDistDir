@@ -248,7 +248,7 @@ Caveats as a result of package-name as stated in ["build\_dist\_dir"](#build_dis
 #### Using Strict Mode
 
     use File::ShareDir::ProjectDistDir ':all', strict => 1;
-    use File::ShareDir::ProjectDistDir 'dist_dir' => { defaults => { strict => 1 }};
+    use File::ShareDir::ProjectDistDir 'dist_dir' => { strict => 1 };
 
 #### Why you should use strict mode
 
