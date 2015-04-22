@@ -478,6 +478,31 @@ sub build_dist_file {
 }
 
 1;
+=head1 DETERRENT
+
+B<STOP!>. Before using this distribution, some warnings B<MUST> be considered.
+
+The primary use-case for this module is targeted at development projects that are I<NOT> intended for C<CPAN>.
+
+As such, using it for C<CPAN> is generally a bad idea, and better solutions generally involve the less fragile L<< C<Test::File::ShareDir>|Test::File::ShareDir >>, constraining any magical
+behavior exclusively to where it is needed: Tests.
+
+Why?
+
+=over 4
+
+=item * Determining whether or not we are C<dev> during C<runtime> is a perilous heuristic that routinely fails with even slightly unusual file system layouts.
+
+=item * Auto-magical changing of behavior at C<runtime> based on the above leads to many surprising and hard to debug problems.
+
+=back
+
+For these reason, it is dangerous to rely on this distribution while striving to produce quality code.
+
+If this documentation is not sufficient to dissuade you, I must B<strongly implore you> to choose the L<< "strict"|Strict Mode. >> mechanism,
+because that substantially reduces the possibilities with regards to false-positive of potential C<dev> directories.
+
+I have in mind to find a better mechanism to deliver the same objective, but no solutions are forthcoming at this time.
 
 =head1 SYNOPSIS
 
