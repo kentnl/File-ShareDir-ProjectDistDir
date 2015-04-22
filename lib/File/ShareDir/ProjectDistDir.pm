@@ -4,7 +4,7 @@ use warnings;
 
 package File::ShareDir::ProjectDistDir;
 
-our $VERSION = '1.000007';
+our $VERSION = '1.000008';
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
@@ -491,7 +491,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 1.000007
+version 1.000008
 
 =head1 DETERRENT
 
