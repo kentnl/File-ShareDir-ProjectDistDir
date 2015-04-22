@@ -760,9 +760,9 @@ Why?
 For these reason, it is dangerous to rely on this distribution while striving to produce quality code.
 
 If this documentation is not sufficient to dissuade you, I must B<strongly implore you> to choose the "strict" mechanism,
-because that substantially reduces the possibilities with regards to false-positive detetions of potential C<dev> directories.
+because that substantially reduces the possibilities with regards to false-positive detections of potential C<dev> directories.
 
-I have in mind to find a better mechanism to deliver the same objective, but no solutions are forth comming at this time.
+I have in mind to find a better mechanism to deliver the same objective, but no solutions are forthcoming at this time.
 
 =head1 SIGNIFICANT CHANGES
 
