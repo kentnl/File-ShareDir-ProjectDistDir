@@ -514,7 +514,7 @@ Why?
 
 For these reason, it is dangerous to rely on this distribution while striving to produce quality code.
 
-If this documentation is not sufficient to dissuade you, I must B<strongly implore you> to choose the L<< "strict"|Strict Mode. >> mechanism,
+If this documentation is not sufficient to dissuade you, I must B<strongly implore you> to choose the L<< "strict"|/Strict Mode. >> mechanism,
 because that substantially reduces the possibilities with regards to false-positive of potential C<dev> directories.
 
 I have in mind to find a better mechanism to deliver the same objective, but no solutions are forthcoming at this time.
