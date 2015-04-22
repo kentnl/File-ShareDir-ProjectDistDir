@@ -402,6 +402,11 @@
                         "version" : "4.011"
                      },
                      {
+                        "class" : "Pod::Weaver::Section::Generic",
+                        "name" : "DETERRENT",
+                        "version" : "4.011"
+                     },
+                     {
                         "class" : "Pod::Weaver::Section::Region",
                         "name" : "prelude",
                         "version" : "4.011"
