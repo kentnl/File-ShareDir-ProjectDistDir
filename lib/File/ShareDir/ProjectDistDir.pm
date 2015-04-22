@@ -739,6 +739,31 @@ Caveats as a result of package-name as stated in L</build_dist_dir> also apply t
 
 =end MetaPOD::JSON
 
+=head1 DETERRENT
+
+B<STOP!>. Before using this distribution, some warnings B<MUST> be considered.
+
+The primary use-case for this module is targeted at development projects that are I<NOT> intended for C<CPAN>.
+
+As such, using it for C<CPAN> is generally a bad idea, and better solutions generally involve the less fragile L<< C<Test::File::ShareDir>|Test::File::ShareDir >>
+
+Why?
+
+=over 4
+
+=item * Determining wether or not we are I<dev> during runtime is a perilous heuristic that routinely fails with even slightly unusual file system layouts.
+
+=item * Auto-magical changing of behavior at I<runtime> based on the above leads to many surprising and hard to debug problems.
+
+=back
+
+For these reasosn, it is dangerous to rely on this distribution while striving to produce quality code.
+
+If this documentation is not sufficient to dissuade you, I must B<strongly implore you> to choose the "strict" mechanism,
+because that substantially reduces the possibilities with regards to false-positive dections of potential C<dev> directories.
+
+I have in mind to find a better mechanism to deliver the same objective, but no solutions are forth comming at this time.
+
 =head1 SIGNIFICANT CHANGES
 
 =head2 1.000000
