@@ -745,7 +745,8 @@ B<STOP!>. Before using this distribution, some warnings B<MUST> be considered.
 
 The primary use-case for this module is targeted at development projects that are I<NOT> intended for C<CPAN>.
 
-As such, using it for C<CPAN> is generally a bad idea, and better solutions generally involve the less fragile L<< C<Test::File::ShareDir>|Test::File::ShareDir >>, constraining any magical behavior exclusively to where it is needed: Tests.
+As such, using it for C<CPAN> is generally a bad idea, and better solutions generally involve the less fragile L<< C<Test::File::ShareDir>|Test::File::ShareDir >>, constraining any magical
+behavior exclusively to where it is needed: Tests.
 
 Why?
 
