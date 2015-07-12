@@ -4,6 +4,7 @@
 .perltidyrc
 .travis.yml
 Changes
+INSTALL.SKIP
 LICENSE
 MANIFEST
 META.json

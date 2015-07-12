@@ -123,6 +123,9 @@
             "Test::More" : "0.96",
             "lib" : "0",
             "perl" : "5.006"
+         },
+         "suggests" : {
+            "Capture::Tiny" : "0.12"
          }
       }
    },
@@ -813,6 +816,17 @@
                }
             },
             "name" : "Prereqs",
+            "version" : "5.037"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "test",
+                  "type" : "suggests"
+               }
+            },
+            "name" : "TestSuggests",
             "version" : "5.037"
          },
          {

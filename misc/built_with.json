@@ -1,6 +1,7 @@
 {
    "modules" : {
       "CPAN::Meta" : "2.150005",
+      "Capture::Tiny" : "0.30",
       "Carp" : "1.36",
       "Class::Tiny" : "1.001",
       "Dist::Zilla" : "5.037",

@@ -1,6 +1,9 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-1.000008 2015-04-22T05:56:21Z a2bf075
+1.000008 2015-07-12T03:51:14Z 1db0b9f
+ [Dependencies::Stats]
+ - Dependencies changed since 1.000007, see misc/*.deps* for details
+ - develop: +4 -1 (suggests: ↑2)
 
 1.000007 2015-04-22T05:48:43Z 274de7d
  [Documentation]
@@ -280,4 +283,3 @@
  - First version.
  - Early development release.
  - Thank Getty/Torsen Raudssus for requesting this modules development.
-

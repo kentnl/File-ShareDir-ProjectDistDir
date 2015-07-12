@@ -108,6 +108,9 @@ do { my $x = {
                                    'Test::More' => '0.96',
                                    'lib' => '0',
                                    'perl' => '5.006'
+                                 },
+                   'suggests' => {
+                                   'Capture::Tiny' => '0.12'
                                  }
                  }
      };
