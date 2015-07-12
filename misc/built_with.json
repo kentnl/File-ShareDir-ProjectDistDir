@@ -32,6 +32,7 @@
       "Dist::Zilla::Plugin::MetaTests" : "5.037",
       "Dist::Zilla::Plugin::MetaYAML::Minimal" : "0.001000",
       "Dist::Zilla::Plugin::MinimumPerl" : "1.006",
+      "Dist::Zilla::Plugin::Munge::Whitespace" : "0.001000",
       "Dist::Zilla::Plugin::PodCoverageTests" : "5.037",
       "Dist::Zilla::Plugin::PodSyntaxTests" : "5.037",
       "Dist::Zilla::Plugin::PodWeaver" : "4.006",

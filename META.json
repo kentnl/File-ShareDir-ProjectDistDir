@@ -56,6 +56,7 @@
             "Dist::Zilla::Plugin::MetaTests" : "0",
             "Dist::Zilla::Plugin::MetaYAML::Minimal" : "0",
             "Dist::Zilla::Plugin::MinimumPerl" : "0",
+            "Dist::Zilla::Plugin::Munge::Whitespace" : "0",
             "Dist::Zilla::Plugin::PodCoverageTests" : "0",
             "Dist::Zilla::Plugin::PodSyntaxTests" : "0",
             "Dist::Zilla::Plugin::PodWeaver" : "0",
@@ -229,7 +230,8 @@
                      "README.mkdn",
                      "README.pod",
                      "CONTRIBUTING.pod",
-                     "LICENSE"
+                     "LICENSE",
+                     "Makefile.PL"
                   ],
                   "exclude_match" : [],
                   "follow_symlinks" : "0",
@@ -789,6 +791,18 @@
             },
             "name" : "@Author::KENTNL/::Role::BundleDeps",
             "version" : "5.037"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Munge::Whitespace",
+            "config" : {
+               "Dist::Zilla::Plugin::Munge::Whitespace" : {
+                  "filename" : [
+                     "LICENSE"
+                  ]
+               }
+            },
+            "name" : "Munge::Whitespace",
+            "version" : "0.001000"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
