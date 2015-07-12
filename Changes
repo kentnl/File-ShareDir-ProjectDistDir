@@ -1,5 +1,7 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
+1.000009 2015-07-12T06:11:34Z 595d66e
+
 1.000008 2015-07-12T03:57:39Z 5a21094
  [BugFix]
  - Declare a minimum version for a working Capture::Tiny::capture_stderr
