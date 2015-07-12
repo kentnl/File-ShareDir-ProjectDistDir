@@ -16,6 +16,7 @@ toolkit_hardness  = soft
 auto_prereqs_skip = ^Example_
 srcreadme         = mkdn
 bumpversions      = 1
+Test::ReportPrereqs.include = Path::Class
 
 [Munge::Whitespace]
 filename = LICENSE

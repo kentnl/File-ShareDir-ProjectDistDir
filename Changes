@@ -1,9 +1,13 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
-1.000008 2015-07-12T03:51:14Z 1db0b9f
+1.000008 2015-07-12T03:54:06Z 7e372fa
+ [BugFix]
+ - Declare a minimum version for a working Capture::Tiny::capture_stderr
+
  [Dependencies::Stats]
  - Dependencies changed since 1.000007, see misc/*.deps* for details
  - develop: +4 -1 (suggests: ↑2)
+ - test: (suggests: +1)
 
 1.000007 2015-04-22T05:48:43Z 274de7d
  [Documentation]
