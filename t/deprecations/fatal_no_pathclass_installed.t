@@ -8,8 +8,8 @@ use Test::More;
 # ABSTRACT: Test for warnings about deprecated Path::Class
 
 for my $package ('Capture::Tiny') {
-  if ( not eval "require $package;1" ) {
-    plan skip_all => "$package required for this test";
+  if ( not eval "require $package; ${package}->VERSION(0.12); 1" ) {
+    plan skip_all => "$package 0.12 required for this test";
     done_testing;
     exit;
   }

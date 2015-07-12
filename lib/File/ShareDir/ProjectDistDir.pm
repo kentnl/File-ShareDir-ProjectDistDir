@@ -478,6 +478,7 @@ sub build_dist_file {
 }
 
 1;
+
 =head1 DETERRENT
 
 B<STOP!>. Before using this distribution, some warnings B<MUST> be considered.

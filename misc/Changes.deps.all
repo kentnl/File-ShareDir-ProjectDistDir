@@ -7,6 +7,9 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Dist::Zilla::Plugin::Munge::Whitespace
  - Dist::Zilla::Plugin::RemovePrereqs::Provided
 
+ [Added / test suggests]
+ - Capture::Tiny 0.12
+
  [Changed / develop suggests]
  - Dist::Zilla::App::Command::bakeini 0.002000 → 0.002005
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.024001 → 2.025001

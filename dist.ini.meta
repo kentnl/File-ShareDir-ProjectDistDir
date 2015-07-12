@@ -30,3 +30,6 @@ filename = LICENSE
 ;version_rel_time_zone = Pacific/Auckland
 
 [Prereqs]
+
+[Prereqs / TestSuggests]
+Capture::Tiny = 0.12

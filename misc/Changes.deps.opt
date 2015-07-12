@@ -1,6 +1,8 @@
 This file contains changes in OPTIONAL dependencies for standard CPAN phases (configure/build/runtime/test)
 
 1.000008
+ [Added / test suggests]
+ - Capture::Tiny 0.12
 
 1.000007 2015-04-22T05:48:43Z
 
