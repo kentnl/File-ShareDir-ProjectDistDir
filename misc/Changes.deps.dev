@@ -1,6 +1,20 @@
 This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and OPTIONAL )
 
-1.000007
+1.000008
+ [Added / develop requires]
+ - Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING 0.001003
+ - Dist::Zilla::Plugin::MetaYAML::Minimal
+ - Dist::Zilla::Plugin::Munge::Whitespace
+ - Dist::Zilla::Plugin::RemovePrereqs::Provided
+
+ [Changed / develop suggests]
+ - Dist::Zilla::App::Command::bakeini 0.002000 → 0.002005
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.024001 → 2.025001
+
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::MetaYAML
+
+1.000007 2015-04-22T05:48:43Z
 
 1.000006 2015-04-22T03:04:21Z
 
@@ -185,4 +199,3 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
 0.2.0 2011-10-15T02:08:29Z
 
 0.1.1 2011-04-08T01:29:46Z
-
