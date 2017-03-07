@@ -1,6 +1,12 @@
 ﻿Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+ - Bugfix: Fix tests failing with -Ddefault_inc_excludes_dot
+
+ [Dependencies::Stats]
+ - Dependencies changed since 1.000008, see misc/*.deps* for details
+ - configure: (suggests: +1)
+ - develop: +3 ↑2 (suggests: ↑2)
 
 1.000008 2015-07-12T03:57:39Z 5a21094
  [BugFix]
