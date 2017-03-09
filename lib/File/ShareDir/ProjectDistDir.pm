@@ -4,7 +4,7 @@ use warnings;
 
 package File::ShareDir::ProjectDistDir;
 
-our $VERSION = '1.000008';
+our $VERSION = '1.000009';
 
 # ABSTRACT: Simple set-and-forget using of a '/share' directory in your projects root
 
@@ -491,7 +491,7 @@ File::ShareDir::ProjectDistDir - Simple set-and-forget using of a '/share' direc
 
 =head1 VERSION
 
-version 1.000008
+version 1.000009
 
 =head1 DETERRENT
 
@@ -960,7 +960,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2017 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

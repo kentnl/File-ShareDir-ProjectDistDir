@@ -1,6 +1,10 @@
 This file contains changes in OPTIONAL dependencies for standard CPAN phases (configure/build/runtime/test)
 
-1.000008
+1.000009
+ [Added / configure suggests]
+ - JSON::PP 2.27300
+
+1.000008 2015-07-12T03:57:39Z
  [Added / test suggests]
  - Capture::Tiny 0.12
 
