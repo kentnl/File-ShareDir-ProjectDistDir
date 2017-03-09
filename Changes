@@ -1,5 +1,7 @@
 Release history for File-ShareDir-ProjectDistDir
 
+1.000010 2017-03-09T15:32:22Z 6e7b0d8
+
 1.000009 2017-03-09T15:31:05Z 5080496
  - Bugfix: Fix tests failing with -Ddefault_inc_excludes_dot
  - Tests made more old-test-more friendly

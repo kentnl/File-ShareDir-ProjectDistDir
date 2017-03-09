@@ -138,7 +138,7 @@
    "provides" : {
       "File::ShareDir::ProjectDistDir" : {
          "file" : "lib/File/ShareDir/ProjectDistDir.pm",
-         "version" : "1.000009"
+         "version" : "1.000010"
       }
    },
    "release_status" : "stable",
@@ -153,7 +153,7 @@
          "web" : "https://github.com/kentnl/File-ShareDir-ProjectDistDir"
       }
    },
-   "version" : "1.000009",
+   "version" : "1.000010",
    "x_BuiltWith" : {
       "external_file" : "misc/built_with.json"
    },
@@ -688,7 +688,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "1.000009-source",
+                  "tag" : "1.000010-source",
                   "tag_format" : "%v-source",
                   "tag_message" : "v%v"
                },
@@ -782,7 +782,7 @@
                   "branch" : "releases",
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "1.000009",
+                  "tag" : "1.000010",
                   "tag_format" : "%v",
                   "tag_message" : "v%v"
                },

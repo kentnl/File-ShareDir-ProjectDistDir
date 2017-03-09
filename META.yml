@@ -23,7 +23,7 @@ name: File-ShareDir-ProjectDistDir
 provides:
   File::ShareDir::ProjectDistDir:
     file: lib/File/ShareDir/ProjectDistDir.pm
-    version: '1.000009'
+    version: '1.000010'
 recommends:
   Path::Tiny: '0.058'
 requires:
@@ -40,4 +40,4 @@ resources:
   bugtracker: https://github.com/kentnl/File-ShareDir-ProjectDistDir/issues
   homepage: https://github.com/kentnl/File-ShareDir-ProjectDistDir
   repository: https://github.com/kentnl/File-ShareDir-ProjectDistDir.git
-version: '1.000009'
+version: '1.000010'

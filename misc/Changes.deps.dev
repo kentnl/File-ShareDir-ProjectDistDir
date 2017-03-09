@@ -1,6 +1,8 @@
 This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and OPTIONAL )
 
-1.000009
+1.000010
+
+1.000009 2017-03-09T15:31:05Z
  [Added / develop requires]
  - English
  - Software::License::Perl_5
