@@ -10,18 +10,16 @@ use Test::More;
 for my $package ('Capture::Tiny') {
   if ( not eval "require $package; ${package}->VERSION(0.12); 1" ) {
     plan skip_all => "$package 0.12 required for this test";
-    done_testing;
     exit;
   }
 }
 for my $package ('Path::Class') {
   if ( eval "require $package;1" ) {
     plan skip_all => "Test only run without $package installed";
-    done_testing;
     exit;
   }
 }
-
+plan tests => 5;
 pass('Test requirements available');
 my $ex;
 
@@ -48,5 +46,6 @@ isnt( $ex, undef, "An exception was thrown" );
 if ( $ex ne '' ) {
   like( $ex, qr/Can\'t locate Path\/Class\.pm/, "dies with core failure" );
 }
-done_testing;
-
+else {
+  fail("last exception was empty");
+}
