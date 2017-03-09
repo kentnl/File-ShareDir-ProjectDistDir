@@ -10,7 +10,6 @@ use Test::More;
 for my $package ('Capture::Tiny') {
   if ( not eval "require $package; ${package}->VERSION(0.12); 1" ) {
     plan skip_all => "$package 0.12 required for this test";
-    done_testing;
     exit;
   }
 }
@@ -18,10 +17,10 @@ for my $package ('Capture::Tiny') {
 for my $package ('Path::Class') {
   if ( not eval "require $package;1" ) {
     plan skip_all => "$package required for this test";
-    done_testing;
     exit;
   }
 }
+plan tests => 2;
 pass('Test requirements available');
 my $err = Capture::Tiny::capture_stderr(
   sub {
@@ -32,5 +31,3 @@ my $err = Capture::Tiny::capture_stderr(
   }
 );
 like( $err, qr/Path::Class support depecated/, "Deprecated support" );
-done_testing;
-

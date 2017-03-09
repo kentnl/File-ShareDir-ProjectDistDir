@@ -31,7 +31,7 @@ my %WriteMakefileArgs = (
     "ExtUtils::MakeMaker" => 0,
     "File::Spec" => 0,
     "FindBin" => 0,
-    "Test::More" => "0.96",
+    "Test::More" => 0,
     "lib" => 0
   },
   "VERSION" => "1.000009",
@@ -52,7 +52,7 @@ my %FallbackPrereqs = (
   "Path::IsDev" => 0,
   "Path::Tiny" => 0,
   "Sub::Exporter" => 0,
-  "Test::More" => "0.96",
+  "Test::More" => 0,
   "lib" => 0,
   "strict" => 0,
   "warnings" => 0

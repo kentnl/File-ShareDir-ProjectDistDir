@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More 0.96;
+use Test::More tests => 1;
 use FindBin;
 use lib "$FindBin::Bin/07_files/lib";
 
@@ -22,6 +22,3 @@ is(
   'Peculiar grammar messes up in a well defined way'
 );
 note explain $err;
-
-done_testing;
-

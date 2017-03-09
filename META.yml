@@ -7,7 +7,7 @@ build_requires:
   ExtUtils::MakeMaker: '0'
   File::Spec: '0'
   FindBin: '0'
-  Test::More: '0.96'
+  Test::More: '0'
   lib: '0'
   perl: '5.006'
 configure_requires:
