@@ -1,6 +1,8 @@
-﻿Release history for File-ShareDir-ProjectDistDir
+Release history for File-ShareDir-ProjectDistDir
 
 {{$NEXT}}
+
+1.000009 2017-03-09T15:31:05Z 5080496
  - Bugfix: Fix tests failing with -Ddefault_inc_excludes_dot
  - Tests made more old-test-more friendly
 
